@@ -1,12 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
+import  ButtonLarg  from "../../components/button";
 import { styles } from "./styles";
 
-export default function SigIn() {
+export default function SignIn() {
+
     return (
         <View style={styles.container}>
             <Text>Sigin</Text>
-            <StatusBar style="auto" />
+            <ButtonLarg Text="Test" Navigation="Home"/>
         </View>
     );
 }
