@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 
-const ButtonLarg = styled.TouchableOpacity`
+export const ButtonLarg = styled.TouchableOpacity`
     background-color: #FFAA3C;
     justify-content: center;
     align-items: center;
@@ -9,10 +9,8 @@ const ButtonLarg = styled.TouchableOpacity`
     width: 100%;
 `
 
-const TextButton = styled.Text`
+export const TextButton = styled.Text`
     font-size: 15px;
     font-weight:bold;
     color: #ffffff;
 `
-
-export { ButtonLarg, TextButton }

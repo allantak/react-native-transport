@@ -2,10 +2,15 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { ButtonLarg, TextButton } from './styles'
 
-export default function Button({ Text, Navigation }) {
+interface ButtonData {
+    Text: string,
+    Navigation: string
+}
+
+export default function Button( {Text , Navigation}: ButtonData ) {
     const navigation = useNavigation();
 
-    const goTo = (screenName) => {
+    const goTo = (screenName:any) => {
         navigation.navigate(screenName);
     }
 
