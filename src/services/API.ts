@@ -16,9 +16,20 @@ const createUser = gql`
   }
 `;
 
+const signIn = gql`
+  query authenticatedUser($email: String!, $password: String!){
+    authenticatedUser(data: { email: $email, password: $password }){
+      id,
+      email
+    }
+  }
+
+`;
+
 export const apiService = {
     client,
-    createUser
+    createUser,
+    signIn
 }
 
 

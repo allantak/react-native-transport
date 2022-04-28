@@ -1,42 +1,16 @@
-import { useMutation } from "@apollo/client";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import ButtonLarg from "../../components/button";
+import { useState } from "react";
 import { useAuth } from "../../context/Auth";
-import { apiService } from "../../services/API";
 import { Button, Container, Content, Input } from "./styles";
-
-interface signInData {
-  email: string;
-  password: string;
-}
 
 export default function SignIn() {
   const [inputEmail, setInputEmail] = useState<string>("");
   const [inputPassword, setInputPassword] = useState<string>("");
-  const [inputPermission, setInputPermission] = useState<string>("");
+  const { signIn } = useAuth();
 
-  const [createUser, { data }] = useMutation(apiService.createUser);
-
-  useEffect(() => {
-    if (data) {
-      
-    }
-  }, [data]);
-
-  async function handleRegister(e: React.MouseEvent) {
+  async function handleButton(e: React.MouseEvent ) {
     e.preventDefault();
-
-    createUser({
-      variables: {
-        email: inputEmail,
-        password: inputPassword,
-        permission: inputPermission,
-      },
-    });
-    setInputEmail("");
-    setInputPassword("");
-    setInputPermission("");
+    signIn(inputEmail, inputPassword)
+    console.log('test handle')
   }
 
   return (
@@ -55,14 +29,8 @@ export default function SignIn() {
             placeholder="Password"
           />
 
-          <Input
-            value={inputPermission}
-            onChange={(e) => setInputPermission(e.target.value)}
-            placeholder="Permission"
-          />
-
-          <Button onClick={handleRegister}>
-            <span>Register</span>
+          <Button onClick={handleButton}>
+            <span>Entrar</span>
           </Button>
         </form>
       </Content>
