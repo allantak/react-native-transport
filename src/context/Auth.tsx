@@ -50,6 +50,8 @@ export const AuthProvider: React.FC = ({children}) => {
     );
   };
 
+
+  //Hook custom
   export function useAuth(): AuthContextData {
     const context = useContext(AuthContext);
   

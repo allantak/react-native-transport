@@ -2,12 +2,14 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthStack from "./authStack";
 import AppStack from "./appStack";
+import { useAuth } from "../context/Auth";
 
 export default function MainStack() {
-  const Auth = false;
+  const { authData } = useAuth();
+  
   return (
     <NavigationContainer>
-      {Auth ? <AppStack /> : <AuthStack />}
+      {authData ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }
