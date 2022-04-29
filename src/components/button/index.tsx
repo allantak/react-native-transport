@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
+import { TouchableOpacityProps } from 'react-native';
 import { ButtonLarg, TextButton } from './styles'
 
-interface ButtonData {
+interface ButtonData extends TouchableOpacityProps{
     Text: string,
     Navigation: string
 }

@@ -46,10 +46,9 @@ export const AuthProvider: React.FC = ({ children }) => {
           email: email,
           password: password,
         },
+      }).then((signInData) => {
+        setAuthData(signInData.data);
       });
-
-      setAuthData(authData);
-      console.log("Sigin api");
       AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
     } catch (errors) {
     } finally {

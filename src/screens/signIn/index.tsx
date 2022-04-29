@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { useAuth } from "../../context/Auth";
 import { Button, Container, Content, Input } from "./styles";
@@ -7,10 +8,9 @@ export default function SignIn() {
   const [inputPassword, setInputPassword] = useState<string>("");
   const { signIn } = useAuth();
 
-  async function handleButton(e: React.MouseEvent ) {
+  async function handleButton(e: React.MouseEvent ){
     e.preventDefault();
     signIn(inputEmail, inputPassword)
-    console.log('test handle')
   }
 
   return (
