@@ -12,7 +12,7 @@ export default createGlobalStyle`
     background-color: #FBFBFB;
     font: 'Source Sans Pro', sans-serif;
   }
-  body, input, button {
+  body, input, button{
     font: 'Source Sans Pro', sans-serif;
   }
   `
