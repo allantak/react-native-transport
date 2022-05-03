@@ -50,6 +50,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         setAuthData(signInData.data);
       });
       AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
+      console.log(AsyncStorage.getAllKeys());
     } catch (errors) {
     } finally {
       setisLoading(false);
@@ -57,6 +58,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function signOut() {
+    AsyncStorage.removeItem("@AuthData");
     setAuthData(undefined);
   }
 

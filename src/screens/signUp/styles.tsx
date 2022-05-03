@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import { StyleSheet } from "react-native";
+import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
@@ -52,3 +53,10 @@ export const Input = styled.input`
     opacity: 0.3;
   }
 `;
+
+export const styles = StyleSheet.create({
+  input: {
+    marginBottom: 10,
+    marginEnd: 10,
+  },
+});
