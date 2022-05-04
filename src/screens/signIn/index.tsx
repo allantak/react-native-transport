@@ -21,6 +21,14 @@ export default function SignIn() {
     }
   }
 
+  async function handleLogin(email: string, password: string) {
+    signIn(email, password).then(() => {
+      authData !== undefined
+        ? setValidationLogin(false)
+        : setValidationLogin(true);
+    });
+  }
+
   async function handleButton() {
     if (inputEmail && inputPassword) {
       setUndefinedField(false);
@@ -34,14 +42,6 @@ export default function SignIn() {
     } else {
       setUndefinedField(true);
     }
-  }
-
-  async function handleLogin(email: string, password: string) {
-    signIn(email, password).then(() => {
-      authData !== undefined
-        ? setValidationLogin(false)
-        : setValidationLogin(true);
-    });
   }
 
   return (
