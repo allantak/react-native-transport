@@ -40,21 +40,20 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function signIn(email: string, password: string) {
-    try {
-      signInUser({
-        variables: {
-          email: email,
-          password: password,
-        },
-      }).then((signInData) => {
+    signInUser({
+      variables: {
+        email: email,
+        password: password,
+      },
+    })
+      .then((signInData) => {
         setAuthData(signInData.data);
-      });
-      AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
-      console.log(AsyncStorage.getAllKeys());
-    } catch (errors) {
-    } finally {
-      setisLoading(false);
-    }
+        AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => setisLoading(false));
   }
 
   async function signOut() {

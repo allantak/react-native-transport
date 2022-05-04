@@ -24,15 +24,9 @@ export const ContentLogo = styled.div`
   }
 `;
 
-export const SpanSucess = styled.span`
-  color: #06C302;
-  font-size: 13;
-  
-`;
-
-export const SpanError = styled.h1`
+export const SpanError = styled.h6`
   color: #FF3A3A;
-  font-size: 13;
+  font-size: 12px;
 `;
 
 

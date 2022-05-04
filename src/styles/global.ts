@@ -10,9 +10,9 @@ export default createGlobalStyle`
   }
   body {
     background-color: #FBFBFB;
-    font: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
   }
   body, input, button{
-    font: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
   }
   `
