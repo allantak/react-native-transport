@@ -1,5 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import styled from "styled-components";
+import { screen } from ".";
 import { AppStyles } from "../../styles/colors";
 
 export const Container = styled.div`
@@ -14,8 +15,18 @@ export const Content = styled.div`
 `;
 
 export const SpanError = styled.h6`
-  color: #FF3A3A;
+  color: #ff3a3a;
   font-size: 12px;
+`;
+
+export const ContentHeaders = styled.div`
+  height: 10vh;
+`;
+export const ContentInput = styled.div`
+  height: 70vh;
+`;
+export const ContentButton = styled.div`
+  height: 10vh;
 `;
 
 export const styles = StyleSheet.create({

@@ -1,10 +1,19 @@
 import { useMutation } from "@apollo/client";
-import { Picker } from "@react-native-picker/picker";
-import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import Back from "../../components/arrowBack";
 import Button from "../../components/button";
 import Input from "../../components/input";
 import { apiService } from "../../services/API";
-import { Container, Content, styles, SpanError } from "./styles";
+import {
+  Container,
+  Content,
+  styles,
+  SpanError,
+  ContentButton,
+  ContentHeaders,
+  ContentInput,
+} from "./styles";
 
 export default function SignUp() {
   const [inputEmail, setInputEmail] = useState<string>("");
@@ -16,6 +25,9 @@ export default function SignUp() {
   const [validationlength, setValidationlength] = useState<boolean>(false);
   const [validationLogin, setValidationLogin] = useState<boolean>(false);
   const [createUser] = useMutation(apiService.createUser);
+  const navigation = useNavigation();
+
+ 
 
   async function validateEmail(email: string) {
     const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -37,11 +49,10 @@ export default function SignUp() {
     })
       .then(() => {
         setValidationLogin(false);
-        console.log("Deu certo login");
+        navigation.navigate("SignOut");
       })
       .catch(() => {
         setValidationLogin(true);
-        console.log("Deu errado login");
       });
   }
 
@@ -71,11 +82,15 @@ export default function SignUp() {
       const emailVerified = await validateEmail(inputEmail);
       const passwordVerified = await confirmPassword();
       const lengthVerified = await confirmLength();
-     console.log("email",emailVerified)
-     console.log("password",passwordVerified)
-     console.log("len",lengthVerified)
-      if (emailVerified==false && passwordVerified==false && lengthVerified==false) {
-        console.log("entrou")
+      console.log("email", emailVerified);
+      console.log("password", passwordVerified);
+      console.log("len", lengthVerified);
+      if (
+        emailVerified == false &&
+        passwordVerified == false &&
+        lengthVerified == false
+      ) {
+        console.log("entrou");
         validateLogin(inputEmail, inputPassword);
       }
     } else {
@@ -86,47 +101,61 @@ export default function SignUp() {
     setInputRePassword("");
   }
 
+  function navigationBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Content>
-        <Input
-          title="Email"
-          value={inputEmail}
-          onChangeText={(t) => setInputEmail(t)}
-          placeholder="E-mail"
-          style={styles.marginBottom}
-        />
+        <ContentHeaders>
+          <Back onPress={navigationBack} />
+        </ContentHeaders>
 
-        {validationEmail ? (
-          <SpanError>Verifique se o email está corretamente</SpanError>
-        ) : null}
+        <ContentInput>
+          <Input
+            title="Email"
+            value={inputEmail}
+            onChangeText={(t) => setInputEmail(t)}
+            placeholder="E-mail"
+            style={styles.marginBottom}
+          />
 
-        <Input
-          title="Senha"
-          value={inputPassword}
-          onChangeText={(t) => setInputPassword(t)}
-          placeholder="Senha"
-          style={styles.marginBottom}
-        />
+          {validationEmail ? (
+            <SpanError>Verifique se o email está corretamente</SpanError>
+          ) : null}
 
-        {validationlength ? <SpanError>No minimo 6 caracters</SpanError> : null}
+          <Input
+            title="Senha"
+            value={inputPassword}
+            onChangeText={(t) => setInputPassword(t)}
+            placeholder="Senha"
+            style={styles.marginBottom}
+          />
 
-        <Input
-          title="Confirmar"
-          value={inputRePassword}
-          onChangeText={(t) => setInputRePassword(t)}
-          placeholder="Confirmar sua senha"
-          style={styles.marginBottom}
-        />
-        {validationPassword ? (
-          <SpanError>Confirmar está diferente da senha</SpanError>
-        ) : null}
+          {validationlength ? (
+            <SpanError>No minimo 6 caracters</SpanError>
+          ) : null}
 
-        {undefinedField ? <SpanError>Preencha os campos</SpanError> : null}
+          <Input
+            title="Confirmar"
+            value={inputRePassword}
+            onChangeText={(t) => setInputRePassword(t)}
+            placeholder="Confirmar sua senha"
+            style={styles.marginBottom}
+          />
+          {validationPassword ? (
+            <SpanError>Confirmar está diferente da senha</SpanError>
+          ) : null}
+        </ContentInput>
 
-        {validationLogin ? <SpanError>Email já existe</SpanError> : null}
+        <ContentButton>
+          {undefinedField ? <SpanError>Preencha os campos</SpanError> : null}
 
-        <Button onPress={handleRegister} text="Registrar" />
+          {validationLogin ? <SpanError>Email já existe</SpanError> : null}
+
+          <Button onPress={handleRegister} text="Registrar" />
+        </ContentButton>
       </Content>
     </Container>
   );
