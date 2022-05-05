@@ -18,6 +18,7 @@ export const InputStyle = styled.TextInput`
   padding: 10px;
   background-color: #eeeeee;
   border: 1px ${AppStyles.colour.border};
+  color: ${AppStyles.colour.font};
   &::placeholder {
     padding-left: 10px;
     color: #3c3c3c;

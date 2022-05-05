@@ -7,7 +7,7 @@ const client = new ApolloClient({
 });
 
 const createUser = gql`
-  mutation createUser($email: String!, $password: String!, $permission: String!) {
+  mutation createUser($email: String!, $password: String!, $permission: String) {
     createUser(data: { email: $email, password: $password, permission: $permission}) {
       id,
       email,
