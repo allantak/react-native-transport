@@ -7,12 +7,6 @@ export default createGlobalStyle`
     padding: 10px;
     outline: none;
     box-sizing: border-box;
-  }
-  body {
-    background-color: #FBFBFB;
-    font-family: 'Source Sans Pro', sans-serif;
-  }
-  body, input, button{
     font-family: 'Source Sans Pro', sans-serif;
   }
   `

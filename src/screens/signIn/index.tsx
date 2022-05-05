@@ -2,7 +2,19 @@ import { useEffect, useState } from "react";
 import Button from "../../components/button";
 import Input from "../../components/input";
 import { useAuth } from "../../context/Auth";
-import { Container, Content, SpanError, styles } from "./styles";
+import {
+  Container,
+  Content,
+  SpanError,
+  styles,
+  ContentLogo,
+  Description,
+  NameLogo,
+  ContentInput,
+  ContentButton
+} from "./styles";
+import Logo from "../../../assets/svg/logo";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SignIn() {
   const [inputEmail, setInputEmail] = useState<string>("");
@@ -11,6 +23,7 @@ export default function SignIn() {
   const [validationLogin, setValidationLogin] = useState<boolean>(false);
   const [undefinedField, setUndefinedField] = useState<boolean>(false);
   const { signIn, authData } = useAuth();
+  const navigation = useNavigation();
 
   async function validateEmail(email: string) {
     const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -47,33 +60,53 @@ export default function SignIn() {
   return (
     <Container>
       <Content>
-        <Input
-          title="Email"
-          value={inputEmail}
-          onChangeText={(t) => setInputEmail(t)}
-          placeholder="E-mail"
-          style={styles.input}
-        />
+        <ContentLogo>
+          <Logo />
+          <NameLogo>Transport</NameLogo>
+          <Description>
+            Anuncie e procure cargas e veiculos para <br /> serviços
+          </Description>
+        </ContentLogo>
 
-        {validationEmail ? (
-          <SpanError>Verifique se o email está corretamente</SpanError>
-        ) : null}
+        <ContentInput>
+          <Input
+            title="Email"
+            value={inputEmail}
+            onChangeText={(t) => setInputEmail(t)}
+            placeholder="E-mail"
+            style={styles.marginBottom}
+          />
 
-        <Input
-          title="Senha"
-          value={inputPassword}
-          onChangeText={(t) => setInputPassword(t)}
-          placeholder="Password"
-          style={styles.input}
-        />
+          {validationEmail ? (
+            <SpanError>Verifique se o email está corretamente</SpanError>
+          ) : null}
 
-        {undefinedField ? <SpanError>Preencha os campos</SpanError> : null}
+          <Input
+            title="Senha"
+            value={inputPassword}
+            onChangeText={(t) => setInputPassword(t)}
+            placeholder="Password"
+            style={styles.marginBottom}
+          />
 
-        {validationLogin ? (
-          <SpanError>E-mail/Senha está incorreto. Tente novamente</SpanError>
-        ) : null}
+          {undefinedField ? <SpanError>Preencha os campos</SpanError> : null}
 
-        <Button text="Entrar" onPress={handleButton} />
+          {validationLogin ? (
+            <SpanError>E-mail/Senha está incorreto. Tente novamente</SpanError>
+          ) : null}
+        </ContentInput>
+
+        <ContentButton>
+          <Button
+            text="Entrar"
+            onPress={handleButton}
+            style={styles.marginBottom}
+          />
+          <Button
+            text="Cadastrar"
+            onPress={() => navigation.navigate("SignOut")}
+          />
+        </ContentButton>
       </Content>
     </Container>
   );
