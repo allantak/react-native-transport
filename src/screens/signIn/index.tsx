@@ -23,7 +23,7 @@ export default function SignIn() {
   const [validationLogin, setValidationLogin] = useState<boolean>(false);
   const [undefinedField, setUndefinedField] = useState<boolean>(false);
   const { signIn, authData } = useAuth();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   async function validateEmail(email: string) {
     const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;

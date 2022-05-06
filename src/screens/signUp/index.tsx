@@ -25,7 +25,7 @@ export default function SignUp() {
   const [validationlength, setValidationlength] = useState<boolean>(false);
   const [validationLogin, setValidationLogin] = useState<boolean>(false);
   const [createUser] = useMutation(apiService.createUser);
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
  
 

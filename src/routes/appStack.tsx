@@ -4,8 +4,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignIn from "../screens/signIn";
 import Carrier from "../screens/carrier";
 import Freight from "../screens/freight";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import TabBar from "../components/TabBar";
 
-const Stack = createNativeStackNavigator();
+const Stack = createBottomTabNavigator();
 
 export default function AppStack() {
   return (
@@ -13,6 +15,7 @@ export default function AppStack() {
       screenOptions={{
         headerShown: false,
       }}
+      tabBar = { props => <TabBar {...props}/>} 
     >
       <Stack.Screen name="Carrier" component={Carrier}></Stack.Screen>
       <Stack.Screen name="Freight" component={Freight}></Stack.Screen>
