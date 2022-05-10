@@ -32,23 +32,21 @@ export const TabItems = styled.TouchableOpacity`
   height: 35px;
 `;
 
-
 export const styles = StyleSheet.create({
-    styleIndex0: {
-        backgroundColor: `${AppStyles.colour.primary}`,
-        borderColor: `${AppStyles.colour.primary}`,
-    },
-    styleIndex1: {
-        backgroundColor: `${AppStyles.colour.white}`,
-        borderColor: `${AppStyles.colour.primary}`,
-      },
-    pickers: {
-      borderRadius: 10,
-      padding: 10,
-      backgroundColor: "#eeeeee",
-      borderColor: `${AppStyles.colour.border}`,
-      color: `${AppStyles.colour.font}`,
-      width: "50%",
-    },
-  });
-  
+  styleIndex0: {
+    backgroundColor: `${AppStyles.colour.primary}`,
+    borderColor: `${AppStyles.colour.primary}`,
+  },
+  styleIndex1: {
+    backgroundColor: `${AppStyles.colour.white}`,
+    borderColor: `${AppStyles.colour.primary}`,
+  },
+  pickers: {
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: "#eeeeee",
+    borderColor: `${AppStyles.colour.border}`,
+    color: `${AppStyles.colour.font}`,
+    width: "50%",
+  },
+});

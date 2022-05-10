@@ -9,13 +9,15 @@ export default function TabBar({ state }: BottomTabBarProps) {
   const goTo = (screenName: string) => {
     navigation.navigate(screenName);
   };
-  
-  
+
   return (
     <Container>
       <Bar>
         <ContainerItems>
-          <TabItems onPress={() => goTo("Carrier")} style={ state.index == 0?  styles.styleIndex0 : styles.styleIndex1}>
+          <TabItems
+            onPress={() => goTo("Carrier")}
+            style={state.index == 0 ? styles.styleIndex0 : styles.styleIndex1}
+          >
             <FontAwesome5
               name="truck-loading"
               size={16}
@@ -26,7 +28,10 @@ export default function TabBar({ state }: BottomTabBarProps) {
               }
             />
           </TabItems>
-          <TabItems onPress={() => goTo("Freight")} style={ state.index == 0?  styles.styleIndex1 : styles.styleIndex0}>
+          <TabItems
+            onPress={() => goTo("Freight")}
+            style={state.index == 0 ? styles.styleIndex1 : styles.styleIndex0}
+          >
             <FontAwesome5
               name="truck"
               size={16}
