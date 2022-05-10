@@ -1,6 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
 import styled from "styled-components";
-import { screen } from ".";
 import { AppStyles } from "../../styles/colors";
 
 export const Container = styled.div`
