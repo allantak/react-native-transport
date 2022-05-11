@@ -1,15 +1,15 @@
 import { TextInputProps } from "react-native";
 import { Content, InputStyle, Title } from "./styles";
 
-interface InputData extends TextInputProps {
+interface IInput extends TextInputProps {
   title: string;
 }
 
-export default function Input({ title, ...rest }: InputData) {
+export default function Input({ ...props }: IInput) {
   return (
     <Content>
-      <Title>{title}</Title>
-      <InputStyle {...rest} />
+      <Title>{props.title}</Title>
+      <InputStyle {...props} />
     </Content>
   );
 }
