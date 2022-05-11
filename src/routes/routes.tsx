@@ -6,7 +6,7 @@ import { useAuth } from "../context/Auth";
 
 export default function MainStack() {
   const { authData } = useAuth();
-  
+
   return (
     <NavigationContainer>
       {authData ? <AppStack /> : <AuthStack />}

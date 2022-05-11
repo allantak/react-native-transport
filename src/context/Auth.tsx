@@ -40,7 +40,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function signIn(email: string, password: string) {
-    signInUser({
+    await signInUser({
       variables: {
         email: email,
         password: password,

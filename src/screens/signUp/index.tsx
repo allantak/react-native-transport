@@ -131,6 +131,7 @@ export default function SignUp() {
             onChangeText={(t) => setInputPassword(t)}
             placeholder="Senha"
             style={styles.marginBottom}
+            secureTextEntry
           />
 
           {validationlength ? (
@@ -143,6 +144,7 @@ export default function SignUp() {
             onChangeText={(t) => setInputRePassword(t)}
             placeholder="Confirmar sua senha"
             style={styles.marginBottom}
+            secureTextEntry
           />
           {validationPassword ? (
             <SpanError>Confirmar está diferente da senha</SpanError>

@@ -40,13 +40,5 @@ export const styles = StyleSheet.create({
   styleIndex1: {
     backgroundColor: `${AppStyles.colour.white}`,
     borderColor: `${AppStyles.colour.primary}`,
-  },
-  pickers: {
-    borderRadius: 10,
-    padding: 10,
-    backgroundColor: "#eeeeee",
-    borderColor: `${AppStyles.colour.border}`,
-    color: `${AppStyles.colour.font}`,
-    width: "50%",
-  },
+  }
 });

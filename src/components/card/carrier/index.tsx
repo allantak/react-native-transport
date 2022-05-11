@@ -7,22 +7,23 @@ import {
   TextDescription,
   TextTitle,
   Title,
+  styles,
 } from "./styles";
 
 interface ICardCarrier extends TouchableOpacityProps {
   origin: string;
   destination: string;
   product: string;
-  company: string;
+  company?: string;
   bodyWork: string;
-  price: number;
+  price?: number;
   hidden: boolean;
 }
 
 export default function CardCarrier({ ...props }: ICardCarrier) {
   return (
     <Card>
-      <Container>
+      <Container style={styles.padding}>
         <ContainerTitle>
           <Title>Origem</Title>
           <TextTitle>{props.origin}</TextTitle>
@@ -52,7 +53,11 @@ export default function CardCarrier({ ...props }: ICardCarrier) {
 
         <ContainerDescription>
           <Title>Preço</Title>
-          <TextDescription>{props.price}</TextDescription>
+          {props.hidden ? (
+            <TextDescription>R$ *****</TextDescription>
+          ) : (
+            <TextDescription>R$ {props.price}</TextDescription>
+          )}
         </ContainerDescription>
       </Container>
     </Card>

@@ -35,10 +35,10 @@ export default function SignIn() {
   }
 
   async function handleLogin(email: string, password: string) {
-    signIn(email, password).then(() => {
-      authData !== undefined
-        ? setValidationLogin(false)
-        : setValidationLogin(true);
+    await signIn(email, password).then(() => {
+      authData == undefined
+        ? setValidationLogin(true)
+        : setValidationLogin(false);
     });
   }
 
@@ -87,6 +87,7 @@ export default function SignIn() {
             onChangeText={(t) => setInputPassword(t)}
             placeholder="Password"
             style={styles.marginBottom}
+            secureTextEntry
           />
 
           {undefinedField ? <SpanError>Preencha os campos</SpanError> : null}
