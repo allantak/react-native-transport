@@ -22,12 +22,12 @@ export const ContentLogo = styled.div`
 
 export const NameLogo = styled.h1`
     font-size: 20px;
-    color: #585858;
+    color: ${AppStyles.colour.font};
 `;
 
 export const Description = styled.p`
     font-size: 13px;
-    color: #585858;
+    color: ${AppStyles.colour.font};
     text-align: center;
 `;
 

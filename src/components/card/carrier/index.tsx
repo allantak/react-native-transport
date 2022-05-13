@@ -54,7 +54,9 @@ export default function CardCarrier({ ...props }: ICardCarrier) {
         <ContainerDescription>
           <Title>Preço</Title>
           {props.hidden ? (
-            <TextDescription>R$ *****</TextDescription>
+            <TextDescription>
+              R$<TextDescription style={styles.yellow}>*****</TextDescription>
+            </TextDescription>
           ) : (
             <TextDescription>R$ {props.price}</TextDescription>
           )}

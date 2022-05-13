@@ -6,9 +6,9 @@ interface IButton extends TouchableOpacityProps {
   text: string;
 }
 
-export default function Button({ text, ...rest }: IButton) {
+export default function Button({ text, ...props }: IButton) {
   return (
-    <ButtonLarg {...rest}>
+    <ButtonLarg {...props}>
       <TextButton>{text}</TextButton>
     </ButtonLarg>
   );

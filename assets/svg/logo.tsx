@@ -1,12 +1,17 @@
 import React from "react";
 
-function Logo() {
+export interface ISize{
+  width: number;
+  height: number;
+}
+
+function Logo({...props}: ISize) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="192"
-      height="125"
+      width={props.width}
+      height={props.height}
       viewBox="0 0 3583 2321"
     >
       <image

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../components/button";
 import Input from "../../components/input";
 import { useAuth } from "../../context/Auth";
@@ -61,7 +61,7 @@ export default function SignIn() {
     <Container>
       <Content>
         <ContentLogo>
-          <Logo />
+          <Logo width={192} height={125} />
           <NameLogo>Transport</NameLogo>
           <Description>
             Anuncie e procure cargas e veiculos para <br /> serviços

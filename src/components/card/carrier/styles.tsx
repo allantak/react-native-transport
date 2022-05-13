@@ -13,19 +13,19 @@ export const ContainerTitle = styled.View`
 
 export const Title = styled.Text`
   color: ${AppStyles.colour.font};
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 620;
 `;
 
 export const TextTitle = styled.Text`
   color: ${AppStyles.colour.font};
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
 `;
 
 export const ContainerDescription = styled.View`
-    width: 25%;
-    align-items: flex-start;
+  width: 25%;
+  align-items: flex-start;
 `;
 
 export const TextDescription = styled.Text`
@@ -46,5 +46,8 @@ export const Card = styled.TouchableOpacity`
 export const styles = StyleSheet.create({
   padding: {
     paddingBottom: "10px",
-  }
+  },
+  yellow: {
+    color: "#CFC900",
+  },
 });
