@@ -1,4 +1,5 @@
 import { TouchableOpacityProps } from "react-native";
+import { stylesGlobal } from "../../../styles/global";
 import {
   Card,
   Container,
@@ -17,12 +18,11 @@ interface ICardCarrier extends TouchableOpacityProps {
   company?: string;
   bodyWork: string;
   price?: number;
-  hidden: boolean;
 }
 
-export default function CardCarrier({ ...props }: ICardCarrier) {
+export default function CardFreight({ ...props }: ICardCarrier) {
   return (
-    <Card>
+    <Card style={stylesGlobal.mb}>
       <Container style={styles.padding}>
         <ContainerTitle>
           <Title>Origem</Title>
@@ -36,24 +36,32 @@ export default function CardCarrier({ ...props }: ICardCarrier) {
       </Container>
 
       <Container>
-        <ContainerDescription>
+        <ContainerDescription
+          style={props.company == undefined ? styles.width50 : null}
+        >
           <Title>Carroceria</Title>
           <TextDescription>{props.bodyWork}</TextDescription>
         </ContainerDescription>
 
-        <ContainerDescription>
+        <ContainerDescription
+          style={props.company == undefined ? styles.width25 : null}
+        >
           <Title>Produto</Title>
           <TextDescription>{props.product}</TextDescription>
         </ContainerDescription>
 
-        <ContainerDescription>
-          <Title>Empresa</Title>
-          <TextDescription>{props.company}</TextDescription>
-        </ContainerDescription>
+        {props.company !== undefined ? (
+          <ContainerDescription>
+            <Title>Empresa</Title>
+            <TextDescription>{props.company}</TextDescription>
+          </ContainerDescription>
+        ) : null}
 
-        <ContainerDescription>
+        <ContainerDescription
+          style={props.company == undefined ? styles.width25 : null}
+        >
           <Title>Preço</Title>
-          {props.hidden ? (
+          {props.price == undefined ? (
             <TextDescription>
               R$<TextDescription style={styles.yellow}>*****</TextDescription>
             </TextDescription>

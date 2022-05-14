@@ -1,6 +1,6 @@
 import Icon from "../../../assets/svg/logoWithoutCircle";
 import ButtonFilter from "../../components/buttonFilter";
-import CardCarrier from "../../components/card/carrier";
+import CardCarrier from "../../components/card/freight";
 import {
   Container,
   ContentHeaders,
@@ -32,7 +32,6 @@ export default function Carrier() {
         destination="Tupã"
         bodyWork="Vapo"
         company="Ronaldo"
-        hidden={true}
         price={30}
         product="Vapo"
       />

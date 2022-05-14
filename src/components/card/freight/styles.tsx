@@ -50,4 +50,10 @@ export const styles = StyleSheet.create({
   yellow: {
     color: "#CFC900",
   },
+  width50: {
+    width: "50%"
+  },
+  width25: {
+    width: "25%"
+  }
 });

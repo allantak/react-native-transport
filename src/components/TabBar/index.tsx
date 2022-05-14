@@ -15,7 +15,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
       <Bar>
         <ContainerItems>
           <TabItems
-            onPress={() => goTo("Carrier")}
+            onPress={() => goTo("Freight")}
             style={state.index == 0 ? styles.styleIndex0 : styles.styleIndex1}
           >
             <FontAwesome5
@@ -29,7 +29,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
             />
           </TabItems>
           <TabItems
-            onPress={() => goTo("Freight")}
+            onPress={() => goTo("Carrier")}
             style={state.index == 0 ? styles.styleIndex1 : styles.styleIndex0}
           >
             <FontAwesome5

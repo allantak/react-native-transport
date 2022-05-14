@@ -15,10 +15,10 @@ export default function AppStack() {
       screenOptions={{
         headerShown: false,
       }}
-      tabBar = { props => <TabBar {...props}/>} 
+      tabBar={(props) => <TabBar {...props} />}
     >
-      <Stack.Screen name="Carrier" component={Carrier}></Stack.Screen>
       <Stack.Screen name="Freight" component={Freight}></Stack.Screen>
+      <Stack.Screen name="Carrier" component={Carrier}></Stack.Screen>
     </Stack.Navigator>
   );
 }
