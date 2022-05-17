@@ -37,8 +37,11 @@ const freights = gql`
     bodyWorks{
       name
     },
-    price
-    
+    price,
+    weight,
+    species,
+    email,
+    phone
   }
   }
 

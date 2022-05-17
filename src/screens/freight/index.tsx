@@ -1,5 +1,5 @@
 import { useLazyQuery } from "@apollo/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import Icon from "../../../assets/svg/logoWithoutCircle";
 import ButtonFilter from "../../components/buttonFilter";
@@ -15,11 +15,61 @@ import {
   styles,
 } from "./styles";
 
+export interface IFreight {
+  id: number;
+  origin: string;
+  destination: string;
+  product: string;
+  company: string;
+  bodyWorks: object;
+  price: number;
+}
+
+interface IFreightDescription {
+  weight: number;
+  species: number;
+  email: string;
+  phone: string;
+}
+
+interface IBodyWork {
+  name: string;
+}
+
 export default function Freight() {
-    const [getFreights] = useLazyQuery(apiService.freights);
-    useEffect(() => {
-        getFreights().then((t) => console.log(t.data));
-      }, []);
+  const [getFreights] = useLazyQuery(apiService.freights);
+  const [data, setData] = useState<any[]>();
+  const [dataBodyWork, setDataBodyWork] = useState<any[]>();
+
+  useEffect(() => {
+    getFreights().then((t) => {
+      setData(t.data.getFreights);
+    });
+  }, []);
+
+  function transform(data: any) {
+    let Vasco: any = [];
+    for (const index in data) {
+      Array(data)
+        .map((value) => {
+          let array = value[index].name;
+          Vasco = array + " " + Vasco;
+        })
+        .toString;
+    }
+    return Vasco
+  }
+
+  const renderItem = ({ item }: any) => (
+    <CardFreight
+      origin={item.origin}
+      destination={item.destination}
+      price={item.price}
+      bodyWork={transform(item.bodyWorks)}
+      product={item.product}
+    />
+  );
+
   return (
     <Container>
       <ContentHeaders>
@@ -35,21 +85,10 @@ export default function Freight() {
 
       <TitleCarrier>Cargas</TitleCarrier>
 
-      <CardFreight
-        origin="Bastos"
-        destination="Tupã"
-        bodyWork="Vapo"
-        price={30}
-        product="Vapo"
-      />
-
-      <CardFreight
-        origin="Bastos"
-        destination="Tupã"
-        bodyWork="Vapo"
-        company="Vasco"
-        price={undefined}
-        product="Vapo"
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
       />
     </Container>
   );

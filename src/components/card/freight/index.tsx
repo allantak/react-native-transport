@@ -11,16 +11,17 @@ import {
   styles,
 } from "./styles";
 
-interface ICardCarrier extends TouchableOpacityProps {
+interface IFreights extends TouchableOpacityProps {
+  id?: number,
   origin: string;
   destination: string;
   product: string;
   company?: string;
-  bodyWork: string;
+  bodyWork?: any;
   price?: number;
 }
 
-export default function CardFreight({ ...props }: ICardCarrier) {
+export default function CardFreight({ ...props }: IFreights) {
   return (
     <Card style={stylesGlobal.mb}>
       <Container style={styles.padding}>
@@ -37,7 +38,7 @@ export default function CardFreight({ ...props }: ICardCarrier) {
 
       <Container>
         <ContainerDescription
-          style={props.company == undefined ? styles.width50 : null}
+          style={(props.company == undefined ? styles.width50 : null)}
         >
           <Title>Carroceria</Title>
           <TextDescription>{props.bodyWork}</TextDescription>
