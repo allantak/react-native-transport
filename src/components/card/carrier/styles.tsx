@@ -7,6 +7,11 @@ export const Container = styled.View`
   width: 30%;
 `;
 
+export const ContainerImg = styled.View`
+  justify-content: center;
+  margin-right: 12px;
+`;
+
 export const Title = styled.Text`
   color: ${AppStyles.colour.font};
   font-size: 10px;
