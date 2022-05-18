@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { AppStyles } from "../../styles/colors";
 
@@ -9,3 +10,13 @@ export const TabItems = styled.TouchableOpacity`
   width: 35px;
   height: 35px;
 `;
+
+export const styles = StyleSheet.create({
+  view: {
+    backgroundColor: "#fff",
+    margin: 0,
+    marginTop: "10vh",
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+  }
+});

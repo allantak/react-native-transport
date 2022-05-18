@@ -1,9 +1,12 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { Alert, FlatList, Modal, View } from "react-native";
+import ReactNativeModal from "react-native-modal";
 import Icon from "../../../assets/svg/logoWithoutCircle";
+import Button from "../../components/button";
 import ButtonFilter from "../../components/buttonFilter";
 import CardFreight from "../../components/card/freight";
+import Input from "../../components/input";
 import { apiService } from "../../services/API";
 import {
   Container,
@@ -39,6 +42,11 @@ interface IBodyWork {
 export default function Freight() {
   const [getFreights] = useLazyQuery(apiService.freights);
   const [data, setData] = useState<any[]>();
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   useEffect(() => {
     getFreights().then((t) => {
@@ -49,14 +57,12 @@ export default function Freight() {
   function transform(data: any) {
     let Vasco: any = [];
     for (const index in data) {
-      Array(data)
-        .map((value) => {
-          let array = value[index].name;
-          Vasco = array + ", " + Vasco;
-        })
-        .toString;
+      Array(data).map((value) => {
+        let array = value[index].name;
+        Vasco = array + ", " + Vasco;
+      }).toString;
     }
-    return Vasco
+    return Vasco;
   }
 
   const renderItem = ({ item }: any) => (
@@ -74,11 +80,16 @@ export default function Freight() {
       <ContentHeaders>
         <ContentLogo>
           <Icon width={59} height={59} />
-          <TitleLogo style={styles.mb}>Transport</TitleLogo>
+          
         </ContentLogo>
 
         <ContentFilter>
-          <ButtonFilter />
+          <ButtonFilter onPress={toggleModal} />
+          <ReactNativeModal style={styles.view} isVisible={isModalVisible} onDismiss={toggleModal}>
+            <Input title="Origem" placeholder="Origem" />
+            <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
+            <Button text="Pesquisar" onPress={toggleModal} />
+          </ReactNativeModal>
         </ContentFilter>
       </ContentHeaders>
 

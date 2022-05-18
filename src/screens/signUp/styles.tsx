@@ -6,6 +6,7 @@ export const Container = styled.div`
   flex: 1;
   flex-direction: column;
   background-color: ${AppStyles.colour.background};
+  padding: 20px;
 `;
 
 export const Content = styled.div`

@@ -38,4 +38,12 @@ export const TitleCarrier = styled.Text`
 
 export const styles = StyleSheet.create({
   mb: { marginBottom: "5px" },
+  ml: { marginLeft: "10px" },
+  view: {
+    backgroundColor: "#fff",
+    margin: 0,
+    marginTop: "10vh",
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30
+  }
 });

@@ -8,7 +8,7 @@ import {
   ContentFilter,
   ContentLogo,
   TitleCarrier,
-  styles
+  styles,
 } from "./styles";
 
 export default function Carrier() {
@@ -16,8 +16,8 @@ export default function Carrier() {
     <Container>
       <ContentHeaders>
         <ContentLogo>
-          <Icon width={59} height={59}/>
-          <TitleLogo style={styles.mb}>Transport</TitleLogo>
+          <Icon width={59} height={59} />
+          <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
         </ContentLogo>
 
         <ContentFilter>
@@ -27,7 +27,12 @@ export default function Carrier() {
 
       <TitleCarrier>Cargas</TitleCarrier>
 
-      <CardCarrier carrier="Vasco" service="Empresarial" price={200.00} company="Vasco"></CardCarrier>
+      <CardCarrier
+        carrier="Vasco"
+        service="Empresarial"
+        price={200.0}
+        company="Vasco"
+      ></CardCarrier>
     </Container>
   );
 }

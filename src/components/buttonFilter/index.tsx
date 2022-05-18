@@ -1,7 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacityProps } from "react-native";
+import { useState } from "react";
+import { Text, TouchableOpacityProps, View } from "react-native";
+import ReactNativeModal from "react-native-modal";
 import { AppStyles } from "../../styles/colors";
-import { TabItems } from "./styles";
+import Button from "../button";
+import Input from "../input";
+import { styles, TabItems } from "./styles";
 
 export default function ButtonFilter({ ...props }: TouchableOpacityProps) {
   return (
