@@ -39,7 +39,6 @@ interface IBodyWork {
 export default function Freight() {
   const [getFreights] = useLazyQuery(apiService.freights);
   const [data, setData] = useState<any[]>();
-  const [dataBodyWork, setDataBodyWork] = useState<any[]>();
 
   useEffect(() => {
     getFreights().then((t) => {
@@ -53,7 +52,7 @@ export default function Freight() {
       Array(data)
         .map((value) => {
           let array = value[index].name;
-          Vasco = array + " " + Vasco;
+          Vasco = array + ", " + Vasco;
         })
         .toString;
     }

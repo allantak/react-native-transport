@@ -1,6 +1,6 @@
 import Icon from "../../../assets/svg/logoWithoutCircle";
 import ButtonFilter from "../../components/buttonFilter";
-import CardCarrier from "../../components/card/freight";
+import CardCarrier from "../../components/card/carrier";
 import {
   Container,
   ContentHeaders,
@@ -27,14 +27,7 @@ export default function Carrier() {
 
       <TitleCarrier>Cargas</TitleCarrier>
 
-      <CardCarrier
-        origin="Bastos"
-        destination="Tupã"
-        bodyWork="Vapo"
-        company="Ronaldo"
-        price={30}
-        product="Vapo"
-      />
+      <CardCarrier carrier="Vasco" service="Empresarial" price={200.00} company="Vasco"></CardCarrier>
     </Container>
   );
 }
