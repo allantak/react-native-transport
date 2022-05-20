@@ -22,7 +22,9 @@ export const ContentLogo = styled.View`
   width: 50%;
 `;
 export const ContentFilter = styled.View``;
-
+export const ContentModal = styled.View`
+  padding: 20px;
+`;
 export const TitleLogo = styled.Text`
   font-size: 20px;
   font-weight: 600;
@@ -38,12 +40,17 @@ export const TitleCarrier = styled.Text`
 
 export const styles = StyleSheet.create({
   mb: { marginBottom: "5px" },
+  mb10: { marginBottom: "15px" },
+  mt: { marginTop: "15px" },
   ml: { marginLeft: "10px" },
+  fs15: { fontSize: 15 },
+  titleModal: { fontSize: 18 },
   view: {
     backgroundColor: "#fff",
     margin: 0,
-    marginTop: "10vh",
+    marginTop: "20vh",
     borderTopRightRadius: 30,
-    borderTopLeftRadius: 30
-  }
+    borderTopLeftRadius: 30,
+    justifyContent: "flex-start",
+  },
 });

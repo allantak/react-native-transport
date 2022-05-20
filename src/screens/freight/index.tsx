@@ -16,6 +16,7 @@ import {
   ContentLogo,
   TitleCarrier,
   styles,
+  ContentModal,
 } from "./styles";
 
 export interface IFreight {
@@ -80,15 +81,39 @@ export default function Freight() {
       <ContentHeaders>
         <ContentLogo>
           <Icon width={59} height={59} />
-          
+          <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
         </ContentLogo>
 
         <ContentFilter>
           <ButtonFilter onPress={toggleModal} />
-          <ReactNativeModal style={styles.view} isVisible={isModalVisible} onDismiss={toggleModal}>
-            <Input title="Origem" placeholder="Origem" />
-            <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
-            <Button text="Pesquisar" onPress={toggleModal} />
+          <ReactNativeModal style={styles.view} isVisible={isModalVisible} onBackdropPress={toggleModal}>
+            <ContentModal>
+              <TitleCarrier style={styles.titleModal}>
+                Filtro de pesquisa
+              </TitleCarrier>
+              <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
+              <Input style={styles.mb10} title="Origem" placeholder="Origem" />
+              <Input
+                style={styles.mb10}
+                title="Destino"
+                placeholder="Destino"
+              />
+              <Input
+                style={styles.mb10}
+                title="Produto"
+                placeholder="Produto"
+              />
+              <Input
+                style={styles.mb10}
+                title="Carroceria"
+                placeholder="Carroceria"
+              />
+              <Button
+                style={styles.mt}
+                text="Pesquisar"
+                onPress={toggleModal}
+              />
+            </ContentModal>
           </ReactNativeModal>
         </ContentFilter>
       </ContentHeaders>
