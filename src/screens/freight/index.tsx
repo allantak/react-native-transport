@@ -1,6 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { Alert, FlatList, Modal, View } from "react-native";
+import { FlatList } from "react-native";
 import ReactNativeModal from "react-native-modal";
 import Icon from "../../../assets/svg/logoWithoutCircle";
 import Button from "../../components/button";
@@ -42,13 +42,46 @@ interface IBodyWork {
 
 export default function Freight() {
   const [getFreights] = useLazyQuery(apiService.freights);
+  const [filterFreight] = useLazyQuery(apiService.filterFreight);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [inputOrigin, setInputOrigin] = useState<string>("");
+  const [inputDestination, setInputDestination] = useState<string>("");
+  const [inputProduct, setInputProduct] = useState<string>("");
+  const [inputBodyWork, setInputBodyWork] = useState<string>("");
+
+  async function FilterSearch(
+    origin: string,
+    destination: string,
+    product: string,
+    nameBodyWork: string
+  ) {
+    filterFreight({
+      variables: {
+        origin: origin,
+        destination: destination,
+        product: product,
+        nameBodyWork: nameBodyWork,
+      },
+    })
+      .then((params) => {setData(params.data.searchFreight), console.log(params.data.searchFreight)})
+      .catch(() => console.log("Errado"));
+  }
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+    
   };
 
+  function handleFilter(){
+    FilterSearch(inputOrigin, inputDestination, inputProduct, inputBodyWork);
+    setInputOrigin("");
+    setInputDestination("");
+    setInputProduct("");
+    setInputBodyWork("");
+    setModalVisible(!isModalVisible);
+
+  }
   useEffect(() => {
     getFreights().then((t) => {
       setData(t.data.getFreights);
@@ -86,32 +119,48 @@ export default function Freight() {
 
         <ContentFilter>
           <ButtonFilter onPress={toggleModal} />
-          <ReactNativeModal style={styles.view} isVisible={isModalVisible} onBackdropPress={toggleModal}>
+          <ReactNativeModal
+            style={styles.view}
+            isVisible={isModalVisible}
+            onBackdropPress={toggleModal}
+          >
             <ContentModal>
               <TitleCarrier style={styles.titleModal}>
                 Filtro de pesquisa
               </TitleCarrier>
               <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
-              <Input style={styles.mb10} title="Origem" placeholder="Origem" />
+              <Input
+                style={styles.mb10}
+                value={inputOrigin}
+                onChangeText={(t) => setInputOrigin(t)}
+                title="Origem"
+                placeholder="Origem"
+              />
               <Input
                 style={styles.mb10}
                 title="Destino"
+                value={inputDestination}
+                onChangeText={(t) => setInputDestination(t)}
                 placeholder="Destino"
               />
               <Input
                 style={styles.mb10}
                 title="Produto"
+                value={inputProduct}
+                onChangeText={(t) => setInputProduct(t)}
                 placeholder="Produto"
               />
               <Input
                 style={styles.mb10}
                 title="Carroceria"
+                value={inputBodyWork}
+                onChangeText={(t) => setInputBodyWork(t)}
                 placeholder="Carroceria"
               />
               <Button
                 style={styles.mt}
                 text="Pesquisar"
-                onPress={toggleModal}
+                onPress={handleFilter}
               />
             </ContentModal>
           </ReactNativeModal>

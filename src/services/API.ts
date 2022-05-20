@@ -46,12 +46,26 @@ const freights = gql`
   }
 
 `;
+const filterFreight = gql`
+query searchFreight($origin: String!, $destination:String!, $product:String!, $nameBodyWork:String!){	
+  searchFreight(data: { origin: $origin, destination: $destination, product:$product, nameBodyWork:$nameBodyWork }){
+    id,
+    origin,
+    destination,
+    product,
+    bodyWorks{
+      name
+    },
+  }
+}`;
+
 
 export const apiService = {
   client,
   createUser,
   signIn,
-  freights
+  freights,
+  filterFreight
 }
 
 
