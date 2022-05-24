@@ -7,7 +7,7 @@ import {
   TextDescription,
   Title,
   styles,
-  ContainerImg
+  ContainerImg,
 } from "./styles";
 
 interface ICarriers extends TouchableOpacityProps {
@@ -16,11 +16,12 @@ interface ICarriers extends TouchableOpacityProps {
   service: string;
   company?: string;
   price?: number;
+  img?: string;
 }
 
 export default function CardCarrier({ ...props }: ICarriers) {
   return (
-    <Card>
+    <Card style={stylesGlobal.mb}>
       <ContainerImg>
         <iframe width={70} height={70}></iframe>
       </ContainerImg>
@@ -29,20 +30,49 @@ export default function CardCarrier({ ...props }: ICarriers) {
           <Title>Veículos</Title>
           <TextDescription>{props.carrier}</TextDescription>
         </ContainerDescription>
-        <ContainerDescription>
-          <Title>Serviço</Title>
-          <TextDescription>{props.service}</TextDescription>
-        </ContainerDescription>
+        {props.company == undefined ? (
+          <ContainerDescription>
+            <Title>Preço</Title>
+            {props.price == undefined ? (
+              <TextDescription>
+                R$<TextDescription style={styles.yellow}>*****</TextDescription>
+              </TextDescription>
+            ) : (
+              <TextDescription>{props.price}</TextDescription>
+            )}
+          </ContainerDescription>
+        ) : (
+          <ContainerDescription>
+            <Title>Serviço</Title>
+            <TextDescription>{props.service}</TextDescription>
+          </ContainerDescription>
+        )}
       </Container>
       <Container>
-        <ContainerDescription style={stylesGlobal.mb}>
-          <Title>Empresa</Title>
-          <TextDescription>{props.company}</TextDescription>
-        </ContainerDescription>
-        <ContainerDescription>
-          <Title>Preço</Title>
-          <TextDescription>{props.price}</TextDescription>
-        </ContainerDescription>
+        {props.company == undefined ? (
+          <ContainerDescription>
+            <Title>Serviço</Title>
+            <TextDescription>{props.service}</TextDescription>
+          </ContainerDescription>
+        ) : (
+          <ContainerDescription style={stylesGlobal.mb}>
+            <Title>Empresa</Title>
+            <TextDescription>{props.company}</TextDescription>
+          </ContainerDescription>
+        )}
+
+        {props.company == undefined ? null : (
+          <ContainerDescription>
+            <Title>Preço</Title>
+            {props.price == undefined ? (
+              <TextDescription>
+                R$<TextDescription style={styles.yellow}>*****</TextDescription>
+              </TextDescription>
+            ) : (
+              <TextDescription>{props.price}</TextDescription>
+            )}
+          </ContainerDescription>
+        )}
       </Container>
     </Card>
   );

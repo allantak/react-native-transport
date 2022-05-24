@@ -59,13 +59,46 @@ query searchFreight($origin: String!, $destination:String!, $product:String!, $n
   }
 }`;
 
+const carriers = gql`
+query getCarriers{
+  getCarriers{
+    id,
+    carrier,
+    service,
+    company,
+    price,
+    bodyWorks{
+      name
+    }
+  }
+}
+`;
+
+
+const filterCarrier = gql`
+query searchCarrier($carrier: String, $service: String, $company: String, $nameBodyWorks: String){	
+  searchCarrier(data: {carrier: $carrier, service: $service, company: $company, nameBodyWorks:$nameBodyWorks}){
+    id,
+    carrier,
+    service,
+    company,
+    bodyWorks{
+      name
+    }
+  }
+}
+`;
+
+
 
 export const apiService = {
   client,
   createUser,
   signIn,
   freights,
-  filterFreight
+  filterFreight,
+  filterCarrier,
+  carriers
 }
 
 

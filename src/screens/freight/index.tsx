@@ -29,17 +29,6 @@ export interface IFreight {
   price: number;
 }
 
-interface IFreightDescription {
-  weight: number;
-  species: number;
-  email: string;
-  phone: string;
-}
-
-interface IBodyWork {
-  name: string;
-}
-
 export default function Freight() {
   const [getFreights] = useLazyQuery(apiService.freights);
   const [filterFreight] = useLazyQuery(apiService.filterFreight);
@@ -49,6 +38,12 @@ export default function Freight() {
   const [inputDestination, setInputDestination] = useState<string>("");
   const [inputProduct, setInputProduct] = useState<string>("");
   const [inputBodyWork, setInputBodyWork] = useState<string>("");
+
+  useEffect(() => {
+    getFreights().then((t) => {
+      setData(t.data.getFreights);
+    });
+  }, []);
 
   async function FilterSearch(
     origin: string,
@@ -82,11 +77,7 @@ export default function Freight() {
     setModalVisible(!isModalVisible);
 
   }
-  useEffect(() => {
-    getFreights().then((t) => {
-      setData(t.data.getFreights);
-    });
-  }, []);
+  
 
   function transform(data: any) {
     let Vasco: any = [];
