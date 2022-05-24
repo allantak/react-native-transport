@@ -27,7 +27,6 @@ export default function Carrier() {
   const [inputCarrier, setInputCarrier] = useState<string>("");
   const [inputService, setInputService] = useState<string>("");
   const [inputEmployee, setInputEmployee] = useState<string>("");
-  const [inputBodyWork, setInputBodyWork] = useState<string>("");
 
   useEffect(() => {
     getCarriers().then((t) => {
@@ -38,15 +37,13 @@ export default function Carrier() {
   function searchCarrier(
     carrier: string,
     service: string,
-    employee: string,
-    nameBodyWorks: string
+    employee: string
   ) {
     filterCarrier({
       variables: {
         carrier: carrier,
         service: service,
-        company: employee,
-        nameBodyWorks: nameBodyWorks,
+        company: employee
       },
     })
       .then((params) => {
@@ -69,8 +66,7 @@ export default function Carrier() {
   };
 
   function handleFilter() {
-    searchCarrier(inputCarrier, inputService, inputEmployee, inputBodyWork)
-    setInputBodyWork("")
+    searchCarrier(inputCarrier, inputService, inputEmployee)
     setInputCarrier("")
     setInputEmployee("")
     setInputService("")
@@ -116,13 +112,6 @@ export default function Carrier() {
                 value={inputEmployee}
                 onChangeText={(t) => setInputEmployee(t)}
                 placeholder="Produto"
-              />
-              <Input
-                style={styles.mb10}
-                title="Carroceria"
-                value={inputBodyWork}
-                onChangeText={(t) => setInputBodyWork(t)}
-                placeholder="Carroceria"
               />
               <Button
                 style={styles.mt}
