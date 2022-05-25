@@ -34,17 +34,27 @@ export default function Freight() {
   const [filterFreight] = useLazyQuery(apiService.filterFreight);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [inputOrigin, setInputOrigin] = useState<string>("");
   const [inputDestination, setInputDestination] = useState<string>("");
   const [inputProduct, setInputProduct] = useState<string>("");
   const [inputBodyWork, setInputBodyWork] = useState<string>("");
 
   useEffect(() => {
+    listFreights();
+  }, []);
+
+  function listFreights() {
     getFreights().then((t) => {
       setData(t.data.getFreights);
     });
-  }, []);
+    setRefresh(false)
+  }
 
+  function onRefresh(){
+    listFreights()
+    setRefresh(true)
+  }
   async function FilterSearch(
     origin: string,
     destination: string,
@@ -59,25 +69,25 @@ export default function Freight() {
         nameBodyWork: nameBodyWork,
       },
     })
-      .then((params) => {setData(params.data.searchFreight), console.log(params.data.searchFreight)})
+      .then((params) => {
+        setData(params.data.searchFreight),
+          console.log(params.data.searchFreight);
+      })
       .catch(() => console.log("Errado"));
   }
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-    
   };
 
-  function handleFilter(){
+  function handleFilter() {
     FilterSearch(inputOrigin, inputDestination, inputProduct, inputBodyWork);
     setInputOrigin("");
     setInputDestination("");
     setInputProduct("");
     setInputBodyWork("");
     setModalVisible(!isModalVisible);
-
   }
-  
 
   function transform(data: any) {
     let Vasco: any = [];
@@ -101,7 +111,7 @@ export default function Freight() {
   );
 
   return (
-    <Container>
+    <Container style={styles.pb0}>
       <ContentHeaders>
         <ContentLogo>
           <Icon width={59} height={59} />
@@ -164,6 +174,8 @@ export default function Freight() {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        onRefresh={() => onRefresh()}
+        refreshing={refresh}
       />
     </Container>
   );

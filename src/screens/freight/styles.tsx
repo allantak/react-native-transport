@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
   mb10: { marginBottom: "15px" },
   mt: { marginTop: "15px" },
   ml: { marginLeft: "10px" },
+  pb0:{ paddingBottom: 1},
   fs15: { fontSize: 15 },
   titleModal: { fontSize: 18 },
   view: {

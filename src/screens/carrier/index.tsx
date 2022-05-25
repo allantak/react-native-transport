@@ -29,10 +29,14 @@ export default function Carrier() {
   const [inputEmployee, setInputEmployee] = useState<string>("");
 
   useEffect(() => {
+    listCarriers()
+  }, []);
+
+  function listCarriers(){
     getCarriers().then((t) => {
       setData(t.data.getCarriers);
     });
-  }, []);
+  }
 
   function searchCarrier(
     carrier: string,
@@ -72,8 +76,10 @@ export default function Carrier() {
     setInputService("")
     setModalVisible(!isModalVisible);
   }
+
+  
   return (
-    <Container>
+    <Container style={styles.pb0}>
       <ContentHeaders>
         <ContentLogo>
           <Icon width={59} height={59} />

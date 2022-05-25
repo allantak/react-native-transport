@@ -46,6 +46,7 @@ export const styles = StyleSheet.create({
   mt: { marginTop: "15px" },
   ml: { marginLeft: "10px" },
   fs15: { fontSize: 15 },
+  pb0:{ paddingBottom: 1},
   titleModal: { fontSize: 18 },
   view: {
     backgroundColor: "#fff",
