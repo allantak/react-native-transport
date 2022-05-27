@@ -17,5 +17,4 @@ export const TextDescription = styled.Text`
   font-size: 10px;
 `;
 export const Container = styled.View`
-  flex-direction: row;
 `;
