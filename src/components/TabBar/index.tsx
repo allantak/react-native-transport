@@ -30,15 +30,15 @@ export default function TabBar({ state }: BottomTabBarProps) {
           </TabItems>
           <TabItems
             onPress={() => goTo("Carrier")}
-            style={state.index == 0 ? styles.styleIndex1 : styles.styleIndex0}
+            style={state.index == 1 ? styles.styleIndex0 : styles.styleIndex1}
           >
             <FontAwesome5
               name="truck"
               size={16}
               color={
-                state.index == 0
-                  ? `${AppStyles.colour.primary}`
-                  : `${AppStyles.colour.white}`
+                state.index == 1
+                  ? `${AppStyles.colour.white}`
+                  : `${AppStyles.colour.primary}`
               }
             />
           </TabItems>

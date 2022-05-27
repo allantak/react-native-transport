@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacityProps } from "react-native";
 import { stylesGlobal } from "../../../styles/global";
 import {
@@ -22,8 +23,9 @@ interface IFreights extends TouchableOpacityProps {
 }
 
 export default function CardFreight({ ...props }: IFreights) {
+  const navigation = useNavigation<any>();
   return (
-    <Card style={stylesGlobal.mb}>
+    <Card onPress={() => navigation.navigate("Detail")} style={stylesGlobal.mb}>
       <Container style={styles.padding}>
         <ContainerTitle>
           <Title>Origem</Title>

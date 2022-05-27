@@ -1,6 +1,11 @@
 import { useLazyQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native";
 import ReactNativeModal from "react-native-modal";
 import Icon from "../../../assets/svg/logoWithoutCircle";
 import Button from "../../components/button";
@@ -48,12 +53,12 @@ export default function Freight() {
     getFreights().then((t) => {
       setData(t.data.getFreights);
     });
-    setRefresh(false)
+    setRefresh(false);
   }
 
-  function onRefresh(){
-    listFreights()
-    setRefresh(true)
+  function onRefresh() {
+    listFreights();
+    setRefresh(true);
   }
   async function FilterSearch(
     origin: string,
@@ -90,24 +95,24 @@ export default function Freight() {
   }
 
   function transform(data: any) {
-    let Vasco: any = [];
+    let ArrayValue: any = [];
     for (const index in data) {
       Array(data).map((value) => {
         let array = value[index].name;
-        Vasco = array + ", " + Vasco;
+        ArrayValue = array + ", " + ArrayValue;
       }).toString;
     }
-    return Vasco;
+    return ArrayValue;
   }
 
   const renderItem = ({ item }: any) => (
-    <CardFreight
-      origin={item.origin}
-      destination={item.destination}
-      price={item.price}
-      bodyWork={transform(item.bodyWorks)}
-      product={item.product}
-    />
+      <CardFreight
+        origin={item.origin}
+        destination={item.destination}
+        price={item.price}
+        bodyWork={transform(item.bodyWorks)}
+        product={item.product}
+      />
   );
 
   return (
@@ -174,8 +179,6 @@ export default function Freight() {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        onRefresh={() => onRefresh()}
-        refreshing={refresh}
       />
     </Container>
   );
