@@ -5,7 +5,7 @@ import { Touchable } from "./styles";
 export default function Back({ ...props }: TouchableOpacityProps) {
   return (
     <Touchable {...props}>
-      <Ionicons name="arrow-back-outline" size={24} color="#585858" />
+      <Ionicons name="arrow-back-outline" size={24} color="#888888" />
     </Touchable>
   );
 }

@@ -20,12 +20,13 @@ interface IFreights extends TouchableOpacityProps {
   company?: string;
   bodyWork?: any;
   price?: number;
+  item: object;
 }
 
 export default function CardFreight({ ...props }: IFreights) {
   const navigation = useNavigation<any>();
   return (
-    <Card onPress={() => navigation.navigate("Detail")} style={stylesGlobal.mb}>
+    <Card onPress={() => navigation.navigate("Detail", props.item)} style={stylesGlobal.mb}>
       <Container style={styles.padding}>
         <ContainerTitle>
           <Title>Origem</Title>

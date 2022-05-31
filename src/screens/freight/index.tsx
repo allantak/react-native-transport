@@ -56,10 +56,6 @@ export default function Freight() {
     setRefresh(false);
   }
 
-  function onRefresh() {
-    listFreights();
-    setRefresh(true);
-  }
   async function FilterSearch(
     origin: string,
     destination: string,
@@ -112,6 +108,7 @@ export default function Freight() {
         price={item.price}
         bodyWork={transform(item.bodyWorks)}
         product={item.product}
+        item={item}
       />
   );
 
