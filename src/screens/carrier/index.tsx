@@ -62,6 +62,7 @@ export default function Carrier() {
       service={item.service}
       price={item.price}
       company={item.company}
+      item={item}
     ></CardCarrier>
   );
 

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacityProps } from "react-native";
 import { stylesGlobal } from "../../../styles/global";
 import {
@@ -17,11 +18,13 @@ interface ICarriers extends TouchableOpacityProps {
   company?: string;
   price?: number;
   img?: string;
+  item: object;
 }
 
 export default function CardCarrier({ ...props }: ICarriers) {
+  const navigation = useNavigation<any>();
   return (
-    <Card style={stylesGlobal.mb}>
+    <Card onPress={() => navigation.navigate("DetailCarrier", props.item)}  style={stylesGlobal.mb}>
       <ContainerImg>
         <iframe width={70} height={70}></iframe>
       </ContainerImg>

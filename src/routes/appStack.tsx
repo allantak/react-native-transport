@@ -4,6 +4,7 @@ import Freight from "../screens/freight";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabBar from "../components/TabBar";
 import Detail from "../screens/detail";
+import DetailCarrier from "../screens/detailCarrier";
 
 const Stack = createBottomTabNavigator();
 
@@ -18,6 +19,7 @@ export default function AppStack() {
       <Stack.Screen name="Freight" component={Freight}></Stack.Screen>
       <Stack.Screen name="Carrier" component={Carrier}></Stack.Screen>
       <Stack.Screen name="Detail" component={Detail}></Stack.Screen>
+      <Stack.Screen name="DetailCarrier" component={DetailCarrier}></Stack.Screen>
     </Stack.Navigator>
   );
 }
