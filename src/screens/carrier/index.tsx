@@ -98,7 +98,7 @@ export default function Carrier() {
               <TitleCarrier style={styles.titleModal}>
                 Filtro de pesquisa
               </TitleCarrier>
-              <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
+              <TitleCarrier style={styles.fs15}>Veículo</TitleCarrier>
               <Input
                 style={styles.mb10}
                 value={inputCarrier}

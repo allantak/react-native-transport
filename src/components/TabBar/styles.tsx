@@ -16,6 +16,10 @@ export const Bar = styled.View`
   height: 75px;
 `;
 
+export const ContainerRow = styled.View`
+  flex-direction: row;
+`;
+
 export const ContainerItems = styled.View`
   flex: 1;
   align-items: center;
@@ -32,6 +36,21 @@ export const TabItems = styled.TouchableOpacity`
   height: 35px;
 `;
 
+export const Touch = styled.TouchableOpacity``;
+
+export const ContentModal = styled.ScrollView`
+  padding: 20px;
+`;
+
+export const Scroll = styled.ScrollView``;
+
+export const TitleCarrier = styled.Text`
+  color: ${AppStyles.colour.font};
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+`;
+
 export const styles = StyleSheet.create({
   styleIndex0: {
     backgroundColor: `${AppStyles.colour.primary}`,
@@ -40,5 +59,23 @@ export const styles = StyleSheet.create({
   styleIndex1: {
     backgroundColor: `${AppStyles.colour.white}`,
     borderColor: `${AppStyles.colour.primary}`,
-  }
+  },
+  view: {
+    backgroundColor: "#fff",
+    margin: 0,
+    marginTop: "10vh",
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    justifyContent: "flex-start",
+    paddingTop: "2px",
+  },
+  titleModal: {
+    fontSize: 18
+  },
+  fs15: { fontSize: 15 },
+  mb15: { marginBottom: "15px" },
+  mt: { marginTop: "15px" },
+  width90: { width: "90%" },
+  width80: { width: "85%" },
+  height: { minHeight: "100px" },
 });

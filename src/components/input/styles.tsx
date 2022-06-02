@@ -3,7 +3,6 @@ import { AppStyles } from "../../styles/colors";
 
 export const Content = styled.View`
   flex-direction: column;
-  width: 100%;
 `;
 
 export const Title = styled.Text`
