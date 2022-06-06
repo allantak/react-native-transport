@@ -27,6 +27,7 @@ export default function Carrier() {
   const [inputCarrier, setInputCarrier] = useState<string>("");
   const [inputService, setInputService] = useState<string>("");
   const [inputEmployee, setInputEmployee] = useState<string>("");
+  const [inputBodyWork, setInputBodyWork] = useState<string>("");
 
   useEffect(() => {
     listCarriers()
@@ -41,13 +42,15 @@ export default function Carrier() {
   function searchCarrier(
     carrier: string,
     service: string,
-    employee: string
+    employee: string,
+    nameBodyWorks: string
   ) {
     filterCarrier({
       variables: {
         carrier: carrier,
         service: service,
-        company: employee
+        company: employee,
+        nameBodyWorks: nameBodyWorks,
       },
     })
       .then((params) => {
@@ -71,10 +74,11 @@ export default function Carrier() {
   };
 
   function handleFilter() {
-    searchCarrier(inputCarrier, inputService, inputEmployee)
+    searchCarrier(inputCarrier, inputService, inputEmployee, inputBodyWork)
     setInputCarrier("")
     setInputEmployee("")
     setInputService("")
+    setInputBodyWork("")
     setModalVisible(!isModalVisible);
   }
 
@@ -103,22 +107,29 @@ export default function Carrier() {
                 style={styles.mb10}
                 value={inputCarrier}
                 onChangeText={(t) => setInputCarrier(t)}
-                title="Origem"
-                placeholder="Origem"
+                title="Nome do veículo"
+                placeholder="nome"
               />
               <Input
                 style={styles.mb10}
-                title="Destino"
+                title="Tipo de serviço"
                 value={inputService}
                 onChangeText={(t) => setInputService(t)}
-                placeholder="Destino"
+                placeholder="Autonomo"
               />
               <Input
                 style={styles.mb10}
-                title="Produto"
+                title="Empresa"
                 value={inputEmployee}
                 onChangeText={(t) => setInputEmployee(t)}
-                placeholder="Produto"
+                placeholder="empresa"
+              />
+              <Input
+                style={styles.mb10}
+                title="Carroceria"
+                value={inputBodyWork}
+                onChangeText={(t) => setInputBodyWork(t)}
+                placeholder="Carroceria"
               />
               <Button
                 style={styles.mt}

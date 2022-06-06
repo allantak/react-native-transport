@@ -32,6 +32,11 @@ export default function TabBar({ state }: BottomTabBarProps) {
   const [inputNote, setInputNote] = useState<string>();
   const [inputEmail, setInputEmail] = useState<string>();
   const [inputPhone, setInputPhone] = useState<string>();
+
+  const [inputCarrier, setInputCarrier] = useState<string>();
+  const [inputService, setInputService] = useState<string>();
+  const [inputCompany, setInputCompany] = useState<string>();
+
   const goTo = (screenName: string) => {
     navigation.navigate(screenName);
   };
@@ -45,6 +50,14 @@ export default function TabBar({ state }: BottomTabBarProps) {
     setInputDestination("");
     setInputProduct("");
     setInputBodyWork("");
+    setInputPrice("");
+    setInputWeight("");
+    setInputNote("");
+    setInputEmail("");
+    setInputPhone("");
+    setInputCarrier("");
+    setInputService("");
+    setInputCompany("");
     setModalVisible(!isModalVisible);
   }
 
@@ -74,99 +87,180 @@ export default function TabBar({ state }: BottomTabBarProps) {
             />
           </Touch>
 
-          <ReactNativeModal
-            style={styles.view}
-            isVisible={isModalVisible}
-            onBackdropPress={toggleModal}
-          >
-            <ContentModal showsVerticalScrollIndicator={false}>
-              <TitleCarrier style={styles.titleModal}>
-                Cadastro de carga
-              </TitleCarrier>
+          {state.index == 0 ? (
+            <ReactNativeModal
+              style={styles.view}
+              isVisible={isModalVisible}
+              onBackdropPress={toggleModal}
+            >
+              <ContentModal showsVerticalScrollIndicator={false}>
+                <TitleCarrier style={styles.titleModal}>
+                  Cadastro de carga
+                </TitleCarrier>
 
-              <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
-              <Input
-                style={styles.mb15}
-                value={inputOrigin}
-                onChangeText={(t) => setInputOrigin(t)}
-                title="Origem"
-                placeholder="Origem"
-              />
-              <Input
-                style={styles.mb15}
-                title="Destino"
-                value={inputDestination}
-                onChangeText={(t) => setInputDestination(t)}
-                placeholder="Destino"
-              />
-
-              <ContainerRow style={styles.mb15}>
+                <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
                 <Input
-                  style={styles.width90}
+                  style={styles.mb15}
+                  value={inputOrigin}
+                  onChangeText={(t) => setInputOrigin(t)}
+                  title="Origem"
+                  placeholder="Origem"
+                />
+                <Input
+                  style={styles.mb15}
+                  title="Destino"
+                  value={inputDestination}
+                  onChangeText={(t) => setInputDestination(t)}
+                  placeholder="Destino"
+                />
+
+                <ContainerRow style={styles.mb15}>
+                  <Input
+                    style={styles.width90}
+                    title="Preço"
+                    value={inputPrice}
+                    onChangeText={(t) => setInputPrice(t)}
+                    placeholder="Preço"
+                    keyboardType="numeric"
+                  />
+
+                  <Input
+                    style={styles.width80}
+                    title="Peso"
+                    value={inputWeight}
+                    onChangeText={(t) => setInputWeight(t)}
+                    placeholder="Peço da carga"
+                    keyboardType="numeric"
+                  />
+                </ContainerRow>
+
+                <Input
+                  style={styles.mb15}
+                  title="Empresa"
+                  value={inputCompany}
+                  onChangeText={(t) => setInputCompany(t)}
+                  placeholder="empresa"
+                />
+
+                <Input
+                  style={styles.mb15}
+                  title="Produto"
+                  value={inputProduct}
+                  onChangeText={(t) => setInputProduct(t)}
+                  placeholder="Produto"
+                />
+                <Input
+                  style={styles.mb15}
+                  title="Carroceria"
+                  value={inputBodyWork}
+                  onChangeText={(t) => setInputBodyWork(t)}
+                  placeholder="Carroceria"
+                />
+
+                <Input
+                  style={styles.mb15}
+                  title="Observação"
+                  value={inputNote}
+                  onChangeText={(t) => setInputNote(t)}
+                  placeholder="Observação"
+                />
+
+                <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
+
+                <Input
+                  style={styles.mb15}
+                  value={inputEmail}
+                  onChangeText={(t) => setInputEmail(t)}
+                  title="Email"
+                  placeholder="Email"
+                />
+                <Input
+                  style={styles.mb15}
+                  title="Telefone"
+                  value={inputPhone}
+                  onChangeText={(t) => setInputPhone(t)}
+                  placeholder="telefone"
+                />
+
+                <Button
+                  style={styles.mt}
+                  text="Pesquisar"
+                  onPress={handleFilter}
+                />
+              </ContentModal>
+            </ReactNativeModal>
+          ) : (
+            <ReactNativeModal
+              style={styles.view}
+              isVisible={isModalVisible}
+              onBackdropPress={toggleModal}
+            >
+              <ContentModal showsVerticalScrollIndicator={false}>
+                <TitleCarrier style={styles.titleModal}>
+                  Cadastro de veículo
+                </TitleCarrier>
+
+                <TitleCarrier style={styles.fs15}>
+                  Informação do veiculo
+                </TitleCarrier>
+
+                <Input
+                  style={styles.mb15}
+                  value={inputCarrier}
+                  onChangeText={(t) => setInputCarrier(t)}
+                  title="Nome do veículo"
+                  placeholder="Veículo"
+                />
+                <Input
+                  style={styles.mb15}
+                  title="Tipo de serviço"
+                  value={inputService}
+                  onChangeText={(t) => setInputService(t)}
+                  placeholder="Destino"
+                />
+
+                <Input
+                  style={styles.mb15}
+                  value={inputBodyWork}
+                  onChangeText={(t) => setInputBodyWork(t)}
+                  title="Carroceria"
+                  placeholder="Carroceria"
+                />
+                <Input
+                  style={styles.mb15}
+                  title="Empresa"
+                  value={inputCompany}
+                  onChangeText={(t) => setInputCompany(t)}
+                  placeholder="empresa"
+                />
+
+                <Input
+                  style={styles.mb15}
                   title="Preço"
                   value={inputPrice}
                   onChangeText={(t) => setInputPrice(t)}
-                  placeholder="Preço"
-                  keyboardType="numeric"
+                  placeholder="preço"
                 />
+
+                <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
 
                 <Input
-                  style={styles.width80}
-                  title="Peso"
-                  value={inputWeight}
-                  onChangeText={(t) => setInputWeight(t)}
-                  placeholder="Peço da carga"
-                  keyboardType="numeric"
+                  style={styles.mb15}
+                  value={inputEmail}
+                  onChangeText={(t) => setInputEmail(t)}
+                  title="Email"
+                  placeholder="Email"
                 />
-              </ContainerRow>
-
-              <Input
-                style={styles.mb15}
-                title="Produto"
-                value={inputProduct}
-                onChangeText={(t) => setInputProduct(t)}
-                placeholder="Produto"
-              />
-              <Input
-                style={styles.mb15}
-                title="Carroceria"
-                value={inputBodyWork}
-                onChangeText={(t) => setInputBodyWork(t)}
-                placeholder="Carroceria"
-              />
-
-              <Input
-                style={styles.mb15}
-                title="Observação"
-                value={inputNote}
-                onChangeText={(t) => setInputNote(t)}
-                placeholder="Observação"
-              />
-
-              <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
-
-              <Input
-                style={styles.mb15}
-                value={inputEmail}
-                onChangeText={(t) => setInputEmail(t)}
-                title="Email"
-                placeholder="Email"
-              />
-              <Input
-                style={styles.mb15}
-                title="Telefone"
-                value={inputPhone}
-                onChangeText={(t) => setInputPhone(t)}
-                placeholder="telefone"
-              />
-
-              <Button
-                style={styles.mt}
-                text="Pesquisar"
-                onPress={handleFilter}
-              />
-            </ContentModal>
-          </ReactNativeModal>
+                <Input
+                  style={styles.mb15}
+                  title="Telefone"
+                  value={inputPhone}
+                  onChangeText={(t) => setInputPhone(t)}
+                  placeholder="telefone"
+                />
+              </ContentModal>
+            </ReactNativeModal>
+          )}
 
           <TabItems
             onPress={() => goTo("Carrier")}
