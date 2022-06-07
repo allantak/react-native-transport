@@ -1,14 +1,9 @@
 import styled from "styled-components/native";
 import { AppStyles } from "../../styles/colors";
 
-export const Content = styled.View`
+export const Content = styled.TouchableOpacity`
   flex-direction: column;
 `;
-
-export const ContentRow = styled.View`
-  flex-direction: row;
-`;
-
 export const Title = styled.Text`
   font-weight: 620;
   font-size: 13px;
@@ -17,20 +12,17 @@ export const Title = styled.Text`
   color: ${AppStyles.colour.font};
 `;
 
+export const InputStyle = styled.Text`
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #eeeeee;
+  border: 1px ${AppStyles.colour.border};
+  color: #6F6F6F;
+`;
+
 export const Text = styled.Text`
 font-weight: 620;
   font-size: 13px;
   color: red;
 `;
 
-export const InputStyle = styled.TextInput`
-  border-radius: 10px;
-  padding: 10px;
-  background-color: #eeeeee;
-  border: 1px ${AppStyles.colour.border};
-  color: #3C3C3C;
-  &::placeholder {
-    padding-left: 10px;
-    color: #3c3c3c;
-  }
-`;

@@ -38,6 +38,8 @@ export const TitleCarrier = styled.Text`
   margin-bottom: 12px;
 `;
 
+export const Test = styled.View``;
+
 export const styles = StyleSheet.create({
   mb: { marginBottom: "5px" },
   mb10: { marginBottom: "15px" },

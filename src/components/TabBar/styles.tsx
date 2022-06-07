@@ -51,6 +51,23 @@ export const TitleCarrier = styled.Text`
   margin-bottom: 12px;
 `;
 
+export const ContentOption = styled.View`
+  flex: 1;
+`;
+export const Check = styled.TouchableOpacity`
+  text-align: left;
+  height: 50%;
+  align-content: center;
+  justify-content: center;
+  border-collapse: separate;
+`;
+export const Text = styled.Text`
+  font-weight: 620;
+  font-size: 14px;
+  margin-left: 15px;
+  color: ${AppStyles.colour.font};
+`;
+
 export const styles = StyleSheet.create({
   styleIndex0: {
     backgroundColor: `${AppStyles.colour.primary}`,
@@ -69,6 +86,22 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingTop: "2px",
   },
+  viewOption:{
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    marginTop: "42vh",
+    marginBottom: "42vh",
+    marginLeft: "6vw",
+    marginRight: "6vw",
+  },
   titleModal: {
     fontSize: 18
   },
@@ -77,5 +110,5 @@ export const styles = StyleSheet.create({
   mt: { marginTop: "15px" },
   width90: { width: "90%" },
   width80: { width: "85%" },
-  height: { minHeight: "100px" },
+  height: { minHeight: "100px" }
 });

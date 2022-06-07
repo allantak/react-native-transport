@@ -1,11 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { FlatList } from "react-native";
 import ReactNativeModal from "react-native-modal";
 import Icon from "../../../assets/svg/logoWithoutCircle";
 import Button from "../../components/button";
@@ -22,6 +18,7 @@ import {
   TitleCarrier,
   styles,
   ContentModal,
+  Test,
 } from "./styles";
 
 export interface IFreight {
@@ -39,11 +36,11 @@ export default function Freight() {
   const [filterFreight] = useLazyQuery(apiService.filterFreight);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [refresh, setRefresh] = useState(false);
   const [inputOrigin, setInputOrigin] = useState<string>("");
   const [inputDestination, setInputDestination] = useState<string>("");
   const [inputProduct, setInputProduct] = useState<string>("");
   const [inputBodyWork, setInputBodyWork] = useState<string>("");
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     listFreights();
@@ -53,8 +50,13 @@ export default function Freight() {
     getFreights().then((t) => {
       setData(t.data.getFreights);
     });
-    setRefresh(false);
+    setIsFetching(false);
   }
+
+  const onRefresh = () => {
+    setIsFetching(true);
+    listFreights();
+  };
 
   async function FilterSearch(
     origin: string,
@@ -102,14 +104,14 @@ export default function Freight() {
   }
 
   const renderItem = ({ item }: any) => (
-      <CardFreight
-        origin={item.origin}
-        destination={item.destination}
-        price={item.price}
-        bodyWork={transform(item.bodyWorks)}
-        product={item.product}
-        item={item}
-      />
+    <CardFreight
+      origin={item.origin}
+      destination={item.destination}
+      price={item.price}
+      bodyWork={transform(item.bodyWorks)}
+      product={item.product}
+      item={item}
+    />
   );
 
   return (
@@ -176,6 +178,9 @@ export default function Freight() {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        onRefresh={() => onRefresh()}
+        refreshing={isFetching}
+        progressViewOffset={100}
       />
     </Container>
   );
