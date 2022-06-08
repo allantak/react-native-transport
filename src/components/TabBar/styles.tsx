@@ -68,6 +68,12 @@ export const Text = styled.Text`
   color: ${AppStyles.colour.font};
 `;
 
+export const SpanError = styled.Text`
+  color: #FF3A3A;
+  font-size: 12px;
+`;
+
+
 export const styles = StyleSheet.create({
   styleIndex0: {
     backgroundColor: `${AppStyles.colour.primary}`,

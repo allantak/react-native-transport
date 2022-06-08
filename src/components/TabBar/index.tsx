@@ -15,6 +15,7 @@ import {
   Check,
   ContentOption,
   Text,
+  SpanError,
 } from "./styles";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
@@ -22,15 +23,16 @@ import ReactNativeModal from "react-native-modal";
 import Input from "../input";
 import Button from "../button";
 import Option from "../optionList";
+import { stylesGlobal } from "../../styles/global";
 
 export default function TabBar({ state }: BottomTabBarProps) {
   const navigation = useNavigation<any>();
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalVisibleType, setModalVisibleType] = useState(false);
-  const [inputOrigin, setInputOrigin] = useState<string>("");
-  const [inputDestination, setInputDestination] = useState<string>("");
-  const [inputProduct, setInputProduct] = useState<string>("");
-  const [inputBodyWork, setInputBodyWork] = useState<string>("");
+  const [inputOrigin, setInputOrigin] = useState<string>();
+  const [inputDestination, setInputDestination] = useState<string>();
+  const [inputProduct, setInputProduct] = useState<string>();
+  const [inputBodyWork, setInputBodyWork] = useState<string>();
   const [inputPrice, setInputPrice] = useState<string>();
   const [inputWeight, setInputWeight] = useState<string>();
   const [inputNote, setInputNote] = useState<string>();
@@ -41,11 +43,34 @@ export default function TabBar({ state }: BottomTabBarProps) {
   const [inputService, setInputService] = useState<string>("autônomo");
   const [inputCompany, setInputCompany] = useState<string>();
 
+  const [error, setError] = useState<boolean>(false);
+  const [errorDestination, setErrorDestination] = useState<boolean>(false);
+  const [errorCompany, setErrorCompany] = useState<boolean>(false);
+  const [errorProduct, setErrorProduct] = useState<boolean>(false);
+  const [errorBodyWork, setErrorBodyWork] = useState<boolean>(false);
+  const [errorEmail, setErrorEmail] = useState<boolean>(false);
+  const [errorPhone, setErrorPhone] = useState<boolean>(false);
+
+  const [errorCarrier, setErrorCarrier] = useState<boolean>(false);
+
   const goTo = (screenName: string) => {
     navigation.navigate(screenName);
   };
 
   const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+    setInputOrigin(undefined);
+    setInputDestination(undefined);
+    setInputProduct(undefined);
+    setInputBodyWork(undefined);
+    setInputPrice(undefined);
+    setInputWeight(undefined);
+    setInputNote(undefined);
+    setInputEmail(undefined);
+    setInputPhone(undefined);
+    setInputCarrier(undefined);
+    setInputCompany(undefined);
+    setError(false);
     setModalVisible(!isModalVisible);
   };
 
@@ -53,25 +78,25 @@ export default function TabBar({ state }: BottomTabBarProps) {
     setModalVisibleType(!isModalVisibleType);
   };
 
-  function handleFilter() {
-    setInputOrigin("");
-    setInputDestination("");
-    setInputProduct("");
-    setInputBodyWork("");
-    setInputPrice("");
-    setInputWeight("");
-    setInputNote("");
-    setInputEmail("");
-    setInputPhone("");
-    setInputCarrier("");
-    setInputService("");
-    setInputCompany("");
-    setModalVisible(!isModalVisible);
-  }
-
   function handleOptions(name: string) {
     setInputService(name);
     toggleModalType();
+  }
+
+  function handleRegisterFreight() {
+    if (
+      inputOrigin !== undefined &&
+      inputDestination !== undefined &&
+      inputCompany !== undefined &&
+      inputProduct !== undefined &&
+      inputBodyWork !== undefined &&
+      inputEmail !== undefined &&
+      inputPhone !== undefined
+    ) {
+      setError(false);
+    } else {
+      setError(true);
+    }
   }
 
   return (
@@ -117,15 +142,16 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   value={inputOrigin}
                   onChangeText={(t) => setInputOrigin(t)}
                   title="Origem"
-                  placeholder="Origem"
+                  placeholder="Ex: Londrina"
                   required
                 />
+
                 <Input
                   style={styles.mb15}
                   title="Destino"
                   value={inputDestination}
                   onChangeText={(t) => setInputDestination(t)}
-                  placeholder="Destino"
+                  placeholder="Ex: Dourados"
                   required
                 />
 
@@ -134,7 +160,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   title="Empresa"
                   value={inputCompany}
                   onChangeText={(t) => setInputCompany(t)}
-                  placeholder="empresa"
+                  placeholder="Nome da empresa"
                   required
                 />
 
@@ -151,7 +177,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   title="Carroceria"
                   value={inputBodyWork}
                   onChangeText={(t) => setInputBodyWork(t)}
-                  placeholder="Carroceria"
+                  placeholder="Tipo de carroceria"
                   required
                 />
 
@@ -170,7 +196,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                     title="Peso"
                     value={inputWeight}
                     onChangeText={(t) => setInputWeight(t)}
-                    placeholder="Peço da carga"
+                    placeholder="Peso da carga"
                     keyboardType="numeric"
                   />
                 </ContainerRow>
@@ -180,7 +206,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   title="Observação"
                   value={inputNote}
                   onChangeText={(t) => setInputNote(t)}
-                  placeholder="Observação"
+                  placeholder="Observação..."
                 />
 
                 <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
@@ -190,7 +216,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   value={inputEmail}
                   onChangeText={(t) => setInputEmail(t)}
                   title="Email"
-                  placeholder="Email"
+                  placeholder="Ex: trasnport@gmail.com"
                   required
                 />
                 <Input
@@ -198,14 +224,18 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   title="Telefone"
                   value={inputPhone}
                   onChangeText={(t) => setInputPhone(t)}
-                  placeholder="telefone"
+                  placeholder="Ex: +9999999999999"
                   required
                 />
+
+                {error ? (
+                  <SpanError>Preencha os campos obrigatórios!</SpanError>
+                ) : null}
 
                 <Button
                   style={styles.mt}
                   text="Cadastro"
-                  onPress={handleFilter}
+                  onPress={handleRegisterFreight}
                 />
               </ContentModal>
             </ReactNativeModal>
@@ -302,7 +332,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                 <Button
                   style={styles.mt}
                   text="Cadastro"
-                  onPress={handleFilter}
+                  onPress={handleRegisterFreight}
                 />
               </ContentModal>
             </ReactNativeModal>

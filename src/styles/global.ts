@@ -17,6 +17,10 @@ export const stylesGlobal = StyleSheet.create({
     padding: 0,
   },
 
+  m0: {
+    margin: 0,
+  },
+
   mb: {
     marginBottom: "10px",
   },
