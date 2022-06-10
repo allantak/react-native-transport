@@ -36,33 +36,32 @@ export default function Freight() {
   const [filterFreight] = useLazyQuery(apiService.filterFreight);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [inputOrigin, setInputOrigin] = useState<string>("");
-  const [inputDestination, setInputDestination] = useState<string>("");
-  const [inputProduct, setInputProduct] = useState<string>("");
-  const [inputBodyWork, setInputBodyWork] = useState<string>("");
-  const [isFetching, setIsFetching] = useState(false);
+  const [inputOrigin, setInputOrigin] = useState<string>();
+  const [inputDestination, setInputDestination] = useState<string>();
+  const [inputProduct, setInputProduct] = useState<string>();
+  const [inputBodyWork, setInputBodyWork] = useState<string>();
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+  
 
   useEffect(() => {
     listFreights();
-  }, []);
+  }, [isFetching]);
 
   function listFreights() {
     getFreights().then((t) => {
       setData(t.data.getFreights);
     });
-    setIsFetching(false);
   }
 
   const onRefresh = () => {
-    setIsFetching(true);
-    listFreights();
+    setIsFetching(!isFetching)
   };
 
   async function FilterSearch(
-    origin: string,
-    destination: string,
-    product: string,
-    nameBodyWork: string
+    origin: string | undefined,
+    destination: string | undefined,
+    product: string | undefined,
+    nameBodyWork: string | undefined
   ) {
     filterFreight({
       variables: {
@@ -85,10 +84,6 @@ export default function Freight() {
 
   function handleFilter() {
     FilterSearch(inputOrigin, inputDestination, inputProduct, inputBodyWork);
-    setInputOrigin("");
-    setInputDestination("");
-    setInputProduct("");
-    setInputBodyWork("");
     setModalVisible(!isModalVisible);
   }
 
@@ -117,7 +112,7 @@ export default function Freight() {
   return (
     <Container style={styles.pb0}>
       <ContentHeaders>
-        <ContentLogo>
+        <ContentLogo onPress={onRefresh}>
           <Icon width={59} height={59} />
           <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
         </ContentLogo>
@@ -137,7 +132,7 @@ export default function Freight() {
               <Input
                 style={styles.mb10}
                 value={inputOrigin}
-                onChangeText={(t) => setInputOrigin(t)}
+                onChangeText={(t) => setInputOrigin(t !== "" ? t : undefined)}
                 title="Origem"
                 placeholder="Origem"
               />
@@ -145,21 +140,23 @@ export default function Freight() {
                 style={styles.mb10}
                 title="Destino"
                 value={inputDestination}
-                onChangeText={(t) => setInputDestination(t)}
+                onChangeText={(t) =>
+                  setInputDestination(t !== "" ? t : undefined)
+                }
                 placeholder="Destino"
               />
               <Input
                 style={styles.mb10}
                 title="Produto"
                 value={inputProduct}
-                onChangeText={(t) => setInputProduct(t)}
+                onChangeText={(t) => setInputProduct(t !== "" ? t : undefined)}
                 placeholder="Produto"
               />
               <Input
                 style={styles.mb10}
                 title="Carroceria"
                 value={inputBodyWork}
-                onChangeText={(t) => setInputBodyWork(t)}
+                onChangeText={(t) => setInputBodyWork(t !== "" ? t : undefined)}
                 placeholder="Carroceria"
               />
               <Button
@@ -178,7 +175,7 @@ export default function Freight() {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        onRefresh={() => onRefresh()}
+        onRefresh={onRefresh}
         refreshing={isFetching}
         progressViewOffset={100}
       />

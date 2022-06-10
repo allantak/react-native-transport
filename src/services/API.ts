@@ -6,10 +6,6 @@ const client = new ApolloClient({
   uri: "http://localhost:3000/graphql"
 });
 
-interface User{
-  id: number,
-  email: string,
-}
 const createUser = gql`
   mutation createUser($email: String!, $password: String!, $permission: String) {
     createUser(data: { email: $email, password: $password, permission: $permission}) {
@@ -45,14 +41,15 @@ const freights = gql`
     weight,
     species,
     email,
-    phone
+    phone,
+    note
   }
   }
 
 `;
 
 const filterFreight = gql`
-query searchFreight($origin: String!, $destination:String!, $product:String!, $nameBodyWork:String!){	
+query searchFreight($origin: String, $destination:String, $product:String, $nameBodyWork:String){	
   searchFreight(data: { origin: $origin, destination: $destination, product:$product, nameBodyWork:$nameBodyWork }){
     id,
     origin,
@@ -100,6 +97,17 @@ query getCarriers{
 }
 `;
 
+const createCarrier = gql`
+mutation createCarrier($user_id:Float!, $carrier: String!, $service: String!, $email:String!, $phone: String!, $company: String, $price:Float, $nameBodyWork: String){
+  createCarrier(data:{user_id: $user_id, carrier: $carrier, service: $service, email: $email, phone: $phone, company: $company, price: $price, nameBodyWork: $nameBodyWork}){
+    id
+  }
+}
+
+
+
+`;
+
 const filterCarrier = gql`
 query searchCarrier($carrier: String, $service: String, $company: String, $nameBodyWorks: String){	
   searchCarrier(data: {carrier: $carrier, service: $service, company: $company, nameBodyWorks:$nameBodyWorks}){
@@ -122,7 +130,8 @@ export const apiService = {
   filterFreight,
   filterCarrier,
   carriers,
-  createFreight
+  createFreight,
+  createCarrier
 }
 
 

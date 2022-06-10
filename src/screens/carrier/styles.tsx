@@ -16,7 +16,7 @@ export const ContentHeaders = styled.View`
   margin-bottom: 12px;
 `;
 
-export const ContentLogo = styled.View`
+export const ContentLogo = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   width: 50%;

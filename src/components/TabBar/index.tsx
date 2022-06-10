@@ -30,7 +30,8 @@ import { useAuth } from "../../context/Auth";
 export default function TabBar({ state }: BottomTabBarProps) {
   const navigation = useNavigation<any>();
   const [createFreight] = useMutation(apiService.createFreight);
-  const {authData} = useAuth()
+  const [createCarrier] = useMutation(apiService.createCarrier);
+  const { authData } = useAuth();
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalVisibleType, setModalVisibleType] = useState(false);
@@ -109,17 +110,17 @@ export default function TabBar({ state }: BottomTabBarProps) {
         inputNote
       );
       setError(false);
-      toggleModal()
+      toggleModal();
     } else {
       setError(true);
     }
   }
 
-  function convertString(num: any){
-    if(num !== undefined){
-      return parseFloat(num)
-    }else{
-      return undefined
+  function convertString(num: any) {
+    if (num !== undefined) {
+      return parseFloat(num);
+    } else {
+      return undefined;
     }
   }
 
@@ -137,7 +138,6 @@ export default function TabBar({ state }: BottomTabBarProps) {
     weight: string | undefined,
     note: string | undefined
   ) {
-    
     createFreight({
       variables: {
         user_id: user_id,
@@ -151,7 +151,33 @@ export default function TabBar({ state }: BottomTabBarProps) {
         species: species,
         price: convertString(price),
         weight: convertString(weight),
-        note: note
+        note: note,
+      },
+    })
+      .then(() => setErrorCreate(false))
+      .catch(() => setErrorCreate(true));
+  }
+
+  function handleCreateCarrier(
+    user_id: number | undefined,
+    carrier: string,
+    service: string,
+    bodyWork: string,
+    company: string,
+    price: string | undefined,
+    email: string,
+    phone: string
+  ) {
+    createCarrier({
+      variables: {
+        user_id: user_id,
+        carrier: carrier,
+        service: service,
+        nameBodyWork: bodyWork,
+        company: company,
+        price: convertString(price),
+        email: email,
+        phone: phone,
       },
     })
       .then(() => setErrorCreate(false))
@@ -166,7 +192,18 @@ export default function TabBar({ state }: BottomTabBarProps) {
       inputEmail !== undefined &&
       inputPhone !== undefined
     ) {
+      handleCreateCarrier(
+        authData?.id,
+        inputCarrier,
+        inputService,
+        inputBodyWork,
+        inputCompany,
+        inputPrice,
+        inputEmail,
+        inputPhone
+      );
       setError(false);
+      toggleModal();
     } else {
       setError(true);
     }
@@ -314,9 +351,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   <SpanError>Preencha os campos obrigatórios!</SpanError>
                 ) : null}
 
-                {errorCreate ? (
-                  <SpanError>Ocorreu um erro</SpanError>
-                ) : null}
+                {errorCreate ? <SpanError>Ocorreu um erro</SpanError> : null}
 
                 <Button
                   style={styles.mt}

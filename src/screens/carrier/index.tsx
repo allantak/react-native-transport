@@ -24,26 +24,41 @@ export default function Carrier() {
   const [filterCarrier] = useLazyQuery(apiService.filterCarrier);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [inputCarrier, setInputCarrier] = useState<string>("");
-  const [inputService, setInputService] = useState<string>("");
-  const [inputEmployee, setInputEmployee] = useState<string>("");
-  const [inputBodyWork, setInputBodyWork] = useState<string>("");
+  const [inputCarrier, setInputCarrier] = useState<string | undefined>(
+    undefined
+  );
+  const [inputService, setInputService] = useState<string | undefined>(
+    undefined
+  );
+  const [inputEmployee, setInputEmployee] = useState<string | undefined>(
+    undefined
+  );
+  const [inputBodyWork, setInputBodyWork] = useState<string | undefined>(
+    undefined
+  );
+
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   useEffect(() => {
-    listCarriers()
-  }, []);
+    listCarriers();
+  }, [isFetching]);
 
-  function listCarriers(){
+  function listCarriers() {
     getCarriers().then((t) => {
       setData(t.data.getCarriers);
     });
   }
 
+  const onRefresh = () => {
+    setIsFetching(!isFetching)
+  };
+
+
   function searchCarrier(
-    carrier: string,
-    service: string,
-    employee: string,
-    nameBodyWorks: string
+    carrier: string | undefined,
+    service: string | undefined,
+    employee: string | undefined,
+    nameBodyWorks: string | undefined
   ) {
     filterCarrier({
       variables: {
@@ -54,7 +69,7 @@ export default function Carrier() {
       },
     })
       .then((params) => {
-        setData(params.data.searchCarrier)
+        setData(params.data.searchCarrier);
       })
       .catch(() => console.log("Errado"));
   }
@@ -74,19 +89,14 @@ export default function Carrier() {
   };
 
   function handleFilter() {
-    searchCarrier(inputCarrier, inputService, inputEmployee, inputBodyWork)
-    setInputCarrier("")
-    setInputEmployee("")
-    setInputService("")
-    setInputBodyWork("")
+    searchCarrier(inputCarrier, inputService, inputEmployee, inputBodyWork);
     setModalVisible(!isModalVisible);
   }
 
-  
   return (
     <Container style={styles.pb0}>
       <ContentHeaders>
-        <ContentLogo>
+        <ContentLogo onPress={onRefresh}>
           <Icon width={59} height={59} />
           <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
         </ContentLogo>
@@ -106,7 +116,7 @@ export default function Carrier() {
               <Input
                 style={styles.mb10}
                 value={inputCarrier}
-                onChangeText={(t) => setInputCarrier(t)}
+                onChangeText={(t) => setInputCarrier(t !== "" ? t : undefined)}
                 title="Nome do veículo"
                 placeholder="nome"
               />
@@ -114,21 +124,21 @@ export default function Carrier() {
                 style={styles.mb10}
                 title="Tipo de serviço"
                 value={inputService}
-                onChangeText={(t) => setInputService(t)}
+                onChangeText={(t) => setInputService(t !== "" ? t : undefined)}
                 placeholder="Autonomo"
               />
               <Input
                 style={styles.mb10}
                 title="Empresa"
                 value={inputEmployee}
-                onChangeText={(t) => setInputEmployee(t)}
+                onChangeText={(t) => setInputEmployee(t !== "" ? t : undefined)}
                 placeholder="empresa"
               />
               <Input
                 style={styles.mb10}
                 title="Carroceria"
                 value={inputBodyWork}
-                onChangeText={(t) => setInputBodyWork(t)}
+                onChangeText={(t) => setInputBodyWork(t !== "" ? t : undefined)}
                 placeholder="Carroceria"
               />
               <Button

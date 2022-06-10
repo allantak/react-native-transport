@@ -26,6 +26,7 @@ interface IFreightDetails extends IFreight {
 
 export default function Detail({ route }: any) {
   const navigation = useNavigation<any>();
+  console.log(route.params);
   const props: IFreightDetails = route.params;
   function navigationBack() {
     navigation.goBack();
@@ -88,7 +89,9 @@ export default function Detail({ route }: any) {
           </ContainerIn>
         </ContainerRow>
 
-        <ContainerRow style={ props.note == undefined? styles.mb33 : stylesGlobal.mb}>
+        <ContainerRow
+          style={props.note == undefined ? styles.mb33 : stylesGlobal.mb}
+        >
           <ContainerIn>
             <Title>Especie</Title>
             <TextDescription>{props.species}</TextDescription>
