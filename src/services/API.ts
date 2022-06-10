@@ -6,6 +6,10 @@ const client = new ApolloClient({
   uri: "http://localhost:3000/graphql"
 });
 
+interface User{
+  id: number,
+  email: string,
+}
 const createUser = gql`
   mutation createUser($email: String!, $password: String!, $permission: String) {
     createUser(data: { email: $email, password: $password, permission: $permission}) {
@@ -60,6 +64,27 @@ query searchFreight($origin: String!, $destination:String!, $product:String!, $n
   }
 }`;
 
+const createFreight = gql`
+  mutation createFreight($user_id: Float!, $origin: String! $destination: String!, $company:String!, $nameBodyWork: String!, $species:String!,$product:String!,$weight: Float, $email:String!, $phone:String!, $note:String, $price:Float){
+  createFreight(data:{user_id: $user_id, origin: $origin, destination: $destination, company:$company,nameBodyWork: $nameBodyWork, species: $species,product: $product,weight: $weight, email: $email, phone:$phone, note:$note, price:$price}){
+    id,
+    origin,
+    destination,
+    company,
+    bodyWorks{
+      name
+    },
+    product,
+    weight,
+    species,
+    email,
+    price,
+    phone,
+    note  
+  }
+  }
+`;
+
 const carriers = gql`
 query getCarriers{
   getCarriers{
@@ -96,7 +121,8 @@ export const apiService = {
   freights,
   filterFreight,
   filterCarrier,
-  carriers
+  carriers,
+  createFreight
 }
 
 

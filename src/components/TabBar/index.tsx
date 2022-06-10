@@ -23,10 +23,15 @@ import ReactNativeModal from "react-native-modal";
 import Input from "../input";
 import Button from "../button";
 import Option from "../optionList";
-import { stylesGlobal } from "../../styles/global";
+import { useMutation } from "@apollo/client";
+import { apiService } from "../../services/API";
+import { useAuth } from "../../context/Auth";
 
 export default function TabBar({ state }: BottomTabBarProps) {
   const navigation = useNavigation<any>();
+  const [createFreight] = useMutation(apiService.createFreight);
+  const {authData} = useAuth()
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalVisibleType, setModalVisibleType] = useState(false);
   const [inputOrigin, setInputOrigin] = useState<string>();
@@ -38,27 +43,20 @@ export default function TabBar({ state }: BottomTabBarProps) {
   const [inputNote, setInputNote] = useState<string>();
   const [inputEmail, setInputEmail] = useState<string>();
   const [inputPhone, setInputPhone] = useState<string>();
+  const [inputSpecies, setInputSpecies] = useState<string>();
 
   const [inputCarrier, setInputCarrier] = useState<string>();
   const [inputService, setInputService] = useState<string>("autônomo");
   const [inputCompany, setInputCompany] = useState<string>();
 
   const [error, setError] = useState<boolean>(false);
-  const [errorDestination, setErrorDestination] = useState<boolean>(false);
-  const [errorCompany, setErrorCompany] = useState<boolean>(false);
-  const [errorProduct, setErrorProduct] = useState<boolean>(false);
-  const [errorBodyWork, setErrorBodyWork] = useState<boolean>(false);
-  const [errorEmail, setErrorEmail] = useState<boolean>(false);
-  const [errorPhone, setErrorPhone] = useState<boolean>(false);
-
-  const [errorCarrier, setErrorCarrier] = useState<boolean>(false);
+  const [errorCreate, setErrorCreate] = useState<boolean>(false);
 
   const goTo = (screenName: string) => {
     navigation.navigate(screenName);
   };
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
     setInputOrigin(undefined);
     setInputDestination(undefined);
     setInputProduct(undefined);
@@ -70,6 +68,8 @@ export default function TabBar({ state }: BottomTabBarProps) {
     setInputPhone(undefined);
     setInputCarrier(undefined);
     setInputCompany(undefined);
+    setInputCarrier(undefined);
+    setInputSpecies(undefined);
     setError(false);
     setModalVisible(!isModalVisible);
   };
@@ -89,6 +89,79 @@ export default function TabBar({ state }: BottomTabBarProps) {
       inputDestination !== undefined &&
       inputCompany !== undefined &&
       inputProduct !== undefined &&
+      inputBodyWork !== undefined &&
+      inputEmail !== undefined &&
+      inputPhone !== undefined &&
+      inputSpecies !== undefined
+    ) {
+      handleCreateFreight(
+        authData?.id,
+        inputOrigin,
+        inputDestination,
+        inputCompany,
+        inputProduct,
+        inputBodyWork,
+        inputEmail,
+        inputPhone,
+        inputSpecies,
+        inputPrice,
+        inputWeight,
+        inputNote
+      );
+      setError(false);
+      toggleModal()
+    } else {
+      setError(true);
+    }
+  }
+
+  function convertString(num: any){
+    if(num !== undefined){
+      return parseFloat(num)
+    }else{
+      return undefined
+    }
+  }
+
+  function handleCreateFreight(
+    user_id: number | undefined,
+    origin: string,
+    destination: string,
+    company: string,
+    product: string,
+    bodyWork: string,
+    email: string,
+    phone: string,
+    species: string,
+    price: string | undefined,
+    weight: string | undefined,
+    note: string | undefined
+  ) {
+    
+    createFreight({
+      variables: {
+        user_id: user_id,
+        origin: origin,
+        destination: destination,
+        company: company,
+        product: product,
+        nameBodyWork: bodyWork,
+        email: email,
+        phone: phone,
+        species: species,
+        price: convertString(price),
+        weight: convertString(weight),
+        note: note
+      },
+    })
+      .then(() => setErrorCreate(false))
+      .catch(() => setErrorCreate(true));
+  }
+
+  function handleResgisterCarrier() {
+    if (
+      inputCarrier !== undefined &&
+      inputCompany !== undefined &&
       inputBodyWork !== undefined &&
       inputEmail !== undefined &&
       inputPhone !== undefined
@@ -181,6 +254,15 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   required
                 />
 
+                <Input
+                  style={styles.mb15}
+                  title="Espécie"
+                  value={inputSpecies}
+                  onChangeText={(t) => setInputSpecies(t)}
+                  placeholder="Ex: Caixas"
+                  required
+                />
+
                 <ContainerRow style={styles.mb15}>
                   <Input
                     style={styles.width90}
@@ -230,6 +312,10 @@ export default function TabBar({ state }: BottomTabBarProps) {
 
                 {error ? (
                   <SpanError>Preencha os campos obrigatórios!</SpanError>
+                ) : null}
+
+                {errorCreate ? (
+                  <SpanError>Ocorreu um erro</SpanError>
                 ) : null}
 
                 <Button
@@ -329,10 +415,14 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   required
                 />
 
+                {error ? (
+                  <SpanError>Preencha os campos obrigatórios!</SpanError>
+                ) : null}
+
                 <Button
                   style={styles.mt}
                   text="Cadastro"
-                  onPress={handleRegisterFreight}
+                  onPress={handleResgisterCarrier}
                 />
               </ContentModal>
             </ReactNativeModal>

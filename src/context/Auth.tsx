@@ -47,7 +47,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       },
     })
       .then((signInData) => {
-        setAuthData(signInData.data);
+        setAuthData(signInData.data.authenticatedUser);
         AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
       })
       .catch((error) => {
