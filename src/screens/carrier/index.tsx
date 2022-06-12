@@ -7,6 +7,7 @@ import Button from "../../components/button";
 import ButtonFilter from "../../components/buttonFilter";
 import CardCarrier from "../../components/card/carrier";
 import Input from "../../components/input";
+import { useAuth } from "../../context/Auth";
 import { apiService } from "../../services/API";
 import {
   Container,
@@ -36,6 +37,7 @@ export default function Carrier() {
   const [inputBodyWork, setInputBodyWork] = useState<string | undefined>(
     undefined
   );
+  const { signOut } = useAuth();
 
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
@@ -71,7 +73,7 @@ export default function Carrier() {
       .then((params) => {
         setData(params.data.searchCarrier);
       })
-      .catch(() => console.log("Errado"));
+      .catch(() => console.log("Error"));
   }
 
   const renderItem = ({ item }: any) => (
@@ -88,6 +90,10 @@ export default function Carrier() {
     setModalVisible(!isModalVisible);
   };
 
+  function toggleLogout(){
+    signOut()
+  }
+
   function handleFilter() {
     searchCarrier(inputCarrier, inputService, inputEmployee, inputBodyWork);
     setModalVisible(!isModalVisible);
@@ -102,7 +108,8 @@ export default function Carrier() {
         </ContentLogo>
 
         <ContentFilter>
-          <ButtonFilter onPress={toggleModal} />
+          <ButtonFilter onPress={toggleLogout} logout/>
+          <ButtonFilter style={styles.mr10} onPress={toggleModal}/>
           <ReactNativeModal
             style={styles.view}
             isVisible={isModalVisible}
@@ -151,7 +158,7 @@ export default function Carrier() {
         </ContentFilter>
       </ContentHeaders>
 
-      <TitleCarrier>Cargas</TitleCarrier>
+      <TitleCarrier>Veículos</TitleCarrier>
 
       <FlatList
         data={data}

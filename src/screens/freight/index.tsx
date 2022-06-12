@@ -1,5 +1,4 @@
 import { useLazyQuery } from "@apollo/client";
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import ReactNativeModal from "react-native-modal";
@@ -8,6 +7,7 @@ import Button from "../../components/button";
 import ButtonFilter from "../../components/buttonFilter";
 import CardFreight from "../../components/card/freight";
 import Input from "../../components/input";
+import { useAuth } from "../../context/Auth";
 import { apiService } from "../../services/API";
 import {
   Container,
@@ -17,8 +17,7 @@ import {
   ContentLogo,
   TitleCarrier,
   styles,
-  ContentModal,
-  Test,
+  ContentModal
 } from "./styles";
 
 export interface IFreight {
@@ -41,6 +40,7 @@ export default function Freight() {
   const [inputProduct, setInputProduct] = useState<string>();
   const [inputBodyWork, setInputBodyWork] = useState<string>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const { signOut } = useAuth();
   
 
   useEffect(() => {
@@ -72,10 +72,9 @@ export default function Freight() {
       },
     })
       .then((params) => {
-        setData(params.data.searchFreight),
-          console.log(params.data.searchFreight);
+        setData(params.data.searchFreight);
       })
-      .catch(() => console.log("Errado"));
+      .catch(() => console.log("Error"));
   }
 
   const toggleModal = () => {
@@ -85,6 +84,10 @@ export default function Freight() {
   function handleFilter() {
     FilterSearch(inputOrigin, inputDestination, inputProduct, inputBodyWork);
     setModalVisible(!isModalVisible);
+  }
+
+  function toggleLogout(){
+    signOut()
   }
 
   function transform(data: any) {
@@ -118,7 +121,8 @@ export default function Freight() {
         </ContentLogo>
 
         <ContentFilter>
-          <ButtonFilter onPress={toggleModal} />
+          <ButtonFilter onPress={toggleLogout} logout/>
+          <ButtonFilter style={styles.mr10} onPress={toggleModal}/>
           <ReactNativeModal
             style={styles.view}
             isVisible={isModalVisible}
@@ -130,14 +134,14 @@ export default function Freight() {
               </TitleCarrier>
               <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
               <Input
-                style={styles.mb10}
+                style={styles.mb15}
                 value={inputOrigin}
                 onChangeText={(t) => setInputOrigin(t !== "" ? t : undefined)}
                 title="Origem"
                 placeholder="Origem"
               />
               <Input
-                style={styles.mb10}
+                style={styles.mb15}
                 title="Destino"
                 value={inputDestination}
                 onChangeText={(t) =>
@@ -146,14 +150,14 @@ export default function Freight() {
                 placeholder="Destino"
               />
               <Input
-                style={styles.mb10}
+                style={styles.mb15}
                 title="Produto"
                 value={inputProduct}
                 onChangeText={(t) => setInputProduct(t !== "" ? t : undefined)}
                 placeholder="Produto"
               />
               <Input
-                style={styles.mb10}
+                style={styles.mb15}
                 title="Carroceria"
                 value={inputBodyWork}
                 onChangeText={(t) => setInputBodyWork(t !== "" ? t : undefined)}

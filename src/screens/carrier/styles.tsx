@@ -21,7 +21,9 @@ export const ContentLogo = styled.TouchableOpacity`
   align-items: center;
   width: 50%;
 `;
-export const ContentFilter = styled.View``;
+export const ContentFilter = styled.View`
+  flex-direction: row-reverse;
+`;
 
 export const TitleLogo = styled.Text`
   font-size: 20px;
@@ -43,10 +45,11 @@ export const ContentModal = styled.View`
 export const styles = StyleSheet.create({
   mb: { marginBottom: "5px" },
   mb10: { marginBottom: "15px" },
+  mr10: { marginRight: "10px" },
   mt: { marginTop: "15px" },
   ml: { marginLeft: "10px" },
   fs15: { fontSize: 15 },
-  pb0:{ paddingBottom: 1},
+  pb0: { paddingBottom: 1 },
   titleModal: { fontSize: 18 },
   view: {
     backgroundColor: "#fff",

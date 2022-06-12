@@ -26,7 +26,6 @@ interface IFreightDetails extends IFreight {
 
 export default function Detail({ route }: any) {
   const navigation = useNavigation<any>();
-  console.log(route.params);
   const props: IFreightDetails = route.params;
   function navigationBack() {
     navigation.goBack();

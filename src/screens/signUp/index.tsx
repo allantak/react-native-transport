@@ -13,6 +13,7 @@ import {
   ContentButton,
   ContentHeaders,
   ContentInput,
+  SpanErrorMB20,
 } from "./styles";
 
 export default function SignUp() {
@@ -49,7 +50,7 @@ export default function SignUp() {
     })
       .then(() => {
         setValidationLogin(false);
-        navigation.navigate("SignOut");
+        navigation.navigate("SignIn");
       })
       .catch(() => {
         setValidationLogin(true);
@@ -82,21 +83,17 @@ export default function SignUp() {
       const emailVerified = await validateEmail(inputEmail);
       const passwordVerified = await confirmPassword();
       const lengthVerified = await confirmLength();
-      console.log("email", emailVerified);
-      console.log("password", passwordVerified);
-      console.log("len", lengthVerified);
       if (
         emailVerified == false &&
         passwordVerified == false &&
         lengthVerified == false
       ) {
-        console.log("entrou");
         validateLogin(inputEmail, inputPassword);
       }
     } else {
       setUndefinedField(true);
     }
-
+    setInputEmail("");
     setInputPassword("");
     setInputRePassword("");
   }
@@ -152,9 +149,9 @@ export default function SignUp() {
         </ContentInput>
 
         <ContentButton>
-          {undefinedField ? <SpanError>Preencha os campos</SpanError> : null}
+          {undefinedField ? <SpanErrorMB20>Preencha os campos</SpanErrorMB20> : null}
 
-          {validationLogin ? <SpanError>Email já existe</SpanError> : null}
+          {validationLogin ? <SpanErrorMB20>Email já existe</SpanErrorMB20> : null}
 
           <Button onPress={handleRegister} text="Registrar" />
         </ContentButton>

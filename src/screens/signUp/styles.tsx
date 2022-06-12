@@ -17,6 +17,13 @@ export const Content = styled.div`
 export const SpanError = styled.h6`
   color: #ff3a3a;
   font-size: 12px;
+  margin: 5px 10px;
+`;
+
+export const SpanErrorMB20 = styled.h6`
+  color: #ff3a3a;
+  font-size: 12px;
+  margin: 5px 10px;
 `;
 
 export const ContentHeaders = styled.div`

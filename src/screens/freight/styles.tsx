@@ -21,7 +21,9 @@ export const ContentLogo = styled.TouchableOpacity`
   align-items: center;
   width: 50%;
 `;
-export const ContentFilter = styled.View``;
+export const ContentFilter = styled.View`
+  flex-direction: row-reverse;
+`;
 export const ContentModal = styled.View`
   padding: 20px;
 `;
@@ -42,7 +44,8 @@ export const Test = styled.View``;
 
 export const styles = StyleSheet.create({
   mb: { marginBottom: "5px" },
-  mb10: { marginBottom: "15px" },
+  mb15: { marginBottom: "15px" },
+  mr10: { marginRight: "10px" },
   mt: { marginTop: "15px" },
   ml: { marginLeft: "10px" },
   pb0:{ paddingBottom: 1},
