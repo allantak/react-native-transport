@@ -20,7 +20,7 @@ import {
 } from "./styles";
 
 export default function Carrier() {
-  const [getCarriers] = useLazyQuery(apiService.carriers);
+  const [getCarriers, {refetch}] = useLazyQuery(apiService.carriers);
   const [filterCarrier] = useLazyQuery(apiService.filterCarrier);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -50,7 +50,7 @@ export default function Carrier() {
   }
 
   const onRefresh = () => {
-    setIsFetching(!isFetching)
+    refetch().then((t) => setData(t.data.getCarriers))
   };
 
 

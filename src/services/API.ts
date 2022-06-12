@@ -92,7 +92,9 @@ query getCarriers{
     price,
     bodyWorks{
       name
-    }
+    },
+    email,
+    phone
   }
 }
 `;

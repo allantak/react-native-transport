@@ -227,13 +227,15 @@ export default function TabBar({ state }: BottomTabBarProps) {
               }
             />
           </TabItems>
-          <Touch onPress={toggleModal}>
-            <AntDesign
-              name="pluscircleo"
-              size={35}
-              color={AppStyles.colour.primary}
-            />
-          </Touch>
+          {state.index == 2 || state.index == 3 ? null : (
+            <Touch onPress={toggleModal}>
+              <AntDesign
+                name="pluscircleo"
+                size={35}
+                color={AppStyles.colour.primary}
+              />
+            </Touch>
+          )}
 
           {state.index == 0 ? (
             <ReactNativeModal

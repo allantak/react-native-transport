@@ -32,7 +32,7 @@ export interface IFreight {
 }
 
 export default function Freight() {
-  const [getFreights] = useLazyQuery(apiService.freights);
+  const [getFreights, {refetch}] = useLazyQuery(apiService.freights);
   const [filterFreight] = useLazyQuery(apiService.filterFreight);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -45,7 +45,7 @@ export default function Freight() {
 
   useEffect(() => {
     listFreights();
-  }, [isFetching]);
+  }, []);
 
   function listFreights() {
     getFreights().then((t) => {
@@ -54,7 +54,7 @@ export default function Freight() {
   }
 
   const onRefresh = () => {
-    setIsFetching(!isFetching)
+    refetch().then((t) => setData(t.data.getFreights))
   };
 
   async function FilterSearch(
