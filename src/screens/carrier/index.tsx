@@ -37,13 +37,17 @@ export default function Carrier() {
   const [inputBodyWork, setInputBodyWork] = useState<string | undefined>(
     undefined
   );
-  const { signOut } = useAuth();
+  const { signOut, refreash} = useAuth();
 
-  const [isFetching, setIsFetching] = useState<boolean>(false);
-
+  
   useEffect(() => {
-    listCarriers();
-  }, [isFetching]);
+    if(data == undefined){
+      listCarriers();
+    }else{
+      onRefresh()
+    }
+ 
+  }, [refreash]);
 
   function listCarriers() {
     getCarriers().then((t) => {

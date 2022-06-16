@@ -17,7 +17,7 @@ import {
   ContentLogo,
   TitleCarrier,
   styles,
-  ContentModal
+  ContentModal,
 } from "./styles";
 
 export interface IFreight {
@@ -31,7 +31,7 @@ export interface IFreight {
 }
 
 export default function Freight() {
-  const [getFreights, {refetch}] = useLazyQuery(apiService.freights);
+  const [getFreights, { refetch }] = useLazyQuery(apiService.freights);
   const [filterFreight] = useLazyQuery(apiService.filterFreight);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -40,12 +40,16 @@ export default function Freight() {
   const [inputProduct, setInputProduct] = useState<string>();
   const [inputBodyWork, setInputBodyWork] = useState<string>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const { signOut } = useAuth();
-  
+  const { signOut, refreash } = useAuth();
 
   useEffect(() => {
-    listFreights();
-  }, []);
+    if (data == undefined) {
+      listFreights();
+    }else{
+      onRefresh()
+    }
+    
+  }, [refreash]);
 
   function listFreights() {
     getFreights().then((t) => {
@@ -54,7 +58,7 @@ export default function Freight() {
   }
 
   const onRefresh = () => {
-    refetch().then((t) => setData(t.data.getFreights))
+    refetch().then((t) => setData(t.data.getFreights));
   };
 
   async function FilterSearch(
@@ -86,8 +90,8 @@ export default function Freight() {
     setModalVisible(!isModalVisible);
   }
 
-  function toggleLogout(){
-    signOut()
+  function toggleLogout() {
+    signOut();
   }
 
   function transform(data: any) {
@@ -121,8 +125,8 @@ export default function Freight() {
         </ContentLogo>
 
         <ContentFilter>
-          <ButtonFilter onPress={toggleLogout} logout/>
-          <ButtonFilter style={styles.mr10} onPress={toggleModal}/>
+          <ButtonFilter onPress={toggleLogout} logout />
+          <ButtonFilter style={styles.mr10} onPress={toggleModal} />
           <ReactNativeModal
             style={styles.view}
             isVisible={isModalVisible}

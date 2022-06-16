@@ -13,6 +13,8 @@ interface AuthContextData {
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   isLoading: boolean;
+  refreshing: (value:boolean) => boolean;
+  refreash: boolean
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -21,6 +23,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [authData, setAuthData] = useState<AuthData>();
   const [isLoading, setisLoading] = useState(true);
   const [signInUser] = useLazyQuery(apiService.signIn);
+  const [refreash, setRefreash] = useState(false);
 
   useEffect(() => {
     loadStorageData();
@@ -37,6 +40,11 @@ export const AuthProvider: React.FC = ({ children }) => {
     } finally {
       setisLoading(false);
     }
+  }
+
+  function refreshing(value:boolean){
+    setRefreash(value)
+    return refreash
   }
 
   async function signIn(email: string, password: string) {
@@ -62,7 +70,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ authData, signIn, signOut, isLoading }}>
+    <AuthContext.Provider value={{ authData, signIn, signOut, isLoading, refreshing, refreash }}>
       {children}
     </AuthContext.Provider>
   );

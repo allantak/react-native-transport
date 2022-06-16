@@ -31,7 +31,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
   const navigation = useNavigation<any>();
   const [createFreight] = useMutation(apiService.createFreight);
   const [createCarrier] = useMutation(apiService.createCarrier);
-  const { authData } = useAuth();
+  const { authData, refreash, refreshing } = useAuth();
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalVisibleType, setModalVisibleType] = useState(false);
@@ -111,6 +111,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
       );
       setError(false);
       toggleModal();
+      refreshing(!refreash)
     } else {
       setError(true);
     }
@@ -203,7 +204,8 @@ export default function TabBar({ state }: BottomTabBarProps) {
         inputPhone
       );
       setError(false);
-      toggleModal();
+      toggleModal()
+      refreshing(!refreash)
     } else {
       setError(true);
     }
