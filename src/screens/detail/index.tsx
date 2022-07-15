@@ -89,7 +89,7 @@ export default function Detail({ route }: any) {
         </ContainerRow>
 
         <ContainerRow
-          style={props.note == undefined ? styles.mb33 : stylesGlobal.mb}
+          style={props.note == undefined || props.note == ""? styles.mb33 : stylesGlobal.mb}
         >
           <ContainerIn>
             <Title>Especie</Title>
@@ -103,7 +103,7 @@ export default function Detail({ route }: any) {
           )}
         </ContainerRow>
 
-        {props.note == undefined ? null : (
+        {props.note == undefined  || props.note == "" ? null : (
           <ContainerColumn style={styles.mb33}>
             <Title>Observação</Title>
             <ContainerObs>

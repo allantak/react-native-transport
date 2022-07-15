@@ -86,7 +86,7 @@ export default function DetailCarrier({ route }: any) {
           </ContainerIn>
         </ContainerRow>
 
-        <ContainerRow style={stylesGlobal.mb}>
+        <ContainerRow style={styles.mb33}>
           {props.company == undefined ? null : (
             <ContainerIn>
               <Title>Carroceria</Title>

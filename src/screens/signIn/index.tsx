@@ -17,8 +17,8 @@ import Logo from "../../../assets/svg/logo";
 import { useNavigation } from "@react-navigation/native";
 
 export default function SignIn() {
-  const [inputEmail, setInputEmail] = useState<string>("testando@gmail.com");
-  const [inputPassword, setInputPassword] = useState<string>("testando");
+  const [inputEmail, setInputEmail] = useState<string>();
+  const [inputPassword, setInputPassword] = useState<string>();
   const [validationEmail, setValidationEmail] = useState<boolean>(false);
   const [validationLogin, setValidationLogin] = useState<boolean>(false);
   const [undefinedField, setUndefinedField] = useState<boolean>(false);
@@ -64,7 +64,7 @@ export default function SignIn() {
           <Logo width={192} height={125}/>
           <NameLogo>Transport</NameLogo>
           <Description>
-            Anuncie e procure cargas e veiculos para <br /> serviços
+            Anuncie e procure cargas e veiculos para <br /> transporte
           </Description>
         </ContentLogo>
 

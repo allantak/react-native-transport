@@ -111,7 +111,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
       );
       setError(false);
       toggleModal();
-      refreshing(!refreash)
+      refreshing(!refreash);
     } else {
       setError(true);
     }
@@ -164,7 +164,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
     carrier: string,
     service: string,
     bodyWork: string,
-    company: string,
+    company: string | undefined,
     price: string | undefined,
     email: string,
     phone: string
@@ -188,7 +188,6 @@ export default function TabBar({ state }: BottomTabBarProps) {
   function handleResgisterCarrier() {
     if (
       inputCarrier !== undefined &&
-      inputCompany !== undefined &&
       inputBodyWork !== undefined &&
       inputEmail !== undefined &&
       inputPhone !== undefined
@@ -204,8 +203,8 @@ export default function TabBar({ state }: BottomTabBarProps) {
         inputPhone
       );
       setError(false);
-      toggleModal()
-      refreshing(!refreash)
+      toggleModal();
+      refreshing(!refreash);
     } else {
       setError(true);
     }
@@ -310,7 +309,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                     title="Preço"
                     value={inputPrice}
                     onChangeText={(t) => setInputPrice(t)}
-                    placeholder="Preço"
+                    placeholder="Ex: 1000.00"
                     keyboardType="numeric"
                   />
 
@@ -339,7 +338,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   value={inputEmail}
                   onChangeText={(t) => setInputEmail(t)}
                   title="Email"
-                  placeholder="Ex: trasnport@gmail.com"
+                  placeholder="Ex: transport@gmail.com"
                   required
                 />
                 <Input
@@ -347,7 +346,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   title="Telefone"
                   value={inputPhone}
                   onChangeText={(t) => setInputPhone(t)}
-                  placeholder="Ex: +9999999999999"
+                  placeholder="Ex: +99999999999"
                   required
                 />
 
@@ -383,13 +382,13 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   style={styles.mb15}
                   value={inputCarrier}
                   onChangeText={(t) => setInputCarrier(t)}
-                  title="Nome do veículo"
-                  placeholder="Veículo"
+                  title="Veículo"
+                  placeholder="Nome do veículo"
                   required
                 />
 
                 <Option
-                  style={styles.mb15}
+                  style={styles.mb1010}
                   title="Tipo de serviço"
                   placeholder={inputService}
                   onPress={toggleModalType}
@@ -415,24 +414,26 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   value={inputBodyWork}
                   onChangeText={(t) => setInputBodyWork(t)}
                   title="Carroceria"
-                  placeholder="Carroceria"
+                  placeholder="Ex: Rodotrem"
                   required
                 />
-                <Input
-                  style={styles.mb15}
-                  title="Empresa"
-                  value={inputCompany}
-                  onChangeText={(t) => setInputCompany(t)}
-                  placeholder="empresa"
-                  required
-                />
+                {inputService == "autônomo" ? null : (
+                  <Input
+                    style={styles.mb15}
+                    title="Empresa"
+                    value={inputCompany}
+                    onChangeText={(t) => setInputCompany(t)}
+                    placeholder="nome da empresa"
+                  />
+                )}
 
                 <Input
                   style={styles.mb15}
                   title="Preço"
                   value={inputPrice}
                   onChangeText={(t) => setInputPrice(t)}
-                  placeholder="preço"
+                  placeholder="Ex: 1000.00"
+                  keyboardType="numeric"
                 />
 
                 <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
@@ -442,7 +443,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   value={inputEmail}
                   onChangeText={(t) => setInputEmail(t)}
                   title="Email"
-                  placeholder="Email"
+                  placeholder="Ex: transport@gmail.com"
                   required
                 />
                 <Input
@@ -450,7 +451,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   title="Telefone"
                   value={inputPhone}
                   onChangeText={(t) => setInputPhone(t)}
-                  placeholder="telefone"
+                  placeholder="Ex: +99999999999"
                   required
                 />
 

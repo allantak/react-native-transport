@@ -7,6 +7,8 @@ import Button from "../../components/button";
 import ButtonFilter from "../../components/buttonFilter";
 import CardCarrier from "../../components/card/carrier";
 import Input from "../../components/input";
+import Option from "../../components/optionList";
+import { Check, ContentOption } from "../../components/TabBar/styles";
 import { useAuth } from "../../context/Auth";
 import { apiService } from "../../services/API";
 import {
@@ -18,6 +20,7 @@ import {
   TitleCarrier,
   ContentModal,
   styles,
+  Text
 } from "./styles";
 
 export default function Carrier() {
@@ -37,6 +40,7 @@ export default function Carrier() {
   const [inputBodyWork, setInputBodyWork] = useState<string | undefined>(
     undefined
   );
+  const [isModalVisibleType, setModalVisibleType] = useState(false);
   const { signOut, refreash} = useAuth();
 
   
@@ -58,6 +62,11 @@ export default function Carrier() {
   const onRefresh = () => {
     refetch().then((t) => setData(t.data.getCarriers))
   };
+
+  function handleOptions(name: string) {
+    setInputService(name);
+    toggleModalType();
+  }
 
 
   function searchCarrier(
@@ -92,6 +101,10 @@ export default function Carrier() {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+  };
+
+  const toggleModalType = () => {
+    setModalVisibleType(!isModalVisibleType);
   };
 
   function toggleLogout(){
@@ -131,13 +144,28 @@ export default function Carrier() {
                 title="Nome do veículo"
                 placeholder="nome"
               />
-              <Input
-                style={styles.mb10}
-                title="Tipo de serviço"
-                value={inputService}
-                onChangeText={(t) => setInputService(t !== "" ? t : undefined)}
-                placeholder="Autonomo"
-              />
+
+            <Option
+                  style={styles.mb1010}
+                  title="Tipo de serviço"
+                  placeholder={inputService == undefined? "autônomo": inputService}
+                  onPress={toggleModalType}
+                  without
+                />
+              <ReactNativeModal
+                  style={styles.viewOption}
+                  isVisible={isModalVisibleType}
+                  onBackdropPress={toggleModalType}
+                >
+                  <ContentOption>
+                    <Check onPress={() => handleOptions("autônomo")}>
+                      <Text>autônomo</Text>
+                    </Check>
+                    <Check onPress={() => handleOptions("empresaria")}>
+                      <Text>empresaria</Text>
+                    </Check>
+                  </ContentOption>
+                </ReactNativeModal>
               <Input
                 style={styles.mb10}
                 title="Empresa"

@@ -39,6 +39,7 @@ export const Description = styled.p`
 export const SpanError = styled.h6`
   color: #FF3A3A;
   font-size: 12px;
+  margin: 5px 10px;
 `;
 
 export const ContentInput = styled.div`

@@ -42,9 +42,18 @@ export const ContentModal = styled.View`
   padding: 20px;
 `;
 
+export const Text = styled.Text`
+  font-weight: 620;
+  font-size: 14px;
+  margin-left: 15px;
+  color: ${AppStyles.colour.font};
+`;
+
+
 export const styles = StyleSheet.create({
   mb: { marginBottom: "5px" },
   mb10: { marginBottom: "15px" },
+  mb1010: { marginBottom: "7px" },
   mr10: { marginRight: "10px" },
   mt: { marginTop: "15px" },
   ml: { marginLeft: "10px" },
@@ -59,4 +68,21 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     justifyContent: "flex-start",
   },
+  viewOption:{
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    marginTop: "42vh",
+    marginBottom: "42vh",
+    marginLeft: "6vw",
+    marginRight: "6vw",
+  },
+  mb15: { marginBottom: "15px" },
 });

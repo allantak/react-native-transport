@@ -116,5 +116,6 @@ export const styles = StyleSheet.create({
   mt: { marginTop: "15px" },
   width90: { width: "90%" },
   width80: { width: "85%" },
-  height: { minHeight: "100px" }
+  height: { minHeight: "100px" },
+  mb1010: { marginBottom: "7px" },
 });
