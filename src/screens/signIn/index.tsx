@@ -12,9 +12,15 @@ import {
   NameLogo,
   ContentInput,
   ContentButton,
+  ContentDescription,
+  TitleDescription,
+  TextButton,
+  BeforeButton,
+  Register,
 } from "./styles";
-import Logo from "../../../assets/svg/logo";
+import Logo from "../../../assets/svg/logoWithoutCircle";
 import { useNavigation } from "@react-navigation/native";
+import { TextDescription } from "../detail/styles";
 
 export default function SignIn() {
   const [inputEmail, setInputEmail] = useState<string>();
@@ -63,11 +69,11 @@ export default function SignIn() {
         <ContentLogo>
           <Logo width={192} height={125}/>
           <NameLogo>Transport</NameLogo>
-          <Description>
-            Anuncie e procure cargas e veiculos para <br /> transporte
-          </Description>
         </ContentLogo>
-
+        <ContentDescription>
+          <TitleDescription>Olá, Bem vindo!</TitleDescription>
+          <Description>Anuncie e procure serviços para <br/> o transporte de cargas</Description>
+        </ContentDescription>
         <ContentInput>
           <Input
             title="Email"
@@ -103,10 +109,10 @@ export default function SignIn() {
             onPress={handleButton}
             style={styles.marginBottom}
           />
-          <Button
-            text="Cadastrar"
-            onPress={() => navigation.navigate("SignOut")}
-          />
+          <Register>
+            <BeforeButton>Não possui Cadastro?</BeforeButton>
+            <TextButton onClick={() => navigation.navigate("SignOut")}>Cadastre-se</TextButton>
+          </Register>
         </ContentButton>
       </Content>
     </Container>

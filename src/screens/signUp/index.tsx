@@ -14,6 +14,9 @@ import {
   ContentHeaders,
   ContentInput,
   SpanErrorMB20,
+  ContentDescription,
+  TitleDescription,
+  Description,
 } from "./styles";
 
 export default function SignUp() {
@@ -108,6 +111,10 @@ export default function SignUp() {
         <ContentHeaders>
           <Back onPress={navigationBack} />
         </ContentHeaders>
+        <ContentDescription>
+          <TitleDescription>Cadastre-se!</TitleDescription>
+          <Description>Coloque suas informações de forma correta <br/> para concluir seu cadastro</Description>
+        </ContentDescription>
 
         <ContentInput>
           <Input
