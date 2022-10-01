@@ -67,7 +67,7 @@ export default function SignIn() {
     <Container>
       <Content>
         <ContentLogo>
-          <Logo width={192} height={125}/>
+          <Logo width={50} height={30}/>
           <NameLogo>Transport</NameLogo>
         </ContentLogo>
         <ContentDescription>

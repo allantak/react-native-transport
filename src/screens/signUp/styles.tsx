@@ -33,24 +33,25 @@ export const ContentInput = styled.div`
   height: 38vh;
 `;
 export const ContentButton = styled.div`
-  height: 30vh;
+  height: 20vh;
 `;
 export const Description = styled.p`
-    font-size: 18px;
+    font-size: 15px;
     color: ${AppStyles.colour.font};
     text-align: flex-start;
-    padding: 10px;
+    padding-left: 10px;
+    margin-top: 7px;
 `;
 
 export const TitleDescription = styled.h1`
-    font-size: 30px;
+    font-size: 26px;
     color: ${AppStyles.colour.font};
     text-align: center;
     padding-left: 10px;
     margin: 0;
 `;
 export const ContentDescription = styled.div`
-  height: 22vh;
+  height: 20vh;
   margin-top: 10px;
   display: flex;
   align-items: flex-start;
