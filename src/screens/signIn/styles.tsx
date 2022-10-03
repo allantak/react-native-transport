@@ -19,17 +19,16 @@ export const ContentLogo = styled.div`
   flex-direction: row;
   align-items: center;
   display: flex;
-  width: 32.5%;
   height: 13vh ;
   padding-left: 10px ;
 `;
 
 export const ContentDescription = styled.div`
-  height: 22vh;
   margin-top: 10px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  height: 20vh;
 `;
 
 export const Register = styled.div`
@@ -48,14 +47,15 @@ export const NameLogo = styled.h2`
 `;
 
 export const Description = styled.p`
-    font-size: 18px;
+    font-size: 15px;
     color: ${AppStyles.colour.font};
     text-align: flex-start;
-    padding: 10px;
+    padding-left: 10px;
+    margin-top: 7px;
 `;
 
 export const TitleDescription = styled.h1`
-    font-size: 35px;
+    font-size: 26px;
     color: ${AppStyles.colour.font};
     text-align: center;
     padding-left: 10px;
@@ -92,7 +92,7 @@ export const ContentInput = styled.div`
 `;
 
 export const ContentButton = styled.div`
-  height: 40vh;
+  height: 30vh;
   flex-direction: column;
   justify-content: center;
   display: flex;
