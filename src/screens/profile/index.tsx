@@ -15,9 +15,14 @@ import {
   TitleLogo,
   ContentFilter,
   ContentLogo,
-  TitleCarrier,
+  MainTitle,
   styles,
-  ContentModal,
+  ContentEmail,
+  TitleEmail,
+  ContentSegment,
+  SegmentTitle,
+  Email,
+  ContentDescription,
 } from "./styles";
 
 export interface IFreight {
@@ -126,59 +131,19 @@ export default function Freight() {
 
         <ContentFilter>
           <ButtonFilter onPress={toggleLogout} logout />
-          <ButtonFilter style={styles.mr10} onPress={toggleModal} />
-          <ReactNativeModal
-            style={styles.view}
-            isVisible={isModalVisible}
-            onBackdropPress={toggleModal}
-          >
-            <ContentModal>
-              <TitleCarrier style={styles.titleModal}>
-                Filtro de pesquisa
-              </TitleCarrier>
-              <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
-              <Input
-                style={styles.mb15}
-                value={inputOrigin}
-                onChangeText={(t) => setInputOrigin(t !== "" ? t : undefined)}
-                title="Origem"
-                placeholder="Origem"
-              />
-              <Input
-                style={styles.mb15}
-                title="Destino"
-                value={inputDestination}
-                onChangeText={(t) =>
-                  setInputDestination(t !== "" ? t : undefined)
-                }
-                placeholder="Destino"
-              />
-              <Input
-                style={styles.mb15}
-                title="Produto"
-                value={inputProduct}
-                onChangeText={(t) => setInputProduct(t !== "" ? t : undefined)}
-                placeholder="Produto"
-              />
-              <Input
-                style={styles.mb15}
-                title="Carroceria"
-                value={inputBodyWork}
-                onChangeText={(t) => setInputBodyWork(t !== "" ? t : undefined)}
-                placeholder="Carroceria"
-              />
-              <Button
-                style={styles.mt}
-                text="Pesquisar"
-                onPress={handleFilter}
-              />
-            </ContentModal>
-          </ReactNativeModal>
         </ContentFilter>
       </ContentHeaders>
+      <ContentDescription>
+        <MainTitle>Perfil</MainTitle>
+        <ContentEmail>
+          <TitleEmail>Email</TitleEmail>
+          <Email>teste1@teste1.com</Email>
+        </ContentEmail>
 
-      <TitleCarrier>Cargas</TitleCarrier>
-
+        <ContentSegment>
+          <SegmentTitle>Minhas Cargas</SegmentTitle>
+        </ContentSegment>
+      </ContentDescription>
       <FlatList
         data={data}
         renderItem={renderItem}

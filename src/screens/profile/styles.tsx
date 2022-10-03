@@ -9,13 +9,12 @@ export const Container = styled.View`
 `;
 
 export const ContentHeaders = styled.View`
-  height: 10vh;
+  height: 12vh;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 12px;
 `;
-
 export const ContentLogo = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
@@ -24,19 +23,49 @@ export const ContentLogo = styled.TouchableOpacity`
 export const ContentFilter = styled.View`
   flex-direction: row-reverse;
 `;
-export const ContentModal = styled.View`
-  padding: 20px;
+export const ContentSegment = styled.View`
+  flex-direction: row;
+  padding-top: 10px;
 `;
-export const TitleLogo = styled.Text`
-  font-size: 20px;
+export const ContentEmail = styled.Text`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+`;
+export const ContentDescription = styled.View`
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 24vh;
+`;
+
+
+export const SegmentTitle = styled.Text`
+  font-size: 18px;
   font-weight: 600;
   color: ${AppStyles.colour.font};
 `;
-
-export const TitleCarrier = styled.Text`
+export const TitleLogo = styled.Text`
+  font-size: 18px;
+  font-weight: 600;
   color: ${AppStyles.colour.font};
+`;
+export const TitleEmail = styled.Text`
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
+  color: ${AppStyles.colour.font};
+`;
+export const MainTitle = styled.Text`
+  color: ${AppStyles.colour.font};
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+`;
+export const Email = styled.Text`
+  color: ${AppStyles.colour.font};
+  font-size: 18px;
+  font-weight: 450;
   margin-bottom: 12px;
 `;
 
