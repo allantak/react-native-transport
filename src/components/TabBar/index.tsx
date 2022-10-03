@@ -1,4 +1,5 @@
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { AppStyles } from "../../styles/colors";
@@ -215,6 +216,20 @@ export default function TabBar({ state }: BottomTabBarProps) {
       <Bar>
         <ContainerItems>
           <TabItems
+            onPress={() => goTo("Location")}
+            style={state.index == 5 ? styles.styleIndex0 : styles.styleIndex1}
+          >
+            <Ionicons
+              name="location-sharp"
+              size={16}
+              color={
+                state.index == 5
+                  ? `${AppStyles.colour.white}`
+                  : `${AppStyles.colour.primary}`
+              }
+            />
+          </TabItems>
+          <TabItems
             onPress={() => goTo("Freight")}
             style={state.index == 0 ? styles.styleIndex0 : styles.styleIndex1}
           >
@@ -228,7 +243,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
               }
             />
           </TabItems>
-          {state.index == 2 || state.index == 3 ? null : (
+          {state.index >= 2 ? null : (
             <Touch onPress={toggleModal}>
               <AntDesign
                 name="pluscircleo"
@@ -477,6 +492,21 @@ export default function TabBar({ state }: BottomTabBarProps) {
               size={16}
               color={
                 state.index == 1
+                  ? `${AppStyles.colour.white}`
+                  : `${AppStyles.colour.primary}`
+              }
+            />
+          </TabItems>
+
+          <TabItems
+            onPress={() => goTo("Profile")}
+            style={state.index == 4 ? styles.styleIndex0 : styles.styleIndex1}
+          >
+            <FontAwesome5
+              name="user-alt"
+              size={16}
+              color={
+                state.index == 4
                   ? `${AppStyles.colour.white}`
                   : `${AppStyles.colour.primary}`
               }

@@ -6,6 +6,7 @@ import TabBar from "../components/TabBar";
 import Detail from "../screens/detail";
 import DetailCarrier from "../screens/detailCarrier";
 import Profile from "../screens/profile";
+import Location from "../screens/location"
 
 const Stack = createBottomTabNavigator();
 
@@ -22,6 +23,7 @@ export default function AppStack() {
       <Stack.Screen name="Detail" component={Detail}></Stack.Screen>
       <Stack.Screen name="DetailCarrier" component={DetailCarrier}></Stack.Screen>
       <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
+      <Stack.Screen name="Location" component={Location}></Stack.Screen>
     </Stack.Navigator>
   );
 }
