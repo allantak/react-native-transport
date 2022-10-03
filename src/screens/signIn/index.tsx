@@ -111,7 +111,7 @@ export default function SignIn() {
           />
           <Register>
             <BeforeButton>Não possui Cadastro?</BeforeButton>
-            <TextButton onClick={() => navigation.navigate("SignOut")}>Cadastre-se</TextButton>
+            <TextButton onPress={() => navigation.navigate("SignOut")}>Cadastre-se</TextButton>
           </Register>
         </ContentButton>
       </Content>

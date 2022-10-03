@@ -1,29 +1,27 @@
 import { StyleSheet } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import { AppStyles } from "../../styles/colors";
 
-
-export const Container = styled.div`
+export const Container = styled.View`
   flex: 1;
   flex-direction: column;
   background-color: ${AppStyles.colour.background};
   padding: 20px;
 `;
 
-export const Content = styled.div`
+export const Content = styled.View`
   flex-direction: column;
-  align-items: center;
 `;
 
-export const ContentLogo = styled.div`
+export const ContentLogo = styled.View`
   flex-direction: row;
   align-items: center;
   display: flex;
-  height: 13vh ;
-  padding-left: 10px ;
+  height: 13vh;
+  padding-left: 10px;
 `;
 
-export const ContentDescription = styled.div`
+export const ContentDescription = styled.View`
   margin-top: 10px;
   display: flex;
   align-items: flex-start;
@@ -31,7 +29,7 @@ export const ContentDescription = styled.div`
   height: 20vh;
 `;
 
-export const Register = styled.div`
+export const Register = styled.View`
   flex-direction: row;
   align-items: center;
   display: flex;
@@ -39,30 +37,30 @@ export const Register = styled.div`
   margin-top: 10%;
 `;
 
-export const NameLogo = styled.h2`
-    font-size: 15px;
-    color: ${AppStyles.colour.font};
-    padding: 10px;
-    
+export const NameLogo = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  color: ${AppStyles.colour.font};
 `;
 
-export const Description = styled.p`
-    font-size: 15px;
-    color: ${AppStyles.colour.font};
-    text-align: flex-start;
-    padding-left: 10px;
-    margin-top: 7px;
+export const Description = styled.Text`
+  font-size: 15px;
+  color: ${AppStyles.colour.font};
+  text-align: flex-start;
+  padding-left: 10px;
+  margin-top: 7px;
 `;
 
-export const TitleDescription = styled.h1`
-    font-size: 26px;
-    color: ${AppStyles.colour.font};
-    text-align: center;
-    padding-left: 10px;
-    margin: 0;
+export const TitleDescription = styled.Text`
+  font-size: 26px;
+  color: ${AppStyles.colour.font};
+  text-align: center;
+  padding-left: 10px;
+  font-weight: 600;
+  margin: 0;
 `;
 
-export const TextButton = styled.h6`
+export const TextButton = styled.TouchableOpacity`
   font-size: 15px;
   color: ${AppStyles.colour.primary};
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -70,7 +68,7 @@ export const TextButton = styled.h6`
   padding-left: 10px;
   margin: 0;
 `;
-export const BeforeButton = styled.h6`
+export const BeforeButton = styled.Text`
   font-size: 15px;
   color: ${AppStyles.colour.font};
   text-align: center;
@@ -78,20 +76,20 @@ export const BeforeButton = styled.h6`
   margin: 0;
 `;
 
-export const SpanError = styled.h6`
-  color: #FF3A3A;
+export const SpanError = styled.Text`
+  color: #ff3a3a;
   font-size: 12px;
   margin: 5px 10px;
 `;
 
-export const ContentInput = styled.div`
+export const ContentInput = styled.Text`
   height: 25vh;
   flex-direction: column;
   display: flex;
   justify-content: center;
 `;
 
-export const ContentButton = styled.div`
+export const ContentButton = styled.Text`
   height: 30vh;
   flex-direction: column;
   justify-content: center;

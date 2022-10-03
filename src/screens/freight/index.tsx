@@ -120,7 +120,7 @@ export default function Freight() {
     <Container style={styles.pb0}>
       <ContentHeaders>
         <ContentLogo onPress={onRefresh}>
-          <Icon width={59} height={59} />
+          <Icon />
           <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
         </ContentLogo>
 
