@@ -15,7 +15,7 @@ export const ContainerImg = styled.View`
 export const Title = styled.Text`
   color: ${AppStyles.colour.font};
   font-size: 10px;
-  font-weight: 620;
+  font-weight: 600;
 `;
 
 export const ContainerDescription = styled.View`

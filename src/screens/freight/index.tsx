@@ -1,8 +1,8 @@
 import { useLazyQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Image } from "react-native";
 import ReactNativeModal from "react-native-modal";
-import Icon from "../../../assets/svg/logoWithoutCircle";
+import Logo from "../../../assets/logo.png";
 import Button from "../../components/button";
 import ButtonFilter from "../../components/buttonFilter";
 import CardFreight from "../../components/card/freight";
@@ -12,7 +12,7 @@ import { apiService } from "../../services/API";
 import {
   Container,
   ContentHeaders,
-  TitleLogo,
+  NameLogo,
   ContentFilter,
   ContentLogo,
   TitleCarrier,
@@ -45,10 +45,9 @@ export default function Freight() {
   useEffect(() => {
     if (data == undefined) {
       listFreights();
-    }else{
-      onRefresh()
+    } else {
+      onRefresh();
     }
-    
   }, [refreash]);
 
   function listFreights() {
@@ -120,8 +119,8 @@ export default function Freight() {
     <Container style={styles.pb0}>
       <ContentHeaders>
         <ContentLogo onPress={onRefresh}>
-          <Icon />
-          <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
+          <Image source={Logo} style={styles.imagem} resizeMode="contain" />
+          <NameLogo>Transport</NameLogo>
         </ContentLogo>
 
         <ContentFilter>

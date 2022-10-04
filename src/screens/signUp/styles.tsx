@@ -10,7 +10,9 @@ export const Container = styled.View`
 `;
 
 export const Content = styled.View`
+  flex: 1;
   flex-direction: column;
+  justify-content: space-around;
 `;
 
 export const SpanError = styled.Text`
@@ -26,31 +28,30 @@ export const SpanErrorMB20 = styled.Text`
 `;
 
 export const ContentHeaders = styled.View`
-  height: 10vh;
 `;
 export const ContentInput = styled.View`
-  height: 38vh;
+ 
 `;
 export const ContentButton = styled.View`
-  height: 20vh;
 `;
 export const Description = styled.Text`
-    font-size: 15px;
-    color: ${AppStyles.colour.font};
-    text-align: flex-start;
-    padding-left: 10px;
-    margin-top: 7px;
+  font-size: 15px;
+  color: #6c6c6c;
+  text-align: left;
+  padding-left: 10px;
+  margin-top: 7px;
 `;
 
 export const TitleDescription = styled.Text`
-    font-size: 26px;
-    color: ${AppStyles.colour.font};
-    text-align: center;
-    padding-left: 10px;
-    margin: 0;
+  font-size: 23px;
+  color: ${AppStyles.colour.font};
+  text-align: center;
+  padding-left: 10px;
+  margin: 0;
+  font-weight: 600;
 `;
 export const ContentDescription = styled.View`
-  height: 20vh;
+  height: 20%;
   margin-top: 10px;
   display: flex;
   align-items: flex-start;

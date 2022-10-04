@@ -10,13 +10,13 @@ export const Container = styled.ScrollView`
 `;
 
 export const ContentHeaders = styled.View`
-  height: 7vh;
+  height: 7%;
 `;
 
 export const Title = styled.Text`
   color: #8d8d8d;
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 600;
   margin-bottom: 5px;
 `;
 export const TextTitle = styled.Text`
@@ -50,7 +50,7 @@ export const ContainerObs = styled.View`
   padding: 10px;
   width: 100%;
   background-color: #EEEEEE;
-  min-height: 10vh;
+  min-height: 10%;
   border-radius: 10px;
 `;
 

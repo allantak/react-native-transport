@@ -10,14 +10,16 @@ export const Container = styled.View`
 `;
 
 export const Content = styled.View`
+  flex: 1;
   flex-direction: column;
+  justify-content: space-around;
 `;
 
 export const ContentLogo = styled.View`
   flex-direction: row;
   align-items: center;
   display: flex;
-  height: 13vh;
+
   padding-left: 10px;
 `;
 
@@ -26,7 +28,6 @@ export const ContentDescription = styled.View`
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  height: 20vh;
 `;
 
 export const Register = styled.View`
@@ -38,26 +39,27 @@ export const Register = styled.View`
 `;
 
 export const NameLogo = styled.Text`
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 600;
   color: ${AppStyles.colour.font};
+  margin-left: 5px;
 `;
 
 export const Description = styled.Text`
   font-size: 15px;
-  color: ${AppStyles.colour.font};
-  text-align: flex-start;
+  color: #6c6c6c;
+  text-align: left;
   padding-left: 10px;
   margin-top: 7px;
 `;
 
 export const TitleDescription = styled.Text`
-  font-size: 26px;
+  font-size: 23px;
   color: ${AppStyles.colour.font};
   text-align: center;
   padding-left: 10px;
-  font-weight: 600;
   margin: 0;
+  font-weight: 600;
 `;
 
 export const TextButton = styled.TouchableOpacity`
@@ -82,15 +84,13 @@ export const SpanError = styled.Text`
   margin: 5px 10px;
 `;
 
-export const ContentInput = styled.Text`
-  height: 25vh;
-  flex-direction: column;
+export const ContentInput = styled.View`
   display: flex;
+  flex-direction: column;
   justify-content: center;
 `;
 
-export const ContentButton = styled.Text`
-  height: 30vh;
+export const ContentButton = styled.View`
   flex-direction: column;
   justify-content: center;
   display: flex;
@@ -99,5 +99,10 @@ export const ContentButton = styled.Text`
 export const styles = StyleSheet.create({
   marginBottom: {
     marginBottom: 12,
+  },
+  imagem: {
+    height: 40,
+    width: 60,
+    marginRight: 5,
   },
 });

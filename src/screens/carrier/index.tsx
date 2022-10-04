@@ -1,8 +1,8 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Image } from "react-native";
 import ReactNativeModal from "react-native-modal";
-import Icon from "../../../assets/svg/logoWithoutCircle";
+import Logo from "../../../assets/logo.png";
 import Button from "../../components/button";
 import ButtonFilter from "../../components/buttonFilter";
 import CardCarrier from "../../components/card/carrier";
@@ -14,17 +14,17 @@ import { apiService } from "../../services/API";
 import {
   Container,
   ContentHeaders,
-  TitleLogo,
   ContentFilter,
   ContentLogo,
   TitleCarrier,
   ContentModal,
   styles,
-  Text
+  Text,
+  NameLogo,
 } from "./styles";
 
 export default function Carrier() {
-  const [getCarriers, {refetch}] = useLazyQuery(apiService.carriers);
+  const [getCarriers, { refetch }] = useLazyQuery(apiService.carriers);
   const [filterCarrier] = useLazyQuery(apiService.filterCarrier);
   const [data, setData] = useState<any[]>();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -41,16 +41,14 @@ export default function Carrier() {
     undefined
   );
   const [isModalVisibleType, setModalVisibleType] = useState(false);
-  const { signOut, refreash} = useAuth();
+  const { signOut, refreash } = useAuth();
 
-  
   useEffect(() => {
-    if(data == undefined){
+    if (data == undefined) {
       listCarriers();
-    }else{
-      onRefresh()
+    } else {
+      onRefresh();
     }
- 
   }, [refreash]);
 
   function listCarriers() {
@@ -60,14 +58,13 @@ export default function Carrier() {
   }
 
   const onRefresh = () => {
-    refetch().then((t) => setData(t.data.getCarriers))
+    refetch().then((t) => setData(t.data.getCarriers));
   };
 
   function handleOptions(name: string) {
     setInputService(name);
     toggleModalType();
   }
-
 
   function searchCarrier(
     carrier: string | undefined,
@@ -107,8 +104,8 @@ export default function Carrier() {
     setModalVisibleType(!isModalVisibleType);
   };
 
-  function toggleLogout(){
-    signOut()
+  function toggleLogout() {
+    signOut();
   }
 
   function handleFilter() {
@@ -120,13 +117,13 @@ export default function Carrier() {
     <Container style={styles.pb0}>
       <ContentHeaders>
         <ContentLogo onPress={onRefresh}>
-          <Icon width={59} height={59} />
-          <TitleLogo style={styles.mb && styles.ml}>Transport</TitleLogo>
+          <Image source={Logo} style={styles.imagem} resizeMode="contain" />
+          <NameLogo>Transport</NameLogo>
         </ContentLogo>
 
         <ContentFilter>
-          <ButtonFilter onPress={toggleLogout} logout/>
-          <ButtonFilter style={styles.mr10} onPress={toggleModal}/>
+          <ButtonFilter onPress={toggleLogout} logout />
+          <ButtonFilter style={styles.mr10} onPress={toggleModal} />
           <ReactNativeModal
             style={styles.view}
             isVisible={isModalVisible}
@@ -145,27 +142,29 @@ export default function Carrier() {
                 placeholder="nome"
               />
 
-            <Option
-                  style={styles.mb1010}
-                  title="Tipo de serviço"
-                  placeholder={inputService == undefined? "autônomo": inputService}
-                  onPress={toggleModalType}
-                  without
-                />
+              <Option
+                style={styles.mb1010}
+                title="Tipo de serviço"
+                placeholder={
+                  inputService == undefined ? "autônomo" : inputService
+                }
+                onPress={toggleModalType}
+                without
+              />
               <ReactNativeModal
-                  style={styles.viewOption}
-                  isVisible={isModalVisibleType}
-                  onBackdropPress={toggleModalType}
-                >
-                  <ContentOption>
-                    <Check onPress={() => handleOptions("autônomo")}>
-                      <Text>autônomo</Text>
-                    </Check>
-                    <Check onPress={() => handleOptions("empresaria")}>
-                      <Text>empresaria</Text>
-                    </Check>
-                  </ContentOption>
-                </ReactNativeModal>
+                style={styles.viewOption}
+                isVisible={isModalVisibleType}
+                onBackdropPress={toggleModalType}
+              >
+                <ContentOption>
+                  <Check onPress={() => handleOptions("autônomo")}>
+                    <Text>autônomo</Text>
+                  </Check>
+                  <Check onPress={() => handleOptions("empresaria")}>
+                    <Text>empresaria</Text>
+                  </Check>
+                </ContentOption>
+              </ReactNativeModal>
               <Input
                 style={styles.mb10}
                 title="Empresa"

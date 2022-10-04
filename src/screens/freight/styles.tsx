@@ -9,7 +9,7 @@ export const Container = styled.View`
 `;
 
 export const ContentHeaders = styled.View`
-  height: 10vh;
+  height: 10%;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
@@ -27,11 +27,13 @@ export const ContentFilter = styled.View`
 export const ContentModal = styled.View`
   padding: 20px;
 `;
-export const TitleLogo = styled.Text`
-  font-size: 20px;
+
+export const NameLogo = styled.Text`
+  font-size: 16px;
   font-weight: 600;
   color: ${AppStyles.colour.font};
 `;
+
 
 export const TitleCarrier = styled.Text`
   color: ${AppStyles.colour.font};
@@ -59,4 +61,8 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     justifyContent: "flex-start",
   },
+  imagem:{
+    height: 39,
+    width: 75,
+  }
 });

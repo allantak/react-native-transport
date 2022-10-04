@@ -4,7 +4,7 @@ import { AppStyles } from "../../styles/colors";
 export const Title = styled.Text`
   color: ${AppStyles.colour.font};
   font-size: 10px;
-  font-weight: 620;
+  font-weight: 600;
 `;
 export const TextTitle = styled.Text`
   color: ${AppStyles.colour.font};

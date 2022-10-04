@@ -5,7 +5,7 @@ export const Content = styled.TouchableOpacity`
   flex-direction: column;
 `;
 export const Title = styled.Text`
-  font-weight: 620;
+  font-weight: 600;
   font-size: 13px;
   margin-left: 10px;
   margin-bottom: 5px;
@@ -21,7 +21,7 @@ export const InputStyle = styled.Text`
 `;
 
 export const Text = styled.Text`
-font-weight: 620;
+font-weight: 600;
   font-size: 13px;
   color: red;
 `;

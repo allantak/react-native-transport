@@ -31,8 +31,6 @@ export default function SignUp() {
   const [createUser] = useMutation(apiService.createUser);
   const navigation = useNavigation<any>();
 
- 
-
   async function validateEmail(email: string) {
     const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     if (reg.test(email)) {
@@ -113,7 +111,9 @@ export default function SignUp() {
         </ContentHeaders>
         <ContentDescription>
           <TitleDescription>Cadastre-se!</TitleDescription>
-          <Description>Coloque suas informações de forma correta <br/> para concluir seu cadastro</Description>
+          <Description>
+            Coloque suas informações de forma correta para concluir seu cadastro
+          </Description>
         </ContentDescription>
 
         <ContentInput>
@@ -156,9 +156,13 @@ export default function SignUp() {
         </ContentInput>
 
         <ContentButton>
-          {undefinedField ? <SpanErrorMB20>Preencha os campos</SpanErrorMB20> : null}
+          {undefinedField ? (
+            <SpanErrorMB20>Preencha os campos</SpanErrorMB20>
+          ) : null}
 
-          {validationLogin ? <SpanErrorMB20>Email já existe</SpanErrorMB20> : null}
+          {validationLogin ? (
+            <SpanErrorMB20>Email já existe</SpanErrorMB20>
+          ) : null}
 
           <Button onPress={handleRegister} text="Registrar" />
         </ContentButton>

@@ -62,7 +62,7 @@ export const Check = styled.TouchableOpacity`
   border-collapse: separate;
 `;
 export const Text = styled.Text`
-  font-weight: 620;
+  font-weight: 600;
   font-size: 14px;
   margin-left: 15px;
   color: ${AppStyles.colour.font};
