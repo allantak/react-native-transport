@@ -9,7 +9,7 @@ export default function MainStack() {
 
   return (
     <NavigationContainer>
-      {authData ? <AppStack /> : <AuthStack />}
+      {authData ? <AuthStack /> : <AppStack />}
     </NavigationContainer>
   );
 }
