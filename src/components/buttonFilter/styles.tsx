@@ -15,8 +15,8 @@ export const styles = StyleSheet.create({
   view: {
     backgroundColor: "#fff",
     margin: 0,
-    marginTop: "10vh",
+    marginTop: 10 + "%",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-  }
+  },
 });

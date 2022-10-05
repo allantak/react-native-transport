@@ -26,7 +26,6 @@ export default function CardCarrier({ ...props }: ICarriers) {
   return (
     <Card onPress={() => navigation.navigate("DetailCarrier", props.item)}  style={stylesGlobal.mb}>
       <ContainerImg>
-        <iframe src="" width={70} height={70}></iframe>
       </ContainerImg>
       <Container>
         <ContainerDescription style={stylesGlobal.mb}>

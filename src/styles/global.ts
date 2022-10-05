@@ -22,9 +22,9 @@ export const stylesGlobal = StyleSheet.create({
   },
 
   mb: {
-    marginBottom: "10px",
+    marginBottom: 10,
   },
   mr: {
-    marginRight: "5px",
+    marginRight: 5,
   },
 });

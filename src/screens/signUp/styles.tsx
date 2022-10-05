@@ -62,12 +62,4 @@ export const styles = StyleSheet.create({
   marginBottom: {
     marginBottom: 10,
   },
-  pickers: {
-    borderRadius: 10,
-    padding: 10,
-    backgroundColor: "#eeeeee",
-    borderColor: `${AppStyles.colour.border}`,
-    color: `${AppStyles.colour.font}`,
-    width: "50%",
-  },
 });

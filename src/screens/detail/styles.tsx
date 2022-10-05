@@ -10,7 +10,8 @@ export const Container = styled.ScrollView`
 `;
 
 export const ContentHeaders = styled.View`
-  height: 7%;
+  margin-top: 12px;
+  margin-bottom: 12px;
 `;
 
 export const Title = styled.Text`
@@ -38,6 +39,7 @@ export const TextDescription = styled.Text`
 `;
 
 export const ContainerColumn = styled.View`
+  flex: 1;
   flex-direction: column;
 `;
 
@@ -49,7 +51,7 @@ export const ContainerRow = styled.View`
 export const ContainerObs = styled.View`
   padding: 10px;
   width: 100%;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   min-height: 10%;
   border-radius: 10px;
 `;
@@ -60,6 +62,6 @@ export const ContainerIn = styled.View`
 `;
 
 export const styles = StyleSheet.create({
-  mb33: { marginBottom: "33px" },
-  yellow: {color: "#CFC900"}
+  mb33: { marginBottom: 33 },
+  yellow: { color: "#CFC900" },
 });

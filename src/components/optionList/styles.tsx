@@ -17,12 +17,11 @@ export const InputStyle = styled.Text`
   padding: 10px;
   background-color: #eeeeee;
   border: 1px ${AppStyles.colour.border};
-  color: #6F6F6F;
+  color: #6f6f6f;
 `;
 
 export const Text = styled.Text`
-font-weight: 600;
+  font-weight: 600;
   font-size: 13px;
   color: red;
 `;
-

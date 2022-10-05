@@ -14,6 +14,7 @@ export const ContentHeaders = styled.View`
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 12px;
+  margin-top: 12px;
 `;
 
 export const ContentLogo = styled.TouchableOpacity`
@@ -45,18 +46,18 @@ export const TitleCarrier = styled.Text`
 export const Test = styled.View``;
 
 export const styles = StyleSheet.create({
-  mb: { marginBottom: "5px" },
-  mb15: { marginBottom: "15px" },
-  mr10: { marginRight: "10px" },
-  mt: { marginTop: "15px" },
-  ml: { marginLeft: "10px" },
+  mb: { marginBottom:5 },
+  mb15: { marginBottom:15 },
+  mr10: { marginRight:10 },
+  mt: { marginTop:15 },
+  ml: { marginLeft:10 },
   pb0:{ paddingBottom: 1},
   fs15: { fontSize: 15 },
   titleModal: { fontSize: 18 },
   view: {
     backgroundColor: "#fff",
     margin: 0,
-    marginTop: "20vh",
+    marginTop: 20 + '%',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     justifyContent: "flex-start",

@@ -39,18 +39,18 @@ export const Card = styled.TouchableOpacity`
 
 export const styles = StyleSheet.create({
   padding: {
-    paddingBottom: "10px",
+    paddingBottom: 10,
   },
   yellow: {
     color: "#CFC900",
   },
   width50: {
-    width: "50%"
+    width: 50 + "%",
   },
   width25: {
-    width: "25%"
+    width: 25 + "%",
   },
   justCenter: {
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });

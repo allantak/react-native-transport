@@ -39,7 +39,7 @@ export const TabItems = styled.TouchableOpacity`
 export const Touch = styled.TouchableOpacity``;
 
 export const ContentModal = styled.ScrollView`
-  padding: 20px;
+  flex: 1;
 `;
 
 export const Scroll = styled.ScrollView``;
@@ -69,10 +69,9 @@ export const Text = styled.Text`
 `;
 
 export const SpanError = styled.Text`
-  color: #FF3A3A;
+  color: #ff3a3a;
   font-size: 12px;
 `;
-
 
 export const styles = StyleSheet.create({
   styleIndex0: {
@@ -86,36 +85,36 @@ export const styles = StyleSheet.create({
   view: {
     backgroundColor: "#fff",
     margin: 0,
-    marginTop: "10vh",
+    marginTop: 10 + "%",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     justifyContent: "flex-start",
-    paddingTop: "2px",
+    padding: 20,
   },
-  viewOption:{
+  viewOption: {
     backgroundColor: "white",
     borderRadius: 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    marginTop: "42vh",
-    marginBottom: "42vh",
-    marginLeft: "6vw",
-    marginRight: "6vw",
+    marginTop: 42 + "%",
+    marginBottom: 42 + "%",
+    marginLeft: 6 + "%",
+    marginRight: 6 + "%",
   },
   titleModal: {
-    fontSize: 18
+    fontSize: 18,
   },
   fs15: { fontSize: 15 },
-  mb15: { marginBottom: "15px" },
-  mt: { marginTop: "15px" },
-  width90: { width: "90%" },
-  width80: { width: "85%" },
-  height: { minHeight: "100px" },
-  mb1010: { marginBottom: "7px" },
+  mb15: { marginBottom: 15 },
+  mt: { marginTop: 15 },
+  width90: { width: 90 + "%" },
+  width80: { width: 85 + "%" },
+  height: { minHeight: 100 },
+  mb1010: { marginBottom: 7 },
 });

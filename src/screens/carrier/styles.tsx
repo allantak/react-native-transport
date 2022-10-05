@@ -14,6 +14,7 @@ export const ContentHeaders = styled.View`
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 12px;
+  margin-top: 12px;
 `;
 
 export const ContentLogo = styled.TouchableOpacity`
@@ -55,44 +56,43 @@ export const Text = styled.Text`
   color: ${AppStyles.colour.font};
 `;
 
-
 export const styles = StyleSheet.create({
-  mb: { marginBottom: "5px" },
-  mb10: { marginBottom: "15px" },
-  mb1010: { marginBottom: "7px" },
-  mr10: { marginRight: "10px" },
-  mt: { marginTop: "15px" },
-  ml: { marginLeft: "10px" },
+  mb: { marginBottom: 5 },
+  mb10: { marginBottom: 15 },
+  mb1010: { marginBottom: 7 },
+  mr10: { marginRight: 10 },
+  mt: { marginTop: 15 },
+  ml: { marginLeft: 10 },
   fs15: { fontSize: 15 },
   pb0: { paddingBottom: 1 },
   titleModal: { fontSize: 18 },
   view: {
     backgroundColor: "#fff",
     margin: 0,
-    marginTop: "20vh",
+    marginTop: 20 + '%',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     justifyContent: "flex-start",
   },
-  viewOption:{
+  viewOption: {
     backgroundColor: "white",
     borderRadius: 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    marginTop: "42vh",
-    marginBottom: "42vh",
-    marginLeft: "6vw",
-    marginRight: "6vw",
+    marginTop: 42 + '%',
+    marginBottom:  42 + '%',
+    marginLeft: 6 + '%',
+    marginRight: 6 + '%',
   },
-  mb15: { marginBottom: "15px" },
-  imagem:{
+  mb15: { marginBottom: 15 },
+  imagem: {
     height: 39,
     width: 75,
-  }
+  },
 });

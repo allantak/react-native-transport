@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: "http://localhost:3000/graphql"
+  uri: "http://:3000/graphql"
 });
 
 const createUser = gql`
