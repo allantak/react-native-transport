@@ -59,7 +59,6 @@ export const Check = styled.TouchableOpacity`
   height: 50%;
   align-content: center;
   justify-content: center;
-  border-collapse: separate;
 `;
 export const Text = styled.Text`
   font-weight: 600;
@@ -102,8 +101,8 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    marginTop: 42 + "%",
-    marginBottom: 42 + "%",
+    marginTop: 85 + "%",
+    marginBottom: 85 + "%",
     marginLeft: 6 + "%",
     marginRight: 6 + "%",
   },

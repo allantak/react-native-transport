@@ -10,6 +10,8 @@ export const Container = styled.View`
 export const ContainerImg = styled.View`
   justify-content: center;
   margin-right: 12px;
+  border: 1px ${AppStyles.colour.border};
+  border-radius: 2px;
 `;
 
 export const Title = styled.Text`
@@ -52,5 +54,9 @@ export const styles = StyleSheet.create({
   },
   justCenter: {
     justifyContent: "center",
+  },
+  imagem: {
+    height: 70,
+    width: 70,
   },
 });

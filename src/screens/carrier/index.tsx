@@ -88,6 +88,7 @@ export default function Carrier() {
 
   const renderItem = ({ item }: any) => (
     <CardCarrier
+      img={item.img}
       carrier={item.carrier}
       service={item.service}
       price={item.price}

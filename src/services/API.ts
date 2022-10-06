@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: "http://:3000/graphql"
+  uri: "http://10.0.0.72:3000/graphql"
 });
 
 const createUser = gql`
@@ -94,14 +94,15 @@ query getCarriers{
       name
     },
     email,
-    phone
+    phone,
+    img
   }
 }
 `;
 
 const createCarrier = gql`
-mutation createCarrier($user_id:Float!, $carrier: String!, $service: String!, $email:String!, $phone: String!, $company: String, $price:Float, $nameBodyWork: String){
-  createCarrier(data:{user_id: $user_id, carrier: $carrier, service: $service, email: $email, phone: $phone, company: $company, price: $price, nameBodyWork: $nameBodyWork}){
+mutation createCarrier($user_id:Float!, $carrier: String!, $service: String!, $email:String!, $phone: String!, $company: String, $price:Float, $nameBodyWork: String, $img: String){
+  createCarrier(data:{user_id: $user_id, carrier: $carrier, service: $service, email: $email, phone: $phone, company: $company, price: $price, nameBodyWork: $nameBodyWork, img: $img}){
     id
   }
 }

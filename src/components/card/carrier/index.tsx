@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacityProps } from "react-native";
+import { Image, TouchableOpacityProps } from "react-native";
 import { stylesGlobal } from "../../../styles/global";
 import {
   Card,
@@ -10,6 +10,7 @@ import {
   styles,
   ContainerImg,
 } from "./styles";
+import carrierImg from "../../../../assets/defalt-carrier.jpg";
 
 interface ICarriers extends TouchableOpacityProps {
   id?: number;
@@ -17,15 +18,23 @@ interface ICarriers extends TouchableOpacityProps {
   service: string;
   company?: string;
   price?: number;
-  img?: string;
   item: object;
+  img?: string;
 }
 
 export default function CardCarrier({ ...props }: ICarriers) {
   const navigation = useNavigation<any>();
   return (
-    <Card onPress={() => navigation.navigate("DetailCarrier", props.item)}  style={stylesGlobal.mb}>
+    <Card
+      onPress={() => navigation.navigate("DetailCarrier", props.item)}
+      style={stylesGlobal.mb}
+    >
       <ContainerImg>
+        <Image
+          source={props.img ? { uri: props.img } : carrierImg}
+          style={styles.imagem}
+          resizeMode="contain"
+        ></Image>
       </ContainerImg>
       <Container>
         <ContainerDescription style={stylesGlobal.mb}>

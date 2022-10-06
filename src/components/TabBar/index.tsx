@@ -27,6 +27,10 @@ import Option from "../optionList";
 import { useMutation } from "@apollo/client";
 import { apiService } from "../../services/API";
 import { useAuth } from "../../context/Auth";
+import Upload from "../buttonUpload";
+import { ContentRow } from "../input/styles";
+import * as ImagePicker from "expo-image-picker";
+import { Alert } from "react-native";
 
 export default function TabBar({ state }: BottomTabBarProps) {
   const navigation = useNavigation<any>();
@@ -53,6 +57,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
 
   const [error, setError] = useState<boolean>(false);
   const [errorCreate, setErrorCreate] = useState<boolean>(false);
+  const [image, setImage] = useState<string>();
 
   const goTo = (screenName: string) => {
     navigation.navigate(screenName);
@@ -168,7 +173,8 @@ export default function TabBar({ state }: BottomTabBarProps) {
     company: string | undefined,
     price: string | undefined,
     email: string,
-    phone: string
+    phone: string,
+    img: string | undefined
   ) {
     createCarrier({
       variables: {
@@ -180,6 +186,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
         price: convertString(price),
         email: email,
         phone: phone,
+        img: img,
       },
     })
       .then(() => setErrorCreate(false))
@@ -201,14 +208,101 @@ export default function TabBar({ state }: BottomTabBarProps) {
         inputCompany,
         inputPrice,
         inputEmail,
-        inputPhone
+        inputPhone,
+        image
       );
       setError(false);
       toggleModal();
       refreshing(!refreash);
+      setImage('');
     } else {
       setError(true);
     }
+  }
+
+  async function camera() {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+      aspect: [4, 4],
+    });
+
+    if (!result.cancelled) {
+      const uri = result.uri;
+      const type = "image/jpg";
+      const name = "img";
+      const source = { uri, type, name };
+      await storeUpload(source);
+      console.log("acabo");
+    }
+  }
+
+  async function galery() {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+      aspect: [4, 4],
+    });
+    if (!result.cancelled) {
+      const uri = result.uri;
+      const type = "image/jpg";
+      const name = "img";
+      const source = { uri, type, name };
+      await storeUpload(source);
+      console.log("acabo");
+    }
+  }
+
+  const UploadAlert = () =>
+    Alert.alert(
+      "Upload",
+      "Escolha a forma para obter imagem",
+      [
+        {
+          text: "Camera",
+          onPress: () => camera(),
+          style: "default",
+        },
+        {
+          text: "Galeria",
+          onPress: () => galery(),
+          style: "destructive",
+        },
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+
+  function storeUpload(photo: any) {
+    const loading = true;
+    const data = new FormData();
+    data.append("file", photo);
+    data.append("upload_preset", "transport");
+    data.append("cloud_name", "djbamugc2");
+    fetch("https://api.cloudinary.com/v1_1/djbamugc2/upload", {
+      method: "POST",
+      body: data,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setImage(data.secure_url);
+        console.log("result final", data.secure_url);
+      })
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Error While Uploading");
+      });
   }
 
   return (
@@ -450,6 +544,13 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   placeholder="Ex: 1000.00"
                   keyboardType="numeric"
                 />
+                <ContentRow>
+                  <Upload
+                    onPress={UploadAlert}
+                    style={styles.mb15}
+                    title="Imagem"
+                  ></Upload>
+                </ContentRow>
 
                 <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
 
