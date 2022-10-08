@@ -72,6 +72,11 @@ export const SpanError = styled.Text`
   font-size: 12px;
 `;
 
+export const SpanWarn = styled.Text`
+  color: ${AppStyles.colour.primary};
+  font-size: 12px;
+`;
+
 export const styles = StyleSheet.create({
   styleIndex0: {
     backgroundColor: `${AppStyles.colour.primary}`,

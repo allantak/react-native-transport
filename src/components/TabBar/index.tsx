@@ -17,6 +17,7 @@ import {
   ContentOption,
   Text,
   SpanError,
+  SpanWarn
 } from "./styles";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
@@ -30,7 +31,9 @@ import { useAuth } from "../../context/Auth";
 import Upload from "../buttonUpload";
 import { ContentRow } from "../input/styles";
 import * as ImagePicker from "expo-image-picker";
-import { Alert } from "react-native";
+import { ActivityIndicator, Alert, View } from "react-native";
+import { cloudinaryApi } from "../../services/Cloudinary";
+import { stylesGlobal } from "../../styles/global";
 
 export default function TabBar({ state }: BottomTabBarProps) {
   const navigation = useNavigation<any>();
@@ -58,6 +61,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
   const [error, setError] = useState<boolean>(false);
   const [errorCreate, setErrorCreate] = useState<boolean>(false);
   const [image, setImage] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const goTo = (screenName: string) => {
     navigation.navigate(screenName);
@@ -79,6 +83,8 @@ export default function TabBar({ state }: BottomTabBarProps) {
     setInputSpecies(undefined);
     setError(false);
     setModalVisible(!isModalVisible);
+    setLoading(false);
+    setImage(undefined);
   };
 
   const toggleModalType = () => {
@@ -214,7 +220,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
       setError(false);
       toggleModal();
       refreshing(!refreash);
-      setImage('');
+      setImage("");
     } else {
       setError(true);
     }
@@ -234,7 +240,6 @@ export default function TabBar({ state }: BottomTabBarProps) {
       const name = "img";
       const source = { uri, type, name };
       await storeUpload(source);
-      console.log("acabo");
     }
   }
 
@@ -251,7 +256,6 @@ export default function TabBar({ state }: BottomTabBarProps) {
       const name = "img";
       const source = { uri, type, name };
       await storeUpload(source);
-      console.log("acabo");
     }
   }
 
@@ -280,29 +284,15 @@ export default function TabBar({ state }: BottomTabBarProps) {
       }
     );
 
-  function storeUpload(photo: any) {
-    const loading = true;
-    const data = new FormData();
-    data.append("file", photo);
-    data.append("upload_preset", "transport");
-    data.append("cloud_name", "djbamugc2");
-    fetch("https://api.cloudinary.com/v1_1/djbamugc2/upload", {
-      method: "POST",
-      body: data,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setImage(data.secure_url);
-        console.log("result final", data.secure_url);
-      })
-      .catch((err) => {
-        console.log(err);
-        Alert.alert("Error While Uploading");
-      });
+  async function storeUpload(photo: any) {
+    setLoading(true);
+    const objImg = await cloudinaryApi.storeImg(photo);
+    if (objImg) {
+      setImage(objImg.secure_url);
+      setLoading(false);
+    } else {
+      Alert.alert("Error de conexão");
+    }
   }
 
   return (
@@ -550,6 +540,13 @@ export default function TabBar({ state }: BottomTabBarProps) {
                     style={styles.mb15}
                     title="Imagem"
                   ></Upload>
+                  {loading ? (
+                    <ActivityIndicator
+                      style={stylesGlobal.ml}
+                      size={16}
+                      color={"#FFAA3C"}
+                    />
+                  ) : null}
                 </ContentRow>
 
                 <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
@@ -575,10 +572,15 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   <SpanError>Preencha os campos obrigatórios!</SpanError>
                 ) : null}
 
+                {loading ? (
+                  <SpanWarn>Espere para concluir o cadastro!</SpanWarn>
+                ) : null}
+
                 <Button
                   style={styles.mt}
                   text="Cadastro"
                   onPress={handleResgisterCarrier}
+                  disabled={loading ? true : false}
                 />
               </ContentModal>
             </ReactNativeModal>

@@ -27,4 +27,7 @@ export const stylesGlobal = StyleSheet.create({
   mr: {
     marginRight: 5,
   },
+  ml: {
+    marginLeft: 5,
+  },
 });
