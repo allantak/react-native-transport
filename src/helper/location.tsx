@@ -2,6 +2,7 @@ import { showMessage } from "react-native-flash-message"
 import { PermissionsAndroid, Platform } from "react-native";
 import Geolocation from 'react-native-geolocation-service';
 
+
 export interface ICurrentLocation{
     latitude: number;
     longitude: number;
@@ -11,7 +12,7 @@ export interface ICurrentLocation{
 export const getCurrentLocation = ():Promise<ICurrentLocation> =>
     new Promise((resolve, reject) => {
         Geolocation.getCurrentPosition(
-            position => {
+            async position => {
                 const cords :ICurrentLocation= {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,

@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useRef, useState } from "react";
-import React, {
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import {
+  Alert,
   Dimensions,
   Platform,
   StyleSheet,
@@ -8,12 +9,22 @@ import React, {
   TouchableOpacity,
   View,
 } from "react-native";
-import MapView, { AnimatedRegion } from "react-native-maps";
-import Input from "../../components/input";
+import MapView, { AnimatedRegion, Marker } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 import Loader from "../../components/loader";
-import { getCurrentLocation, locationPermission } from "../../helper/location";
-import { stylesGlobal } from "../../styles/global";
-import { Container } from "./styles";
+import * as expoLocation from "expo-location";
+import { AppStyles } from "../../styles/colors";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { useFocusEffect } from "@react-navigation/native";
+import { googleApi } from "../../constant/index";
+let remove: any = null;
+
+interface Ilocatio {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+}
 
 export default function Location() {
   const screen = Dimensions.get("window");
@@ -23,17 +34,15 @@ export default function Location() {
 
   const mapRef: any = useRef(null);
   const markerRef: any = useRef(null);
+  const inputRef: any = useRef(null);
+  const [origin, setOrigin] = useState<Ilocatio>();
+  const [destination, setDestination] = useState<Ilocatio>();
 
   const [state, setState] = useState({
-    curLoc: {
-      latitude: -21.922034228228295,
-      longitude: -50.72477461856612,
-    },
-    destinationCords: {},
     isLoading: false,
     coordinate: new AnimatedRegion({
-      latitude: -21.922034228228295,
-      longitude: -50.72477461856612,
+      latitude: 0,
+      longitude: 0,
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     }),
@@ -42,57 +51,83 @@ export default function Location() {
     heading: 0,
   });
 
-  const {
-    curLoc,
-    time,
-    distance,
-    destinationCords,
-    isLoading,
-    coordinate,
-    heading,
-  } = state;
+  const { time, distance, isLoading, coordinate } = state;
   const updateState = (data: any) =>
     setState((state: any) => ({ ...state, ...data }));
 
-  useEffect(() => {
-    getLiveLocation();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getLocation();
 
-  const getLiveLocation = async () => {
-    const locPermissionDenied = await locationPermission();
-    if (locPermissionDenied) {
-      const { latitude, longitude, heading } = await getCurrentLocation();
-      console.log("get live location after 4 second", heading);
-      animate(latitude, longitude);
-      updateState({
-        heading: heading,
-        curLoc: { latitude, longitude },
-        coordinate: new AnimatedRegion({
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        }),
-      });
+      return () => stopWatchPosition();
+    }, [])
+  );
+  const getLocation = async () => {
+    let { status } = await expoLocation.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Permission to access location was denied");
+      return;
     }
+
+    const {
+      coords: { latitude, longitude, heading },
+    } = await expoLocation.getCurrentPositionAsync();
+
+    animate(latitude, longitude);
+    setOrigin({
+      latitude: latitude,
+      longitude: longitude,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    });
+    updateState({
+      heading: heading,
+      coordinate: new AnimatedRegion({
+        latitude: latitude,
+        longitude: longitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      }),
+    });
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getLiveLocation();
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const onPressLocation = () => {};
-  const fetchValue = (data: any) => {
-    console.log("this is data", data);
-    updateState({
-      destinationCords: {
-        latitude: data.destinationCords.latitude,
-        longitude: data.destinationCords.longitude,
+  const watchPosition = async () => {
+    remove = await expoLocation.watchPositionAsync(
+      {
+        accuracy: expoLocation.Accuracy.BestForNavigation,
       },
+      (location) => {
+        updateState({
+          coordinate: {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          },
+        });
+      }
+    );
+  };
+
+  const stopWatchPosition = async () => {
+    remove?.remove();
+    setDestination(undefined);
+    inputRef.current?.setAddressText("");
+    updateState({
+      distance: 0,
+      time: 0,
     });
+    onCenter();
+  };
+
+  const searchPlaceGoogle = (data: any, details: any) => {
+    setDestination({
+      latitude: details.geometry.location.lat,
+      longitude: details.geometry.location.lng,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    });
+    watchPosition();
   };
 
   const animate = (latitude: any, longitude: any) => {
@@ -108,8 +143,8 @@ export default function Location() {
 
   const onCenter = () => {
     mapRef.current.animateToRegion({
-      latitude: curLoc.latitude,
-      longitude: curLoc.longitude,
+      latitude: origin?.latitude,
+      longitude: origin?.longitude,
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     });
@@ -124,55 +159,50 @@ export default function Location() {
   return (
     <View style={styles.container}>
       {distance !== 0 && time !== 0 && (
-        <View style={{ alignItems: "center", marginVertical: 16 }}>
-          <Text>Time left: {time.toFixed(0)} </Text>
-          <Text>Distance left: {distance.toFixed(0)}</Text>
+        <View style={{ alignItems: "center", padding: 20 }}>
+          <Text style={{ marginTop: 12, color: AppStyles.colour.primary }}>
+            {time.toFixed(0)} min{" "}
+          </Text>
+          <Text style={{ color: AppStyles.colour.border }}>
+            Distancia: {distance.toFixed(0)} km
+          </Text>
         </View>
       )}
       <View style={{ flex: 1 }}>
         <MapView
           ref={mapRef}
           style={StyleSheet.absoluteFill}
-          initialRegion={{
-            ...curLoc,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-          }}
+          initialRegion={origin}
         >
-          {Object.keys(destinationCords).length > 0 && (
-            <Marker
-              coordinate={destinationCords}
-              image={imagePath.icGreenMarker}
-            />
+          <Marker.Animated ref={markerRef} coordinate={coordinate}>
+            <Ionicons name="location-sharp" color={"red"} />
+          </Marker.Animated>
+
+          {destination && (
+            <Marker coordinate={destination}>
+              <Ionicons name="location-sharp" size={16} color={"red"} />
+            </Marker>
           )}
 
-          {Object.keys(destinationCords).length > 0 && (
+          {destination && (
             <MapViewDirections
-              origin={curLoc}
-              destination={destinationCords}
+              origin={origin}
+              destination={destination}
               strokeWidth={6}
-              strokeColor="red"
+              apikey={googleApi}
+              strokeColor={AppStyles.colour.primary}
               optimizeWaypoints={true}
-              onStart={(params: any) => {
-                console.log(
-                  `Started routing between "${params.origin}" and "${params.destination}"`
-                );
-              }}
+              onStart={(params: any) => {}}
               onReady={(result: any) => {
-                console.log(`Distance: ${result.distance} km`);
-                console.log(`Duration: ${result.duration} min.`);
                 fetchTime(result.distance, result.duration),
                   mapRef.current.fitToCoordinates(result.coordinates, {
                     edgePadding: {
-                      // right: 30,
-                      // bottom: 300,
-                      // left: 30,
-                      // top: 100,
+                      right: 30,
+                      bottom: 30,
+                      left: 30,
+                      top: 30,
                     },
                   });
-              }}
-              onError={(errorMessage) => {
-                // console.log('GOT AN ERROR');
               }}
             />
           )}
@@ -190,7 +220,19 @@ export default function Location() {
       </View>
 
       <View style={styles.bottomCard}>
-        <Input title="Destino" placeholder="Para onde vamos?" style={stylesGlobal.mb} />
+        <GooglePlacesAutocomplete
+          placeholder="Para onde vamos?"
+          onPress={(data, details: any = null) => {
+            searchPlaceGoogle(data, details);
+          }}
+          query={{
+            key: googleApi,
+            language: "pt-br",
+          }}
+          enablePoweredByContainer={false}
+          fetchDetails={true}
+          ref={inputRef}
+        />
       </View>
 
       <Loader isLoading={isLoading} />
@@ -205,8 +247,7 @@ const styles = StyleSheet.create({
   bottomCard: {
     backgroundColor: "white",
     width: "100%",
+    height: 200,
     padding: 30,
-    borderTopEndRadius: 24,
-    borderTopStartRadius: 24,
   },
 });

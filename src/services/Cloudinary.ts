@@ -1,10 +1,11 @@
+import {cloudName, uploadPreset, urlCloudinary} from '../constant/index'
 async function storeImg(photo: any): Promise<any> {
     let result:any
     const data = new FormData();
     data.append("file", photo);
-    data.append("upload_preset", "transport");
-    data.append("cloud_name", "djbamugc2");
-    await fetch("https://api.cloudinary.com/v1_1/djbamugc2/upload", {
+    data.append("upload_preset", uploadPreset);
+    data.append("cloud_name", cloudName);
+    await fetch(urlCloudinary, {
         method: "POST",
         body: data,
         headers: {
