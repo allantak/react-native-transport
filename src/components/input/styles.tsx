@@ -28,5 +28,6 @@ export const InputStyle = styled.TextInput`
   padding: 10px;
   border: 1px ${AppStyles.colour.border};
   color: #3C3C3C;
+  background-color: ${AppStyles.colour.white};
   border-radius: 10px;
 `;

@@ -17,6 +17,7 @@ import { AppStyles } from "../../styles/colors";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useFocusEffect } from "@react-navigation/native";
 import { googleApi } from "../../constant/index";
+import {  Title, styles, TabItems } from "./styles";
 let remove: any = null;
 
 interface Ilocatio {
@@ -207,19 +208,20 @@ export default function Location() {
             />
           )}
         </MapView>
-        <TouchableOpacity
+        <TabItems
           style={{
             position: "absolute",
-            bottom: 0,
-            right: 0,
+            bottom: 5,
+            right: 5,
           }}
           onPress={onCenter}
         >
-          <Ionicons name="location-sharp" size={16} />
-        </TouchableOpacity>
+          <Ionicons name="location-sharp" size={16} color={AppStyles.colour.primary}/>
+        </TabItems>
       </View>
 
       <View style={styles.bottomCard}>
+        <Title>Destino</Title>
         <GooglePlacesAutocomplete
           placeholder="Para onde vamos?"
           onPress={(data, details: any = null) => {
@@ -232,6 +234,10 @@ export default function Location() {
           enablePoweredByContainer={false}
           fetchDetails={true}
           ref={inputRef}
+          styles={{
+            textInputContainer: styles.inputStyle,
+            textInput:  styles.input,
+          }}
         />
       </View>
 
@@ -239,15 +245,3 @@ export default function Location() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  bottomCard: {
-    backgroundColor: "white",
-    width: "100%",
-    height: 200,
-    padding: 30,
-  },
-});
