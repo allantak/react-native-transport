@@ -17,7 +17,7 @@ import {
   ContentOption,
   Text,
   SpanError,
-  SpanWarn
+  SpanWarn,
 } from "./styles";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
@@ -573,8 +573,10 @@ export default function TabBar({ state }: BottomTabBarProps) {
                 ) : null}
 
                 {loading ? (
-                  <SpanWarn>Espere para concluir o cadastro!</SpanWarn>
+                  <SpanWarn>Espere o carregamento da imagem para concluir o cadastro!</SpanWarn>
                 ) : null}
+
+                {errorCreate ? <SpanError>Ocorreu um erro</SpanError> : null}
 
                 <Button
                   style={styles.mt}

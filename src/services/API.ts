@@ -35,6 +35,7 @@ const freights = gql`
     product,
     company,
     bodyWorks{
+      id,
       name
     },
     price,
@@ -61,6 +62,47 @@ query searchFreight($origin: String, $destination:String, $product:String, $name
   }
 }`;
 
+const userFreight = gql`
+  query userFreight($id: Float!) {
+    userFreight(id: $id) {
+      id,
+      origin,
+      destination,
+      product,
+      company,
+      bodyWorks{
+        id,
+        name
+      },
+      price,
+      weight,
+      species,
+      email,
+      phone,
+      note
+    }
+  }
+`
+
+const userCarrier = gql`
+  query userCarrier($id: Float!) {
+    userCarrier(id: $id) {
+      id,
+      carrier,
+      service,
+      company,
+      price,
+      bodyWorks{
+        id,
+        name
+      },
+      email,
+      phone,
+      img
+    }
+  }
+  `
+
 const createFreight = gql`
   mutation createFreight($user_id: Float!, $origin: String! $destination: String!, $company:String!, $nameBodyWork: String!, $species:String!,$product:String!,$weight: Float, $email:String!, $phone:String!, $note:String, $price:Float){
   createFreight(data:{user_id: $user_id, origin: $origin, destination: $destination, company:$company,nameBodyWork: $nameBodyWork, species: $species,product: $product,weight: $weight, email: $email, phone:$phone, note:$note, price:$price}){
@@ -69,6 +111,7 @@ const createFreight = gql`
     destination,
     company,
     bodyWorks{
+      id,
       name
     },
     product,
@@ -82,6 +125,9 @@ const createFreight = gql`
   }
 `;
 
+
+
+
 const carriers = gql`
 query getCarriers{
   getCarriers{
@@ -91,6 +137,7 @@ query getCarriers{
     company,
     price,
     bodyWorks{
+      id,
       name
     },
     email,
@@ -106,10 +153,17 @@ mutation createCarrier($user_id:Float!, $carrier: String!, $service: String!, $e
     id
   }
 }
-
-
-
 `;
+
+const updateCarrier = gql`
+mutation updateCarrier($id: Float!, $carrier: String!, $service: String!, $email:String!, $phone: String!, $company: String, $price:Float, $nameBodyWork: String, $bodyWork_id: Float! $img: String){
+  updateCarrier(data:{ id: $id, carrier: $carrier, service: $service, email: $email, phone: $phone, company: $company, price: $price, nameBodyWork: $nameBodyWork, bodyWork_id: $bodyWork_id, img: $img}){
+    id
+  }
+}
+`;
+
+
 
 const filterCarrier = gql`
 query searchCarrier($carrier: String, $service: String, $company: String, $nameBodyWorks: String){	
@@ -134,7 +188,10 @@ export const apiService = {
   filterCarrier,
   carriers,
   createFreight,
-  createCarrier
+  createCarrier,
+  userFreight,
+  userCarrier,
+  updateCarrier
 }
 
 

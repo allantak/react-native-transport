@@ -20,13 +20,16 @@ interface ICarriers extends TouchableOpacityProps {
   price?: number;
   item: object;
   img?: string;
+  profile?: boolean;
+  returnItem?: (value:object) => object
 }
 
 export default function CardCarrier({ ...props }: ICarriers) {
   const navigation = useNavigation<any>();
+  
   return (
     <Card
-      onPress={() => navigation.navigate("DetailCarrier", props.item)}
+      onPress={() => !props.profile ? navigation.navigate("DetailCarrier", props.item): props.returnItem(props.item) }
       style={stylesGlobal.mb}
     >
       <ContainerImg>
