@@ -21,12 +21,14 @@ interface IFreights extends TouchableOpacityProps {
   bodyWork?: any;
   price?: number;
   item: object;
+  profile?: boolean;
+  returnItem?: (value:object) => object
 }
 
 export default function CardFreight({ ...props }: IFreights) {
   const navigation = useNavigation<any>();
   return (
-    <Card onPress={() => navigation.navigate("Detail", props.item)} style={stylesGlobal.mb}>
+    <Card onPress={() => !props.profile ? navigation.navigate("Detail", props.item) : props.returnItem(props.item)} style={stylesGlobal.mb}>
       <Container style={styles.padding}>
         <ContainerTitle>
           <Title>Origem</Title>
@@ -54,7 +56,7 @@ export default function CardFreight({ ...props }: IFreights) {
           <TextDescription>{props.product}</TextDescription>
         </ContainerDescription>
 
-        {props.company !== undefined ? (
+        {props.company ? (
           <ContainerDescription>
             <Title>Empresa</Title>
             <TextDescription>{props.company}</TextDescription>

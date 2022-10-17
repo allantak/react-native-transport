@@ -58,12 +58,14 @@ export const TitleCarrier = styled.Text`
   color: ${AppStyles.colour.font};
   font-size: 16px;
   font-weight: 500;
+  margin-bottom: 12px;
 `;
 
 export const ContainerRow = styled.View`
   flex-direction: row;
   margin-bottom: 10px;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const Width = styled.View`
@@ -80,7 +82,7 @@ export const styles = StyleSheet.create({
   ml: { marginLeft: 10 },
   pb0: { paddingBottom: 1 },
   fs15: { fontSize: 15 },
-  titleModal: { fontSize: 18 },
+  titleModal: { fontSize: 18, marginBottom: 0 },
   view: {
     backgroundColor: "#fff",
     margin: 0,
@@ -117,4 +119,6 @@ export const styles = StyleSheet.create({
   width80: { width: 85 + "%" },
   height: { minHeight: 100 },
   mb1010: { marginBottom: 7 },
+  width150: { width: 150 },
+  mb0: { marginBottom: 0 },
 });

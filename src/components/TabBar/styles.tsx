@@ -17,7 +17,10 @@ export const Bar = styled.View`
 `;
 
 export const ContainerRow = styled.View`
+  justify-content: space-between;
   flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
 `;
 
 export const ContainerItems = styled.View`
@@ -119,6 +122,7 @@ export const styles = StyleSheet.create({
   mt: { marginTop: 15 },
   width90: { width: 90 + "%" },
   width80: { width: 85 + "%" },
+  width150: { width: 150 },
   height: { minHeight: 100 },
   mb1010: { marginBottom: 7 },
 });

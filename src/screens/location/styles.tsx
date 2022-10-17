@@ -48,6 +48,6 @@ export const styles = StyleSheet.create({
     color: `${AppStyles.colour.white}`,
   },
   input: {
-    color: AppStyles.colour.white,
+    color: AppStyles.colour.font,
   }
 });

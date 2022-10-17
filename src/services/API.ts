@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: `http://10.0.0.72:3000/graphql`
+  uri: `http://172.17.1.111:3000/graphql`
 });
 
 const createUser = gql`
@@ -125,8 +125,20 @@ const createFreight = gql`
   }
 `;
 
-
-
+const updateFreight = gql`
+  mutation updateFreight($id: Float!, $origin: String!
+   $destination: String!, $company:String!, 
+  $nameBodyWork: String!, $species:String!,
+  $product:String!,$weight: Float, $email:String!, 
+  $phone:String!,
+   $note:String, $bodyWork_id: Float!, $price:Float){
+    updateFreight(data:{id: $id, origin: $origin, destination: $destination, company:$company,
+    nameBodyWork: $nameBodyWork, species: $species,product: $product,weight: $weight, 
+    email: $email, phone:$phone, note:$note, bodyWork_id: $bodyWork_id, price:$price}){
+    id,
+  }
+  }
+`;
 
 const carriers = gql`
 query getCarriers{
@@ -156,7 +168,7 @@ mutation createCarrier($user_id:Float!, $carrier: String!, $service: String!, $e
 `;
 
 const updateCarrier = gql`
-mutation updateCarrier($id: Float!, $carrier: String!, $service: String!, $email:String!, $phone: String!, $company: String, $price:Float, $nameBodyWork: String, $bodyWork_id: Float! $img: String){
+mutation updateCarrier($id: Float!, $carrier: String!, $service: String!, $email:String!, $phone: String!, $company: String, $price:Float, $nameBodyWork: String, $bodyWork_id: Float!, $img: String){
   updateCarrier(data:{ id: $id, carrier: $carrier, service: $service, email: $email, phone: $phone, company: $company, price: $price, nameBodyWork: $nameBodyWork, bodyWork_id: $bodyWork_id, img: $img}){
     id
   }
@@ -191,7 +203,8 @@ export const apiService = {
   createCarrier,
   userFreight,
   userCarrier,
-  updateCarrier
+  updateCarrier,
+  updateFreight
 }
 
 

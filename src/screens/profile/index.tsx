@@ -47,6 +47,7 @@ import Upload from "../../components/buttonUpload";
 import { stylesGlobal } from "../../styles/global";
 import Button from "../../components/button";
 import { cloudinaryApi } from "../../services/Cloudinary";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function Profile() {
   const [data, setData] = useState<any[]>();
@@ -60,6 +61,7 @@ export default function Profile() {
     apiService.userFreight
   );
   const [updateCarrier] = useMutation(apiService.updateCarrier);
+  const [updateFreight] = useMutation(apiService.updateFreight);
 
   const [isModalVisibleType, setModalVisibleType] = useState(false);
   const [inputOrigin, setInputOrigin] = useState<string>();
@@ -85,17 +87,54 @@ export default function Profile() {
   const [errorCreate, setErrorCreate] = useState<boolean>(false);
 
   const handleClick = (item: any) => {
-    console.log("handle", item.bodyWorks[0].id);
-    setInputIdCarrier(item.id);
     setInputIdBodyWork(item.bodyWorks[0].id);
     setInputBodyWork(transform(item.bodyWorks));
-    setInputCarrier(item.carrier);
     setInputEmail(item.email);
-    setImage(item.img);
     setInputPhone(item.phone);
-    setInputPrice(item.price);
-    setInputService(item.service);
+    item.price ? setInputPrice(item.price.toString()) : null;
     setInputCompany(item.company);
+
+    setInputIdCarrier(item.id);
+    setInputCarrier(item.carrier);
+
+    setImage(item.img);
+
+    setInputService(item.service);
+
+    toggleModal();
+  };
+
+  const handleClickFreight = (item: any) => {
+    setInputIdBodyWork(item.bodyWorks[0].id);
+    console.log(item.bodyWorks[0].id);
+    setInputBodyWork(transform(item.bodyWorks));
+    console.log(item.bodyWorks);
+    setInputEmail(item.email);
+    console.log(item.email);
+    setInputPhone(item.phone);
+    console.log(item.phone);
+    item.price !== null
+      ? setInputPrice(item.price.toString())
+      : setInputPrice(undefined);
+    setInputCompany(item.company);
+    console.log(item.company);
+
+    setInputIdFreight(item.id);
+    console.log(item.id);
+    setInputOrigin(item.origin);
+    console.log(item.origin);
+    setInputDestination(item.destination);
+    console.log(inputDestination);
+    setInputProduct(item.product);
+    console.log(inputProduct);
+    item.weight !== null
+      ? setInputWeight(item.weight.toString())
+      : setInputWeight(undefined);
+    console.log(inputWeight);
+    setInputNote(item.note);
+    console.log(inputNote);
+    setInputSpecies(item.species);
+    console.log(inputSpecies);
     toggleModal();
   };
 
@@ -171,6 +210,80 @@ export default function Profile() {
     }
   }
 
+  function handleRegisterFreight() {
+    if (
+      inputOrigin !== undefined &&
+      inputDestination !== undefined &&
+      inputCompany !== undefined &&
+      inputProduct !== undefined &&
+      inputBodyWork !== undefined &&
+      inputEmail !== undefined &&
+      inputPhone !== undefined &&
+      inputSpecies !== undefined
+    ) {
+      handleUpdateFreight(
+        inputIdFreight,
+        inputOrigin,
+        inputDestination,
+        inputCompany,
+        inputProduct,
+        inputBodyWork,
+        inputEmail,
+        inputPhone,
+        inputSpecies,
+        inputPrice,
+        inputWeight,
+        inputIdBodyWork,
+        inputNote
+      );
+      setError(false);
+      toggleModal();
+      refreshing(!refreash);
+    } else {
+      setError(true);
+    }
+  }
+
+  function handleUpdateFreight(
+    id: number | undefined,
+    origin: string,
+    destination: string,
+    company: string,
+    product: string,
+    bodyWork: string,
+    email: string,
+    phone: string,
+    species: string,
+    price: string | undefined,
+    weight: string | undefined,
+    bodyWork_id: number | undefined,
+    note: string | undefined
+  ) {
+    updateFreight({
+      variables: {
+        id: id,
+        origin: origin,
+        destination: destination,
+        company: company,
+        product: product,
+        nameBodyWork: bodyWork,
+        email: email,
+        phone: phone,
+        species: species,
+        price: convertString(price),
+        weight: convertString(weight),
+        bodyWork_id: bodyWork_id,
+        note: note,
+      },
+    })
+      .then((t) => {
+        setErrorCreate(false), console.log("PEGOU PORRA PEGOU", t);
+      })
+      .catch((t) => {
+        setErrorCreate(true), console.log(t);
+      });
+  }
+
   function handleUpdateCarrier(
     id: number | undefined,
     carrier: string,
@@ -201,7 +314,7 @@ export default function Profile() {
         setErrorCreate(false);
       })
       .catch((t) => {
-        setErrorCreate(true);
+        setErrorCreate(true), console.log(t);
       });
   }
 
@@ -320,6 +433,9 @@ export default function Profile() {
       bodyWork={transform(item.bodyWorks)}
       product={item.product}
       item={item}
+      company={item.company}
+      profile
+      returnItem={handleClickFreight}
     />
   );
 
@@ -391,127 +507,272 @@ export default function Profile() {
         />
       )}
 
-      <ReactNativeModal
-        style={styles.view}
-        isVisible={isModalVisible}
-        onBackdropPress={toggleModal}
-      >
-        <ContentModal showsVerticalScrollIndicator={false}>
-          <TitleCarrier style={styles.titleModal}>
-            Cadastro de veículo
-          </TitleCarrier>
+      {index === 0 ? (
+        <ReactNativeModal
+          style={styles.view}
+          isVisible={isModalVisible}
+          onBackdropPress={toggleModal}
+        >
+          <ContentModal showsVerticalScrollIndicator={false}>
+            <ContainerRow>
+              <TitleCarrier style={styles.titleModal}>
+                Cadastro de carga
+              </TitleCarrier>
+              <AntDesign
+                onPress={toggleModal}
+                name="close"
+                size={24}
+                color={AppStyles.colour.font}
+              />
+            </ContainerRow>
 
-          <TitleCarrier style={styles.fs15}>Informação do veiculo</TitleCarrier>
+            <TitleCarrier style={styles.fs15}>Informações da carga</TitleCarrier>
+            <Input
+              style={styles.mb15}
+              value={inputOrigin}
+              onChangeText={(t) => setInputOrigin(t)}
+              title="Origem"
+              placeholder="Ex: Londrina"
+              required
+            />
 
-          <Input
-            style={styles.mb15}
-            value={inputCarrier}
-            onChangeText={(t) => setInputCarrier(t)}
-            title="Veículo"
-            placeholder="Nome do veículo"
-            required
-          />
+            <Input
+              style={styles.mb15}
+              title="Destino"
+              value={inputDestination}
+              onChangeText={(t) => setInputDestination(t)}
+              placeholder="Ex: Dourados"
+              required
+            />
 
-          <Option
-            style={styles.mb1010}
-            title="Tipo de serviço"
-            placeholder={inputService}
-            onPress={toggleModalType}
-          />
-
-          <ReactNativeModal
-            style={styles.viewOption}
-            isVisible={isModalVisibleType}
-            onBackdropPress={toggleModalType}
-          >
-            <ContentOption>
-              <Check onPress={() => handleOptions("autônomo")}>
-                <Text>Autônomo</Text>
-              </Check>
-              <Check onPress={() => handleOptions("empresaria")}>
-                <Text>Empresaria</Text>
-              </Check>
-            </ContentOption>
-          </ReactNativeModal>
-
-          <Input
-            style={styles.mb15}
-            value={inputBodyWork}
-            onChangeText={(t) => setInputBodyWork(t)}
-            title="Carroceria"
-            placeholder="Ex: Rodotrem"
-            required
-          />
-          {inputService == "autônomo" ? null : (
             <Input
               style={styles.mb15}
               title="Empresa"
               value={inputCompany}
               onChangeText={(t) => setInputCompany(t)}
-              placeholder="nome da empresa"
+              placeholder="Nome da empresa"
+              required
             />
-          )}
 
-          <Input
-            style={styles.mb15}
-            title="Preço"
-            value={inputPrice}
-            onChangeText={(t) => setInputPrice(t)}
-            placeholder="Ex: 1000.00"
-            keyboardType="numeric"
-          />
-          <ContentRow>
-            <Upload
-              onPress={UploadAlert}
+            <Input
               style={styles.mb15}
-              title="Imagem"
-            ></Upload>
-            {loading ? (
-              <ActivityIndicator
-                style={stylesGlobal.ml}
-                size={16}
-                color={"#FFAA3C"}
+              title="Produto"
+              value={inputProduct}
+              onChangeText={(t) => setInputProduct(t)}
+              placeholder="Produto"
+              required
+            />
+            <Input
+              style={styles.mb15}
+              title="Carroceria"
+              value={inputBodyWork}
+              onChangeText={(t) => setInputBodyWork(t)}
+              placeholder="Tipo de carroceria"
+              required
+            />
+
+            <Input
+              style={styles.mb15}
+              title="Espécie"
+              value={inputSpecies}
+              onChangeText={(t) => setInputSpecies(t)}
+              placeholder="Ex: Caixas"
+              required
+            />
+
+            <ContainerRow style={styles.mb15}>
+              <Input
+                style={styles.width150}
+                title="Preço"
+                value={inputPrice}
+                onChangeText={(t) => setInputPrice(t)}
+                placeholder="Ex: 1000.00"
+                keyboardType="numeric"
               />
+
+              <Input
+                style={styles.width150}
+                title="Peso"
+                value={inputWeight}
+                onChangeText={(t) => setInputWeight(t)}
+                placeholder="Peso da carga"
+                keyboardType="numeric"
+              />
+            </ContainerRow>
+
+            <Input
+              style={styles.mb15}
+              title="Observação"
+              value={inputNote}
+              onChangeText={(t) => setInputNote(t)}
+              placeholder="Observação..."
+            />
+
+            <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
+
+            <Input
+              style={styles.mb15}
+              value={inputEmail}
+              onChangeText={(t) => setInputEmail(t)}
+              title="Email"
+              placeholder="Ex: transport@gmail.com"
+              required
+            />
+            <Input
+              style={styles.mb15}
+              title="Telefone"
+              value={inputPhone}
+              onChangeText={(t) => setInputPhone(t)}
+              placeholder="Ex: +99999999999"
+              required
+            />
+
+            {error ? (
+              <SpanError>Preencha os campos obrigatórios!</SpanError>
             ) : null}
-          </ContentRow>
 
-          <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
+            {errorCreate ? <SpanError>Ocorreu um erro</SpanError> : null}
 
-          <Input
-            style={styles.mb15}
-            value={inputEmail}
-            onChangeText={(t) => setInputEmail(t)}
-            title="Email"
-            placeholder="Ex: transport@gmail.com"
-            required
-          />
-          <Input
-            style={styles.mb15}
-            title="Telefone"
-            value={inputPhone}
-            onChangeText={(t) => setInputPhone(t)}
-            placeholder="Ex: +99999999999"
-            required
-          />
+            <Button
+              style={styles.mt}
+              text="Cadastro"
+              onPress={handleRegisterFreight}
+            />
+          </ContentModal>
+        </ReactNativeModal>
+      ) : (
+        <ReactNativeModal
+          style={styles.view}
+          isVisible={isModalVisible}
+          onBackdropPress={toggleModal}
+        >
+          <ContentModal showsVerticalScrollIndicator={false}>
+            <ContainerRow>
+              <TitleCarrier style={styles.titleModal}>
+                Cadastro de veiculo
+              </TitleCarrier>
+              <AntDesign
+                onPress={toggleModal}
+                name="close"
+                size={24}
+                color={AppStyles.colour.font}
+              />
+            </ContainerRow>
 
-          {error ? (
-            <SpanError>Preencha os campos obrigatórios!</SpanError>
-          ) : null}
+            <TitleCarrier style={styles.fs15}>
+              Informações do veiculo
+            </TitleCarrier>
 
-          {loading ? (
-            <SpanWarn>Espere para concluir o cadastro!</SpanWarn>
-          ) : null}
+            <Input
+              style={styles.mb15}
+              value={inputCarrier}
+              onChangeText={(t) => setInputCarrier(t)}
+              title="Veículo"
+              placeholder="Nome do veículo"
+              required
+            />
 
-          {errorCreate ? <SpanError>Ocorreu um erro</SpanError> : null}
+            <Option
+              style={styles.mb1010}
+              title="Tipo de serviço"
+              placeholder={inputService}
+              onPress={toggleModalType}
+            />
 
-          <Button
-            style={styles.mt}
-            text="Cadastro"
-            onPress={handleResgisterCarrier}
-            disabled={loading ? true : false}
-          />
-        </ContentModal>
-      </ReactNativeModal>
+            <ReactNativeModal
+              style={styles.viewOption}
+              isVisible={isModalVisibleType}
+              onBackdropPress={toggleModalType}
+            >
+              <ContentOption>
+                <Check onPress={() => handleOptions("autônomo")}>
+                  <Text>Autônomo</Text>
+                </Check>
+                <Check onPress={() => handleOptions("empresaria")}>
+                  <Text>Empresaria</Text>
+                </Check>
+              </ContentOption>
+            </ReactNativeModal>
+
+            <Input
+              style={styles.mb15}
+              value={inputBodyWork}
+              onChangeText={(t) => setInputBodyWork(t)}
+              title="Carroceria"
+              placeholder="Ex: Rodotrem"
+              required
+            />
+            {inputService == "autônomo" ? null : (
+              <Input
+                style={styles.mb15}
+                title="Empresa"
+                value={inputCompany}
+                onChangeText={(t) => setInputCompany(t)}
+                placeholder="nome da empresa"
+              />
+            )}
+
+            <Input
+              style={styles.mb15}
+              title="Preço"
+              value={inputPrice}
+              onChangeText={(t) => setInputPrice(t)}
+              placeholder="Ex: 1000.00"
+              keyboardType="numeric"
+            />
+            <ContentRow>
+              <Upload
+                onPress={UploadAlert}
+                style={styles.mb15}
+                title="Imagem"
+              ></Upload>
+              {loading ? (
+                <ActivityIndicator
+                  style={stylesGlobal.ml}
+                  size={16}
+                  color={"#FFAA3C"}
+                />
+              ) : null}
+            </ContentRow>
+
+            <TitleCarrier style={styles.fs15}>Contato</TitleCarrier>
+
+            <Input
+              style={styles.mb15}
+              value={inputEmail}
+              onChangeText={(t) => setInputEmail(t)}
+              title="Email"
+              placeholder="Ex: transport@gmail.com"
+              required
+            />
+            <Input
+              style={styles.mb15}
+              title="Telefone"
+              value={inputPhone}
+              onChangeText={(t) => setInputPhone(t)}
+              placeholder="Ex: +99999999999"
+              required
+            />
+
+            {error ? (
+              <SpanError>Preencha os campos obrigatórios!</SpanError>
+            ) : null}
+
+            {loading ? (
+              <SpanWarn>Espere para concluir o cadastro!</SpanWarn>
+            ) : null}
+
+            {errorCreate ? <SpanError>Ocorreu um erro</SpanError> : null}
+
+            <Button
+              style={styles.mt}
+              text="Cadastro"
+              onPress={handleResgisterCarrier}
+              disabled={loading ? true : false}
+            />
+          </ContentModal>
+        </ReactNativeModal>
+      )}
     </Container>
   );
 }

@@ -53,6 +53,7 @@ export default function Freight() {
   function listFreights() {
     getFreights().then((t) => {
       setData(t.data.getFreights);
+ 
     });
   }
 
@@ -109,6 +110,7 @@ export default function Freight() {
       origin={item.origin}
       destination={item.destination}
       price={item.price}
+      company={item.company}
       bodyWork={transform(item.bodyWorks)}
       product={item.product}
       item={item}

@@ -59,6 +59,7 @@ export default function Location() {
   useFocusEffect(
     React.useCallback(() => {
       getLocation();
+      onCenter();
 
       return () => stopWatchPosition();
     }, [])
@@ -118,7 +119,7 @@ export default function Location() {
       distance: 0,
       time: 0,
     });
-    onCenter();
+   
   };
 
   const searchPlaceGoogle = (data: any, details: any) => {

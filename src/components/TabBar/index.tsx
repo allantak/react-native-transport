@@ -344,11 +344,21 @@ export default function TabBar({ state }: BottomTabBarProps) {
               onBackdropPress={toggleModal}
             >
               <ContentModal showsVerticalScrollIndicator={false}>
-                <TitleCarrier style={styles.titleModal}>
-                  Cadastro de carga
-                </TitleCarrier>
+                <ContainerRow>
+                  <TitleCarrier style={styles.titleModal}>
+                    Cadastro de carga
+                  </TitleCarrier>
+                  <AntDesign
+                    onPress={toggleModal}
+                    name="close"
+                    size={24}
+                    color={AppStyles.colour.font}
+                  />
+                </ContainerRow>
 
-                <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
+                <TitleCarrier style={styles.fs15}>
+                  Informações da carga
+                </TitleCarrier>
                 <Input
                   style={styles.mb15}
                   value={inputOrigin}
@@ -404,7 +414,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
 
                 <ContainerRow style={styles.mb15}>
                   <Input
-                    style={styles.width90}
+                    style={styles.width150}
                     title="Preço"
                     value={inputPrice}
                     onChangeText={(t) => setInputPrice(t)}
@@ -413,7 +423,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   />
 
                   <Input
-                    style={styles.width80}
+                    style={styles.width150}
                     title="Peso"
                     value={inputWeight}
                     onChangeText={(t) => setInputWeight(t)}
@@ -469,12 +479,20 @@ export default function TabBar({ state }: BottomTabBarProps) {
               onBackdropPress={toggleModal}
             >
               <ContentModal showsVerticalScrollIndicator={false}>
-                <TitleCarrier style={styles.titleModal}>
-                  Cadastro de veículo
-                </TitleCarrier>
+                <ContainerRow>
+                  <TitleCarrier style={styles.titleModal}>
+                    Cadastro de veiculo
+                  </TitleCarrier>
+                  <AntDesign
+                    onPress={toggleModal}
+                    name="close"
+                    size={24}
+                    color={AppStyles.colour.font}
+                  />
+                </ContainerRow>
 
                 <TitleCarrier style={styles.fs15}>
-                  Informação do veiculo
+                  Informações do veiculo
                 </TitleCarrier>
 
                 <Input
@@ -573,7 +591,9 @@ export default function TabBar({ state }: BottomTabBarProps) {
                 ) : null}
 
                 {loading ? (
-                  <SpanWarn>Espere o carregamento da imagem para concluir o cadastro!</SpanWarn>
+                  <SpanWarn>
+                    Espere o carregamento da imagem para concluir o cadastro!
+                  </SpanWarn>
                 ) : null}
 
                 {errorCreate ? <SpanError>Ocorreu um erro</SpanError> : null}
