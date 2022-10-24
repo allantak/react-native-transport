@@ -56,7 +56,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     })
       .then((signInData) => {
         setAuthData(signInData.data.authenticatedUser);
-        AsyncStorage.setItem("@AuthData", JSON.stringify(authData));
+        AsyncStorage.setItem("@AuthData", JSON.stringify(signInData.data.authenticatedUser));
       })
       .catch((error) => {
         console.error(error);
@@ -65,7 +65,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function signOut() {
-    AsyncStorage.removeItem("@AuthData");
+    AsyncStorage.removeItem("@AuthData")
     setAuthData(undefined);
   }
 

@@ -48,10 +48,9 @@ export const TitleDescription = styled.Text`
   text-align: center;
   padding-left: 10px;
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
 `;
 export const ContentDescription = styled.View`
-  height: 20%;
   margin-top: 10px;
   display: flex;
   align-items: flex-start;

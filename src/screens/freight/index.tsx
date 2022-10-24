@@ -9,6 +9,8 @@ import CardFreight from "../../components/card/freight";
 import Input from "../../components/input";
 import { useAuth } from "../../context/Auth";
 import { apiService } from "../../services/API";
+import { ContainerRow } from "../profile/styles";
+import { AntDesign } from "@expo/vector-icons";
 import {
   Container,
   ContentHeaders,
@@ -19,6 +21,7 @@ import {
   styles,
   ContentModal,
 } from "./styles";
+import { AppStyles } from "../../styles/colors";
 
 export interface IFreight {
   id: number;
@@ -40,7 +43,7 @@ export default function Freight() {
   const [inputProduct, setInputProduct] = useState<string>();
   const [inputBodyWork, setInputBodyWork] = useState<string>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const { signOut, refreash } = useAuth();
+  const { refreash } = useAuth();
 
   useEffect(() => {
     if (data == undefined) {
@@ -53,7 +56,6 @@ export default function Freight() {
   function listFreights() {
     getFreights().then((t) => {
       setData(t.data.getFreights);
- 
     });
   }
 
@@ -90,10 +92,6 @@ export default function Freight() {
     setModalVisible(!isModalVisible);
   }
 
-  function toggleLogout() {
-    signOut();
-  }
-
   function transform(data: any) {
     let ArrayValue: any = [];
     for (const index in data) {
@@ -126,17 +124,25 @@ export default function Freight() {
         </ContentLogo>
 
         <ContentFilter>
-          <ButtonFilter onPress={toggleLogout} logout />
-          <ButtonFilter style={styles.mr10} onPress={toggleModal} />
+          <ButtonFilter onPress={toggleModal} />
           <ReactNativeModal
             style={styles.view}
             isVisible={isModalVisible}
             onBackdropPress={toggleModal}
           >
             <ContentModal>
-              <TitleCarrier style={styles.titleModal}>
+            <ContainerRow>
+                <TitleCarrier style={styles.titleModal}>
                 Filtro de pesquisa
-              </TitleCarrier>
+                </TitleCarrier>
+                <AntDesign
+                  onPress={toggleModal}
+                  name="close"
+                  size={24}
+                  color={AppStyles.colour.font}
+                />
+              </ContainerRow>
+        
               <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
               <Input
                 style={styles.mb15}
@@ -178,7 +184,7 @@ export default function Freight() {
         </ContentFilter>
       </ContentHeaders>
 
-      <TitleCarrier>Cargas</TitleCarrier>
+      <TitleCarrier style={styles.fs15}>Cargas</TitleCarrier>
 
       <FlatList
         data={data}

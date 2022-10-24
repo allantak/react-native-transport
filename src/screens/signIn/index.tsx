@@ -21,6 +21,7 @@ import {
 import Logo from "../../../assets/logo.png";
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text } from "react-native";
+import { AppStyles } from "../../styles/colors";
 
 export default function SignIn() {
   const [inputEmail, setInputEmail] = useState<string>();
@@ -115,7 +116,7 @@ export default function SignIn() {
         <Register>
             <BeforeButton>Não possui Cadastro?</BeforeButton>
             <TextButton onPress={() => navigation.navigate("SignOut")}>
-              <Text>Cadastre-se</Text>
+              <Text style={{color: AppStyles.colour.primary}}>Cadastre-se</Text>
             </TextButton>
           </Register>
       </Content>

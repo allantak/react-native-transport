@@ -11,6 +11,8 @@ import Option from "../../components/optionList";
 import { Check, ContentOption } from "../../components/TabBar/styles";
 import { useAuth } from "../../context/Auth";
 import { apiService } from "../../services/API";
+import { ContainerRow } from "../profile/styles";
+import { AntDesign } from "@expo/vector-icons";
 import {
   Container,
   ContentHeaders,
@@ -22,6 +24,7 @@ import {
   Text,
   NameLogo,
 } from "./styles";
+import { AppStyles } from "../../styles/colors";
 
 export default function Carrier() {
   const [getCarriers, { refetch }] = useLazyQuery(apiService.carriers);
@@ -41,7 +44,7 @@ export default function Carrier() {
     undefined
   );
   const [isModalVisibleType, setModalVisibleType] = useState(false);
-  const { signOut, refreash } = useAuth();
+  const { refreash } = useAuth();
 
   useEffect(() => {
     if (data == undefined) {
@@ -105,10 +108,6 @@ export default function Carrier() {
     setModalVisibleType(!isModalVisibleType);
   };
 
-  function toggleLogout() {
-    signOut();
-  }
-
   function handleFilter() {
     searchCarrier(inputCarrier, inputService, inputEmployee, inputBodyWork);
     setModalVisible(!isModalVisible);
@@ -123,17 +122,24 @@ export default function Carrier() {
         </ContentLogo>
 
         <ContentFilter>
-          <ButtonFilter onPress={toggleLogout} logout />
-          <ButtonFilter style={styles.mr10} onPress={toggleModal} />
+          <ButtonFilter onPress={toggleModal} />
           <ReactNativeModal
             style={styles.view}
             isVisible={isModalVisible}
             onBackdropPress={toggleModal}
           >
             <ContentModal>
-              <TitleCarrier style={styles.titleModal}>
-                Filtro de pesquisa
-              </TitleCarrier>
+              <ContainerRow>
+                <TitleCarrier style={styles.titleModal}>
+                  Filtragem de carga
+                </TitleCarrier>
+                <AntDesign
+                  onPress={toggleModal}
+                  name="close"
+                  size={24}
+                  color={AppStyles.colour.font}
+                />
+              </ContainerRow>
               <TitleCarrier style={styles.fs15}>Veículo</TitleCarrier>
               <Input
                 style={styles.mb10}
@@ -190,7 +196,7 @@ export default function Carrier() {
         </ContentFilter>
       </ContentHeaders>
 
-      <TitleCarrier>Veículos</TitleCarrier>
+      <TitleCarrier style={styles.fs15}>Veículos</TitleCarrier>
 
       <FlatList
         data={data}

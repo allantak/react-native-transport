@@ -17,7 +17,7 @@ import { AppStyles } from "../../styles/colors";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useFocusEffect } from "@react-navigation/native";
 import { googleApi } from "../../constant/index";
-import {  Title, styles, TabItems } from "./styles";
+import { Title, styles, TabItems } from "./styles";
 let remove: any = null;
 
 interface Ilocatio {
@@ -119,7 +119,6 @@ export default function Location() {
       distance: 0,
       time: 0,
     });
-   
   };
 
   const searchPlaceGoogle = (data: any, details: any) => {
@@ -160,17 +159,15 @@ export default function Location() {
   };
   return (
     <View style={styles.container}>
-      {distance !== 0 && time !== 0 && (
-        <View style={{ alignItems: "center", padding: 20 }}>
-          <Text style={{ marginTop: 12, color: AppStyles.colour.primary }}>
-            {time.toFixed(0)} min{" "}
-          </Text>
-          <Text style={{ color: AppStyles.colour.border }}>
-            Distancia: {distance.toFixed(0)} km
-          </Text>
-        </View>
-      )}
       <View style={{ flex: 1 }}>
+        {distance !== 0 && time !== 0 && (
+          <View style={styles.viewMin}>
+            <Text style={{ color: AppStyles.colour.primary, fontWeight: "700", fontSize: 12 }}>
+              {time.toFixed(0)} min{" "}
+            </Text>
+          </View>
+        )}
+
         <MapView
           ref={mapRef}
           style={StyleSheet.absoluteFill}
@@ -212,12 +209,16 @@ export default function Location() {
         <TabItems
           style={{
             position: "absolute",
-            bottom: 5,
-            right: 5,
+            bottom: 10,
+            right: 10,
           }}
           onPress={onCenter}
         >
-          <Ionicons name="location-sharp" size={16} color={AppStyles.colour.primary}/>
+          <Ionicons
+            name="location-sharp"
+            size={16}
+            color={AppStyles.colour.primary}
+          />
         </TabItems>
       </View>
 
@@ -237,7 +238,7 @@ export default function Location() {
           ref={inputRef}
           styles={{
             textInputContainer: styles.inputStyle,
-            textInput:  styles.input,
+            textInput: styles.input,
           }}
         />
       </View>

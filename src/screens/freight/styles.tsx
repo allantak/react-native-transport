@@ -31,7 +31,7 @@ export const ContentModal = styled.View`
 
 export const NameLogo = styled.Text`
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   color: ${AppStyles.colour.font};
 `;
 
@@ -39,8 +39,7 @@ export const NameLogo = styled.Text`
 export const TitleCarrier = styled.Text`
   color: ${AppStyles.colour.font};
   font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 12px;
+  font-weight: 700;
 `;
 
 export const Test = styled.View``;
@@ -52,7 +51,7 @@ export const styles = StyleSheet.create({
   mt: { marginTop:15 },
   ml: { marginLeft:10 },
   pb0:{ paddingBottom: 1},
-  fs15: { fontSize: 15 },
+  fs15: { fontSize: 15, marginBottom: 12},
   titleModal: { fontSize: 18 },
   view: {
     backgroundColor: "#fff",

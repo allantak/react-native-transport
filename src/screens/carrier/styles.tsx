@@ -35,13 +35,12 @@ export const TitleLogo = styled.Text`
 export const TitleCarrier = styled.Text`
   color: ${AppStyles.colour.font};
   font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 12px;
+  font-weight: 700;
 `;
 
 export const NameLogo = styled.Text`
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   color: ${AppStyles.colour.font};
 `;
 
@@ -63,13 +62,13 @@ export const styles = StyleSheet.create({
   mr10: { marginRight: 10 },
   mt: { marginTop: 15 },
   ml: { marginLeft: 10 },
-  fs15: { fontSize: 15 },
+  fs15: { fontSize: 15, marginBottom: 12 },
   pb0: { paddingBottom: 1 },
   titleModal: { fontSize: 18 },
   view: {
     backgroundColor: "#fff",
     margin: 0,
-    marginTop: 20 + '%',
+    marginTop: 20 + "%",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     justifyContent: "flex-start",
@@ -85,10 +84,10 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    marginTop: 42 + '%',
-    marginBottom:  42 + '%',
-    marginLeft: 6 + '%',
-    marginRight: 6 + '%',
+    marginTop: 42 + "%",
+    marginBottom: 42 + "%",
+    marginLeft: 6 + "%",
+    marginRight: 6 + "%",
   },
   mb15: { marginBottom: 15 },
   imagem: {

@@ -40,7 +40,7 @@ export const Register = styled.View`
 
 export const NameLogo = styled.Text`
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
   color: ${AppStyles.colour.font};
   margin-left: 5px;
 `;
@@ -59,7 +59,7 @@ export const TitleDescription = styled.Text`
   text-align: center;
   padding-left: 10px;
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
 `;
 
 export const TextButton = styled.TouchableOpacity`

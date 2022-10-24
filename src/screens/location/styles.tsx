@@ -49,5 +49,26 @@ export const styles = StyleSheet.create({
   },
   input: {
     color: AppStyles.colour.font,
-  }
+  },
+  viewMin: {
+    zIndex: 2,
+    position: "absolute",
+    top: 40,
+    left: 20,
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingLeft: 32,
+    paddingRight: 32,
+    backgroundColor: AppStyles.colour.white,
+    borderRadius: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
 });
