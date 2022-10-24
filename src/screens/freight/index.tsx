@@ -2,7 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { FlatList, Image } from "react-native";
 import ReactNativeModal from "react-native-modal";
-import Logo from "../../../assets/logo.png";
+import Logo from "../../../assets/Logo.png";
 import Button from "../../components/button";
 import ButtonFilter from "../../components/buttonFilter";
 import CardFreight from "../../components/card/freight";

@@ -18,7 +18,7 @@ import {
   BeforeButton,
   Register,
 } from "./styles";
-import Logo from "../../../assets/logo.png";
+import Logo from "../../../assets/Logo.png";
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text } from "react-native";
 import { AppStyles } from "../../styles/colors";
@@ -56,6 +56,8 @@ export default function SignIn() {
       if (valided) {
         handleLogin(inputEmail, inputPassword);
         setValidationEmail(false);
+        setInputEmail(undefined);
+        setInputPassword(undefined);
       } else {
         setValidationEmail(true);
       }
@@ -114,11 +116,11 @@ export default function SignIn() {
           />
         </ContentButton>
         <Register>
-            <BeforeButton>Não possui Cadastro?</BeforeButton>
-            <TextButton onPress={() => navigation.navigate("SignOut")}>
-              <Text style={{color: AppStyles.colour.primary}}>Cadastre-se</Text>
-            </TextButton>
-          </Register>
+          <BeforeButton>Não possui Cadastro?</BeforeButton>
+          <TextButton onPress={() => navigation.navigate("SignOut")}>
+            <Text style={{ color: AppStyles.colour.primary }}>Cadastre-se</Text>
+          </TextButton>
+        </Register>
       </Content>
     </Container>
   );

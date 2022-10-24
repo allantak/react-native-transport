@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Logo from "../../../assets/logo.png";
+import Logo from "../../../assets/Logo.png";
 import ButtonFilter from "../../components/buttonFilter";
 import CardFreight from "../../components/card/freight";
 import { ContentRow } from "../../components/input/styles";
