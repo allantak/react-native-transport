@@ -140,6 +140,22 @@ const updateFreight = gql`
   }
 `;
 
+const deleteFreight = gql`
+  mutation deleteFreight($id: Float!, $user_id: Float!){
+    deleteFreight(data:{id: $id, user_id: $user_id}){
+      id
+    }
+  }
+`;
+
+const deleteCarrier = gql`
+  mutation deleteCarrier($id: Float!, $user_id: Float!){
+    deleteCarrier(data:{id: $id, user_id: $user_id}){
+      id
+    }
+  }
+`;
+
 const carriers = gql`
 query getCarriers{
   getCarriers{
@@ -204,7 +220,9 @@ export const apiService = {
   userFreight,
   userCarrier,
   updateCarrier,
-  updateFreight
+  updateFreight,
+  deleteFreight,
+  deleteCarrier
 }
 
 

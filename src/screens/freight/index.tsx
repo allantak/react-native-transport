@@ -131,9 +131,9 @@ export default function Freight() {
             onBackdropPress={toggleModal}
           >
             <ContentModal>
-            <ContainerRow>
+              <ContainerRow>
                 <TitleCarrier style={styles.titleModal}>
-                Filtro de pesquisa
+                  Filtro de pesquisa
                 </TitleCarrier>
                 <AntDesign
                   onPress={toggleModal}
@@ -142,7 +142,7 @@ export default function Freight() {
                   color={AppStyles.colour.font}
                 />
               </ContainerRow>
-        
+
               <TitleCarrier style={styles.fs15}>Carga</TitleCarrier>
               <Input
                 style={styles.mb15}

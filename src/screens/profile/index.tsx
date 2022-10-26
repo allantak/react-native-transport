@@ -15,6 +15,7 @@ import { ContentRow } from "../../components/input/styles";
 import { useAuth } from "../../context/Auth";
 import { apiService } from "../../services/API";
 import * as ImagePicker from "expo-image-picker";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   Container,
   ContentHeaders,
@@ -28,6 +29,7 @@ import {
   ContainerRow,
   Width,
   ContentModal,
+  Delete,
 } from "./styles";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { AppStyles } from "../../styles/colors";
@@ -63,8 +65,11 @@ export default function Profile() {
   const [updateCarrier] = useMutation(apiService.updateCarrier);
   const [updateFreight] = useMutation(apiService.updateFreight);
 
+  const [deleteFreight] = useMutation(apiService.deleteFreight);
+  const [deleteCarrier] = useMutation(apiService.deleteCarrier);
+
   const [isModalVisibleType, setModalVisibleType] = useState(false);
-  const [inputOrigin, setInputOrigin] = useState<string>();
+  const [inputOrigin, setInputOrigin] = useState<string | undefined>(undefined);
   const [inputDestination, setInputDestination] = useState<string>();
   const [inputProduct, setInputProduct] = useState<string>();
   const [inputBodyWork, setInputBodyWork] = useState<string>();
@@ -80,11 +85,14 @@ export default function Profile() {
   const [inputIdBodyWork, setInputIdBodyWork] = useState<number>();
   const [inputCarrier, setInputCarrier] = useState<string>();
   const [inputService, setInputService] = useState<string>("autônomo");
-  const [inputCompany, setInputCompany] = useState<string>();
+  const [inputCompany, setInputCompany] = useState<string | undefined>(
+    undefined
+  );
   const [image, setImage] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [errorCreate, setErrorCreate] = useState<boolean>(false);
+  const [errorDelete, setErrorDelete] = useState<boolean>(false);
 
   const handleClick = (item: any) => {
     setInputIdBodyWork(item.bodyWorks[0].id);
@@ -106,35 +114,23 @@ export default function Profile() {
 
   const handleClickFreight = (item: any) => {
     setInputIdBodyWork(item.bodyWorks[0].id);
-    console.log(item.bodyWorks[0].id);
     setInputBodyWork(transform(item.bodyWorks));
-    console.log(item.bodyWorks);
     setInputEmail(item.email);
-    console.log(item.email);
     setInputPhone(item.phone);
-    console.log(item.phone);
     item.price !== null
       ? setInputPrice(item.price.toString())
       : setInputPrice(undefined);
     setInputCompany(item.company);
-    console.log(item.company);
 
     setInputIdFreight(item.id);
-    console.log(item.id);
     setInputOrigin(item.origin);
-    console.log(item.origin);
     setInputDestination(item.destination);
-    console.log(inputDestination);
     setInputProduct(item.product);
-    console.log(inputProduct);
     item.weight !== null
       ? setInputWeight(item.weight.toString())
       : setInputWeight(undefined);
-    console.log(inputWeight);
     setInputNote(item.note);
-    console.log(inputNote);
     setInputSpecies(item.species);
-    console.log(inputSpecies);
     toggleModal();
   };
 
@@ -213,13 +209,21 @@ export default function Profile() {
   function handleRegisterFreight() {
     if (
       inputOrigin !== undefined &&
+      inputOrigin !== "" &&
       inputDestination !== undefined &&
+      inputDestination !== "" &&
       inputCompany !== undefined &&
+      inputCompany !== "" &&
       inputProduct !== undefined &&
+      inputProduct !== "" &&
       inputBodyWork !== undefined &&
+      inputBodyWork !== "" &&
       inputEmail !== undefined &&
+      inputEmail !== "" &&
       inputPhone !== undefined &&
-      inputSpecies !== undefined
+      inputPhone !== "" &&
+      inputSpecies !== undefined &&
+      inputSpecies !== ""
     ) {
       handleUpdateFreight(
         inputIdFreight,
@@ -321,9 +325,13 @@ export default function Profile() {
   function handleResgisterCarrier() {
     if (
       inputCarrier !== undefined &&
+      inputCarrier !== "" &&
       inputBodyWork !== undefined &&
+      inputBodyWork !== "" &&
       inputEmail !== undefined &&
-      inputPhone !== undefined
+      inputEmail !== "" &&
+      inputPhone !== undefined &&
+      inputPhone !== ""
     ) {
       handleUpdateCarrier(
         inputIdCarrier,
@@ -378,7 +386,7 @@ export default function Profile() {
     }
   }
 
-  const UploadAlert = () =>
+  const UploadAlert = () => {
     Alert.alert(
       "Upload",
       "Escolha a forma para obter imagem",
@@ -402,6 +410,57 @@ export default function Profile() {
         cancelable: true,
       }
     );
+  };
+
+  const DeleteAlert = (params?: string) => {
+    Alert.alert(
+      "Excluir",
+      "Realmente deseja excluir publicação?",
+      [
+        {
+          text: "Sim",
+          onPress: () =>
+            params == "freight" ? deleteFreights() : deleteCarriers(),
+          style: "default",
+        },
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  const deleteFreights = () => {
+    setErrorDelete(true);
+    deleteFreight({
+      variables: {
+        id: inputIdFreight,
+        user_id: authData?.id,
+      },
+    }).catch((err) => {
+      setErrorDelete(false);
+      toggleModal();
+      refreshing(!refreash);
+    });
+  };
+
+  const deleteCarriers = () => {
+    setErrorDelete(true);
+    deleteCarrier({
+      variables: {
+        id: inputIdCarrier,
+        user_id: authData?.id,
+      },
+    }).catch((err) => {
+      setErrorDelete(false);
+      toggleModal();
+      refreshing(!refreash);
+    });
+  };
 
   async function storeUpload(photo: any) {
     setLoading(true);
@@ -469,7 +528,7 @@ export default function Profile() {
         <TitleCarrier style={styles.mb20}>Perfil</TitleCarrier>
 
         <View style={styles.mb20}>
-          <Title>Origem</Title>
+          <Title>Email</Title>
           <TextTitle>{authData?.email}</TextTitle>
         </View>
       </View>
@@ -526,7 +585,9 @@ export default function Profile() {
               />
             </ContainerRow>
 
-            <TitleCarrier style={styles.fs15}>Informações da carga</TitleCarrier>
+            <TitleCarrier style={styles.fs15}>
+              Informações da carga
+            </TitleCarrier>
             <Input
               style={styles.mb15}
               value={inputOrigin}
@@ -633,11 +694,32 @@ export default function Profile() {
 
             {errorCreate ? <SpanError>Ocorreu um erro</SpanError> : null}
 
-            <Button
-              style={styles.mt}
-              text="Cadastro"
-              onPress={handleRegisterFreight}
-            />
+            {errorDelete ? (
+              <ContentRow>
+                <SpanWarn>Deletando a carga, espere um momento!</SpanWarn>
+                <ActivityIndicator
+                  style={stylesGlobal.ml}
+                  size={16}
+                  color={"#FFAA3C"}
+                />
+              </ContentRow>
+            ) : null}
+
+            <ContainerRow>
+              <View style={styles.width80}>
+                <Button
+                  style={styles.mt}
+                  text="Cadastro"
+                  onPress={handleRegisterFreight}
+                />
+              </View>
+
+              <View style={styles.width20}>
+                <Delete onPress={() => DeleteAlert("freight")}>
+                  <MaterialIcons name="delete" size={20} color="white" />
+                </Delete>
+              </View>
+            </ContainerRow>
           </ContentModal>
         </ReactNativeModal>
       ) : (
@@ -764,12 +846,33 @@ export default function Profile() {
 
             {errorCreate ? <SpanError>Ocorreu um erro</SpanError> : null}
 
-            <Button
-              style={styles.mt}
-              text="Cadastro"
-              onPress={handleResgisterCarrier}
-              disabled={loading ? true : false}
-            />
+            {errorDelete ? (
+              <ContentRow>
+                <SpanWarn>Deletando o veículos, espere um momento!</SpanWarn>
+                <ActivityIndicator
+                  style={stylesGlobal.ml}
+                  size={16}
+                  color={"#FFAA3C"}
+                />
+              </ContentRow>
+            ) : null}
+
+            <ContainerRow>
+              <View style={styles.width80}>
+                <Button
+                  style={styles.mt}
+                  text="Cadastro"
+                  onPress={handleResgisterCarrier}
+                  disabled={loading ? true : false}
+                />
+              </View>
+
+              <View style={styles.width20}>
+                <Delete onPress={() => DeleteAlert("carrier")}>
+                  <MaterialIcons name="delete" size={20} color="white" />
+                </Delete>
+              </View>
+            </ContainerRow>
           </ContentModal>
         </ReactNativeModal>
       )}

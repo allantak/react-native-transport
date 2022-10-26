@@ -21,15 +21,19 @@ interface ICarriers extends TouchableOpacityProps {
   item: object;
   img?: string;
   profile?: boolean;
-  returnItem?: (value:object) => object
+  returnItem?: (value: object) => object;
 }
 
 export default function CardCarrier({ ...props }: ICarriers) {
   const navigation = useNavigation<any>();
-  
+
   return (
     <Card
-      onPress={() => !props.profile ? navigation.navigate("DetailCarrier", props.item): props.returnItem(props.item) }
+      onPress={() =>
+        !props.profile
+          ? navigation.navigate("DetailCarrier", props.item)
+          : props.returnItem(props.item)
+      }
       style={stylesGlobal.mb}
     >
       <ContainerImg>
@@ -44,7 +48,7 @@ export default function CardCarrier({ ...props }: ICarriers) {
           <Title>Veículos</Title>
           <TextDescription>{props.carrier}</TextDescription>
         </ContainerDescription>
-        {props.company == undefined ? (
+        {!props.company ? (
           <ContainerDescription>
             <Title>Preço</Title>
             {props.price == undefined ? (
@@ -63,7 +67,7 @@ export default function CardCarrier({ ...props }: ICarriers) {
         )}
       </Container>
       <Container>
-        {props.company == undefined ? (
+        {!props.company ? (
           <ContainerDescription>
             <Title>Serviço</Title>
             <TextDescription>{props.service}</TextDescription>
@@ -75,7 +79,7 @@ export default function CardCarrier({ ...props }: ICarriers) {
           </ContainerDescription>
         )}
 
-        {props.company == undefined ? null : (
+        {!props.company ? null : (
           <ContainerDescription>
             <Title>Preço</Title>
             {props.price == undefined ? (

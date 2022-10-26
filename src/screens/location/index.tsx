@@ -6,7 +6,6 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import MapView, { AnimatedRegion, Marker } from "react-native-maps";
@@ -175,6 +174,7 @@ export default function Location() {
         >
           <Marker.Animated ref={markerRef} coordinate={coordinate}>
             <Ionicons name="location-sharp" color={"red"} />
+          
           </Marker.Animated>
 
           {destination && (

@@ -12,7 +12,7 @@ export const Container = styled.View`
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 export const SpanError = styled.Text`
@@ -28,6 +28,8 @@ export const SpanErrorMB20 = styled.Text`
 `;
 
 export const ContentHeaders = styled.View`
+margin-top: 30px;
+margin-bottom: 40px;
 `;
 export const ContentInput = styled.View`
  
@@ -51,7 +53,7 @@ export const TitleDescription = styled.Text`
   font-weight: 700;
 `;
 export const ContentDescription = styled.View`
-  margin-top: 10px;
+  margin-bottom: 40px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;

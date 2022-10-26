@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { View } from "react-native";
 import Back from "../../components/arrowBack";
 import Button from "../../components/button";
 import Input from "../../components/input";
@@ -106,54 +107,57 @@ export default function SignUp() {
   return (
     <Container>
       <Content>
-        <ContentHeaders>
-          <Back onPress={navigationBack} />
-        </ContentHeaders>
-        <ContentDescription>
-          <TitleDescription>Cadastre-se!</TitleDescription>
-          <Description>
-            Coloque suas informações de forma correta para concluir seu cadastro
-          </Description>
-        </ContentDescription>
+        <View>
+          <ContentHeaders>
+            <Back onPress={navigationBack} />
+          </ContentHeaders>
+          <ContentDescription>
+            <TitleDescription>Cadastre-se!</TitleDescription>
+            <Description>
+              Coloque suas informações de forma correta para concluir seu
+              cadastro
+            </Description>
+          </ContentDescription>
 
-        <ContentInput>
-          <Input
-            title="Email"
-            value={inputEmail}
-            onChangeText={(t) => setInputEmail(t)}
-            placeholder="E-mail"
-            style={styles.marginBottom}
-          />
+          <ContentInput>
+            <Input
+              title="Email"
+              value={inputEmail}
+              onChangeText={(t) => setInputEmail(t)}
+              placeholder="E-mail"
+              style={styles.marginBottom}
+            />
 
-          {validationEmail ? (
-            <SpanError>Verifique se o email está corretamente</SpanError>
-          ) : null}
+            {validationEmail ? (
+              <SpanError>Verifique se o email está corretamente</SpanError>
+            ) : null}
 
-          <Input
-            title="Senha"
-            value={inputPassword}
-            onChangeText={(t) => setInputPassword(t)}
-            placeholder="Senha"
-            style={styles.marginBottom}
-            secureTextEntry
-          />
+            <Input
+              title="Senha"
+              value={inputPassword}
+              onChangeText={(t) => setInputPassword(t)}
+              placeholder="Senha"
+              style={styles.marginBottom}
+              secureTextEntry
+            />
 
-          {validationlength ? (
-            <SpanError>No minimo 6 caracters</SpanError>
-          ) : null}
+            {validationlength ? (
+              <SpanError>No minimo 6 caracters</SpanError>
+            ) : null}
 
-          <Input
-            title="Confirmar"
-            value={inputRePassword}
-            onChangeText={(t) => setInputRePassword(t)}
-            placeholder="Confirmar sua senha"
-            style={styles.marginBottom}
-            secureTextEntry
-          />
-          {validationPassword ? (
-            <SpanError>Confirmar está diferente da senha</SpanError>
-          ) : null}
-        </ContentInput>
+            <Input
+              title="Confirmar"
+              value={inputRePassword}
+              onChangeText={(t) => setInputRePassword(t)}
+              placeholder="Confirmar sua senha"
+              style={styles.marginBottom}
+              secureTextEntry
+            />
+            {validationPassword ? (
+              <SpanError>Confirmar está diferente da senha</SpanError>
+            ) : null}
+          </ContentInput>
+        </View>
 
         <ContentButton>
           {undefinedField ? (

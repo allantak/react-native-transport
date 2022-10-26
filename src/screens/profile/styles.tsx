@@ -74,6 +74,17 @@ export const Width = styled.View`
 `;
 export const Test = styled.View``;
 
+export const Delete = styled.TouchableOpacity`
+  background-color: #ff3d3d;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px ${AppStyles.colour.border};
+  margin-top: 15px;
+`;
+
 export const styles = StyleSheet.create({
   mb: { marginBottom: 5 },
   mb15: { marginBottom: 15 },
@@ -116,9 +127,11 @@ export const styles = StyleSheet.create({
     marginRight: 6 + "%",
   },
   width90: { width: 90 + "%" },
-  width80: { width: 85 + "%" },
+  width85: { width: 85 + "%" },
   height: { minHeight: 100 },
   mb1010: { marginBottom: 7 },
   width150: { width: 150 },
   mb0: { marginBottom: 0 },
+  width80: { width: 80 + "%", paddingRight: 10 },
+  width20: { width: 20 + "%" },
 });

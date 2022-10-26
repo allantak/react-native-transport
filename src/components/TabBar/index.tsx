@@ -99,13 +99,21 @@ export default function TabBar({ state }: BottomTabBarProps) {
   function handleRegisterFreight() {
     if (
       inputOrigin !== undefined &&
+      inputOrigin !== "" &&
       inputDestination !== undefined &&
+      inputDestination !== "" &&
       inputCompany !== undefined &&
+      inputCompany !== "" &&
       inputProduct !== undefined &&
+      inputProduct !== "" &&
       inputBodyWork !== undefined &&
+      inputBodyWork !== "" &&
       inputEmail !== undefined &&
+      inputEmail !== "" &&
       inputPhone !== undefined &&
-      inputSpecies !== undefined
+      inputPhone !== "" &&
+      inputSpecies !== undefined &&
+      inputSpecies !== ""
     ) {
       handleCreateFreight(
         authData?.id,
@@ -202,9 +210,13 @@ export default function TabBar({ state }: BottomTabBarProps) {
   function handleResgisterCarrier() {
     if (
       inputCarrier !== undefined &&
+      inputCarrier !== "" &&
       inputBodyWork !== undefined &&
+      inputBodyWork !== "" &&
       inputEmail !== undefined &&
-      inputPhone !== undefined
+      inputEmail !== "" &&
+      inputPhone !== undefined &&
+      inputPhone !== ""
     ) {
       handleCreateCarrier(
         authData?.id,

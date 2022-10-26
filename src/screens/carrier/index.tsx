@@ -131,7 +131,7 @@ export default function Carrier() {
             <ContentModal>
               <ContainerRow>
                 <TitleCarrier style={styles.titleModal}>
-                  Filtragem de carga
+                  Filtro de pesquisa
                 </TitleCarrier>
                 <AntDesign
                   onPress={toggleModal}
