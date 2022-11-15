@@ -535,7 +535,7 @@ export default function Profile() {
 
       <ContainerRow style={styles.mb20}>
         <Width>
-          <TitleCarrier styles={styles.mb20}>Minhas cargas</TitleCarrier>
+          <TitleCarrier styles={styles.mb20}> {index === 0 ? "Minhas cargas" : "Meus veículos"}</TitleCarrier>
         </Width>
 
         <Width>
