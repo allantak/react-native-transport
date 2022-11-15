@@ -35,6 +35,12 @@ import { ActivityIndicator, Alert, View } from "react-native";
 import { cloudinaryApi } from "../../services/Cloudinary";
 import { stylesGlobal } from "../../styles/global";
 
+interface ISourceImg {
+  uri: string;
+  type: string;
+  name: string;
+}
+
 export default function TabBar({ state }: BottomTabBarProps) {
   const navigation = useNavigation<any>();
   const [createFreight] = useMutation(apiService.createFreight);
@@ -62,6 +68,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
   const [errorCreate, setErrorCreate] = useState<boolean>(false);
   const [image, setImage] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [source, setSource] = useState<ISourceImg>();
 
   const goTo = (screenName: string) => {
     navigation.navigate(screenName);
@@ -207,7 +214,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
       .catch(() => setErrorCreate(true));
   }
 
-  function handleResgisterCarrier() {
+  async function handleResgisterCarrier() {
     if (
       inputCarrier !== undefined &&
       inputCarrier !== "" &&
@@ -218,7 +225,8 @@ export default function TabBar({ state }: BottomTabBarProps) {
       inputPhone !== undefined &&
       inputPhone !== ""
     ) {
-      handleCreateCarrier(
+      await storeUpload(source);
+      await handleCreateCarrier(
         authData?.id,
         inputCarrier,
         inputService,
@@ -250,8 +258,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
       const uri = result.uri;
       const type = "image/jpg";
       const name = "img";
-      const source = { uri, type, name };
-      await storeUpload(source);
+      setSource({ uri, type, name });
     }
   }
 
@@ -266,8 +273,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
       const uri = result.uri;
       const type = "image/jpg";
       const name = "img";
-      const source = { uri, type, name };
-      await storeUpload(source);
+      setSource({ uri, type, name });
     }
   }
 
@@ -543,7 +549,7 @@ export default function TabBar({ state }: BottomTabBarProps) {
                   value={inputBodyWork}
                   onChangeText={(t) => setInputBodyWork(t)}
                   title="Carroceria"
-                  placeholder="Ex: Rodotrem"
+                  placeholder="Ex: Caçamba"
                   required
                 />
                 {inputService == "autônomo" ? null : (

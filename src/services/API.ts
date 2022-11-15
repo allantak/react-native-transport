@@ -59,6 +59,7 @@ query searchFreight($origin: String, $destination:String, $product:String, $name
     bodyWorks{
       name
     },
+    img
   }
 }`;
 
@@ -202,7 +203,8 @@ query searchCarrier($carrier: String, $service: String, $company: String, $nameB
     company,
     bodyWorks{
       name
-    }
+    },
+    img
   }
 }
 `;
